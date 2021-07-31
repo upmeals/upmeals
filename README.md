@@ -1,2 +1,1 @@
-node_modules
-.env
+react-node-auth-boilerplate

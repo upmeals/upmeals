@@ -1,0 +1,6 @@
+{
+    "frontend.intro": "Voici une simple application exemple avec react, redux, api, tests & plus.",
+    "backoffice.welcome.message": "Welcome to the backoffice.",
+    "demo.counter.main": "This is a demo counter.",
+    "errors.page_not_found": "Page not found."
+}
