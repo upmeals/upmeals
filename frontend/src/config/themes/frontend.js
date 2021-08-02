@@ -5,7 +5,16 @@ import { createTheme } from '@material-ui/core/styles';
 
 const muiTheme = createTheme({
     palette: {
-        black: colors.black
+        black: colors.black,
+        primary: {
+            main: '#5138EE',
+        }
+    },
+    typography: {
+        fontFamily: [
+            'Poppins',
+            'sans-serif'
+        ].join(','),
     }
 })
 
