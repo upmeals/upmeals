@@ -1,0 +1,49 @@
+{
+  "name": "react-node-auth-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "nodemon src/",
+    "inspect": "nodemon --inspect src/app.ts",
+    "lint": "npm run lint:js ",
+    "lint:eslint": "eslint --ignore-path .gitignore --ext .ts",
+    "lint:js": "npm run lint:eslint src/",
+    "lint:fix": "npm run lint:js -- --fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "mongoose": "^5.13.5",
+    "nodemon": "^2.0.12",
+    "reflect-metadata": "^0.1.13",
+    "ts-node": "^10.1.0",
+    "typedi": "^0.10.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.13",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2"
+  },
+  "_moduleAliases": {
+    "@src": "src/",
+    "@config": "src/config/",
+    "@utils": "src/utils/",
+    "@models": "src/models/",
+    "@loaders": "src/loaders/",
+    "@routes": "src/api/",
+    "@interfaces": "src/interfaces/"
+  }
+}
