@@ -5,7 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import React, { useEffect } from 'react';
 import LoginForm from './LoginForm';
 import { Typography } from '@material-ui/core';
-import withAPI from '../../hoc/withAPI';
+import withAuth from '../../hoc/withAuth';
 
 
 // Component classes
@@ -40,17 +40,20 @@ const useStyles = makeStyles(theme =>
 // })                             
 
 // Component
-const Login = ({ indexRecords }) => {
+const Login = ({ login }) => {
     const classes = useStyles();
 
     useEffect(() => {
-        console.log('a')
-
-        indexRecords('resource', {
-            fields: 'test',
-            page: 16,
-        })
-    }, [indexRecords])
+        login(
+            {
+                id: 1,
+                payload: {
+                    email: 'test@gmail.com',
+                    password: 'azertyuiop'
+                }
+            }
+        )
+    }, [login])
 
     return (
         <Grid
@@ -74,4 +77,4 @@ const Login = ({ indexRecords }) => {
     )
 }
 
-export default withAPI(Login)
+export default withAuth(Login)

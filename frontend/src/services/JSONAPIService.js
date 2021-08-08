@@ -1,4 +1,4 @@
-import { todosApiHost, servicesMap } from '../config/constants';
+import { authApiHost, servicesMap } from '../config/constants';
 import _ from 'lodash';
 import BaseHTTPService from './BaseHTTPService'
 import { stringify } from 'query-string';
@@ -23,7 +23,7 @@ const toLinkObject = (relationshipData) => {
 export default class JSONAPIService extends BaseHTTPService {
     constructor(resource) {
         const resource_path = resource.replace(/_/g, "-");
-        const baseURL = servicesMap[resource] || todosApiHost
+        const baseURL = servicesMap[resource] || authApiHost
         super(`${baseURL}/v1/${resource_path}`);
         this.resource_name = resource
         this.resource_path = resource_path
