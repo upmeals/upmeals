@@ -1,4 +1,4 @@
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+// import { defineMessages, injectIntl } from 'react-intl';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Typography } from '@material-ui/core';
+import Link from '@material-ui/core/Link';
 
 
 // Component classes
@@ -96,7 +97,7 @@ const useStyles = makeStyles(theme =>
             height: 1,
             margin: theme.spacing(2, 0),
             position: 'relative',
-            ['&::after']: {
+            '&::after': {
                 zIndex: 10,
                 background: 'white',
                 position: 'absolute',
@@ -133,12 +134,12 @@ const validationSchema = yup.object({
 });
 
 // Component texts
-const i18n = defineMessages({
-    x: {
-        id: 'x',
-        defaultMessage: 'x.'
-    }
-})
+// const i18n = defineMessages({
+//     x: {
+//         id: 'x',
+//         defaultMessage: 'x.'
+//     }
+// })
 
 // Component
 const LoginForm = () => {
@@ -177,7 +178,6 @@ const LoginForm = () => {
                         fullWidth
                         id="email"
                         name="email"
-                        labelId="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         error={formik.touched.email && Boolean(formik.errors.email)}
@@ -195,7 +195,6 @@ const LoginForm = () => {
                         fullWidth
                         id="password"
                         name="password"
-                        labelId="password"
                         type="password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
@@ -204,6 +203,7 @@ const LoginForm = () => {
                         variant="outlined"
                         placeholder="Min. 8 character"
                         className={classes.inputText}
+                        autoComplete="on"
                     />
                 </div>
                 <Grid
@@ -218,18 +218,19 @@ const LoginForm = () => {
                             onChange={formik.handleChange}
                             id="rememberMe"
                             name="rememberMe"
-                            labelId="rememberMe"
                             type="checkbox"
                             color="primary"
                             size="medium"
                         />
-                        <InputLabel id="rememberMe" for="rememberMe" className={classes.inputLabel}>
+                        <InputLabel id="rememberMe" htmlFor="rememberMe" className={classes.inputLabel}>
                             Remember Me
                         </InputLabel>
                     </div>
-                    <Typography variant="body1" className={classes.forgotPassword}>
-                        Forgot password ?
-                    </Typography>
+                    <Link href="/forgot-password">
+                        <Typography variant="body1" className={classes.forgotPassword}>
+                            Forgot password ?
+                        </Typography>
+                    </Link>
                 </Grid>
                 <Button color="primary" variant="contained" fullWidth type="submit" className={classes.loginButton}>
                     Login
@@ -244,13 +245,15 @@ const LoginForm = () => {
                     <Typography>
                         Not registered yet ?
                     </Typography>
-                    <Typography className={classes.createAnAccount}>
-                        Create an Account
-                    </Typography>
+                    <Link href="/register">
+                        <Typography className={classes.createAnAccount}>
+                            Create an Account
+                        </Typography>
+                    </Link>
                 </Grid>
             </form>
         </Grid>
     )
 }
 
-export default injectIntl(LoginForm)
+export default LoginForm

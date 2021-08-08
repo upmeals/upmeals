@@ -1,4 +1,4 @@
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+// import { defineMessages, injectIntl } from 'react-intl';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -28,12 +28,12 @@ const useStyles = makeStyles(theme =>
 )
 
 // Component texts
-const i18n = defineMessages({
-    frontendIntro: {
-        id: 'frontend.intro',
-        defaultMessage: 'Voici une simple application exemple avec react, redux, api, tests & plus.'
-    }
-})
+// const i18n = defineMessages({
+//     frontendIntro: {
+//         id: 'frontend.intro',
+//         defaultMessage: 'Voici une simple application exemple avec react, redux, api, tests & plus.'
+//     }
+// })
 
 // Component
 const Frontend = () => {
@@ -57,9 +57,6 @@ const Frontend = () => {
                 <Login />
             </Grid>
             <Grid
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="flex-start"
                 item
                 lg={6}
                 className={classes.presentationContainer}
@@ -70,4 +67,4 @@ const Frontend = () => {
     )
 }
 
-export default injectIntl(Frontend)
+export default Frontend

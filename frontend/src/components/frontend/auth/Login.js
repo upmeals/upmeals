@@ -1,10 +1,11 @@
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+// import { defineMessages, injectIntl } from 'react-intl';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoginForm from './LoginForm';
 import { Typography } from '@material-ui/core';
+import withAPI from '../../hoc/withAPI';
 
 
 // Component classes
@@ -30,17 +31,26 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-// Component texts
-const i18n = defineMessages({
-    x: {
-        id: 'x',
-        defaultMessage: 'x.'
-    }
-})
+// Component texts                
+// const i18n = defineMessages({    
+//     x: {                         
+//         id: 'x',                
+//         defaultMessage: 'x.'   
+//     }                                
+// })                             
 
 // Component
-const Login = () => {
+const Login = ({ indexRecords }) => {
     const classes = useStyles();
+
+    useEffect(() => {
+        console.log('a')
+
+        indexRecords('resource', {
+            fields: 'test',
+            page: 16,
+        })
+    }, [indexRecords])
 
     return (
         <Grid
@@ -64,4 +74,4 @@ const Login = () => {
     )
 }
 
-export default injectIntl(Login)
+export default withAPI(Login)
