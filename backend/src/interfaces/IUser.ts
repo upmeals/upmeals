@@ -1,3 +1,5 @@
+import { Document } from "mongoose";
+
 export interface IUser {
     _id: string
     firstName: string
@@ -5,6 +7,10 @@ export interface IUser {
     email: string
     password: string
     token: string
+}
+
+export interface IUserModel extends IUser, Document {
+    _id: IUser["_id"]
 }
 
 export interface IUserInputDTO {

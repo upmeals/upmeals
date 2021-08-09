@@ -1,4 +1,4 @@
-import { IUser } from '@interfaces/IUser'
+import { IUserModel } from '@interfaces/IUser'
 import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
 import validator from 'validator'
@@ -47,34 +47,22 @@ const User = new mongoose.Schema(
 )
 
 User.methods.toJSON = function () {
-    let userObject = this.toObject()
+    let userObject = this.toObject() as IUserModel
 
-    // TODO : PO TRE BO
-
-    Reflect.deleteProperty(userObject, 'password')
-    Reflect.deleteProperty(userObject, 'token')
-
-    //
+    delete userObject.password
+    delete userObject.token
 
     return userObject
 }
 
-User.pre('save', async function (next) {
-    if (!this.isModified('password')) return next()
+User.pre<IUserModel>('save', async function (next) {
+    let userObject = this
 
-    // TODO : PO TRE BO
-
-    let userObject = this.toObject()
-
-    Reflect.set(
-        userObject,
-        'password',
-        await bcrypt.hash(Reflect.get(userObject, 'password'), 8),
-    )
-
-    // 
+    if (userObject.isModified('password')) {
+        userObject.password = await bcrypt.hash(userObject.password, 8)
+    }
 
     next()
 })
 
-export default mongoose.model<IUser & mongoose.Document>('User', User)
+export default mongoose.model<IUserModel & mongoose.Document>('User', User)
