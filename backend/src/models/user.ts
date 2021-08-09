@@ -3,8 +3,6 @@ import bcrypt from 'bcryptjs'
 import mongoose from 'mongoose'
 import validator from 'validator'
 
-
-
 const User = new mongoose.Schema(
     {
         firstName: {
@@ -27,7 +25,7 @@ const User = new mongoose.Schema(
                 if (!validator.isEmail(value)) {
                     throw new Error('Email is invalid.')
                 }
-            }
+            },
         },
         password: {
             type: String,
@@ -38,12 +36,12 @@ const User = new mongoose.Schema(
                 if (value.toLowerCase().includes('password')) {
                     throw new Error('Password is insecure.')
                 }
-            }
+            },
         },
         token: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     { timestamps: true },
 )
@@ -51,22 +49,32 @@ const User = new mongoose.Schema(
 User.methods.toJSON = function () {
     let userObject = this.toObject()
 
-    delete userObject.password
-    delete userObject.token
+    // TODO : PO TRE BO
+
+    Reflect.deleteProperty(userObject, 'password')
+    Reflect.deleteProperty(userObject, 'token')
+
+    //
 
     return userObject
 }
 
 User.pre('save', async function (next) {
-    let userObject = this
+    if (!this.isModified('password')) return next()
 
-    if (userObject.isModified('password')) {
-        userObject.password = await bcrypt.hash(userObject.password, 8)
-    }
+    // TODO : PO TRE BO
+
+    let userObject = this.toObject()
+
+    Reflect.set(
+        userObject,
+        'password',
+        await bcrypt.hash(Reflect.get(userObject, 'password'), 8),
+    )
+
+    // 
 
     next()
 })
-
-
 
 export default mongoose.model<IUser & mongoose.Document>('User', User)
