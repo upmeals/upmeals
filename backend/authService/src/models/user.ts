@@ -1,8 +1,8 @@
-import { IUserModel } from '@interfaces/IUser'
+import { IUser } from '@interfaces/IUser'
 import bcrypt from 'bcryptjs'
 import mongoose, { PassportLocalSchema } from 'mongoose'
-import validator from 'validator'
 import passportLocalMongoose from 'passport-local-mongoose'
+import validator from 'validator'
 
 const Session = new mongoose.Schema({
     refreshToken: {
@@ -15,7 +15,6 @@ const User = new mongoose.Schema(
     {
         email: {
             type: String,
-            unique: true,
             required: true,
             trim: true,
             lowercase: true,
@@ -52,7 +51,7 @@ const User = new mongoose.Schema(
 )
 
 User.methods.toJSON = function () {
-    let userObject = this.toObject() as IUserModel
+    let userObject = this.toObject() as IUser
 
     delete userObject.password
     delete userObject.refreshToken
@@ -72,9 +71,10 @@ User.methods.toJSON = function () {
 
 User.plugin(passportLocalMongoose, {
     usernameField: 'email',
+    usernameUnique: true,
 })
 
-export default mongoose.model<IUserModel & mongoose.Document>(
+export default mongoose.model<IUser & mongoose.Document>(
     'User',
     User as PassportLocalSchema,
 )
