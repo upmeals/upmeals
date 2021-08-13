@@ -1,8 +1,12 @@
 import mongooseLoader from '@loaders/mongooseLoader'
 import dependencyInjectorLoader from '@loaders/dependencyInjector'
+import expressLoader from '@loaders/express'
 
 export default async ({ expressApp }) => {
     const mongoConnection = await mongooseLoader()
+
+    require("@strategies/jwtStrategy")
+    require("@strategies/localStrategy")   
 
     const models = [
         {
@@ -15,4 +19,6 @@ export default async ({ expressApp }) => {
         mongoConnection,
         models,
     })
+
+    await expressLoader({ app: expressApp })
 }

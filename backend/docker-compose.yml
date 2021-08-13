@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  apiGateway:
+    image: nginx:1.18-alpine
+    working_dir: /var/www/html/
+    restart: always
+    ports:
+      - '80:80'
+    volumes:
+      - ./apiGateway/nginx.conf:/etc/nginx/conf.d/default.conf
+
+# Auth Service
+  authService:
+    image: node:14
+    working_dir: /app
+    restart: always
+    volumes:
+      - ./authService:/app
+    command: 'npm start'
+    ports: 
+      - '3000:3000'
+
+
+  authServiceDb:
+    image: mongo
+    restart: always
+    volumes:
+      - mongo:/data/db
+    ports: 
+      - '27017:27017'
+
+# XXX Service
+
+# Volumes
+volumes:
+  mongo:

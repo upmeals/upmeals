@@ -1,9 +1,6 @@
 # DOCKER-COMPOSE
 .env
 
-# NGINX
-.docker/nginx/certs/*
-
 # GLOBAL
 node_modules
 .DS_Store
@@ -16,7 +13,3 @@ frontend/.pnp.js
 frontend/.pnp
 frontend/coverage
 frontend/build
-
-# BACKEND
-backend/build
-

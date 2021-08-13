@@ -1,12 +1,10 @@
-import { Document } from "mongoose";
+import { Document, PassportLocalModel } from "mongoose";
 
 export interface IUser {
     _id: string
-    firstName: string
-    lastName: string
     email: string
     password: string
-    token: string
+    refreshToken: string
 }
 
 export interface IUserModel extends IUser, Document {
@@ -14,7 +12,6 @@ export interface IUserModel extends IUser, Document {
 }
 
 export interface IUserInputDTO {
-    name: string
     email: string
-    password: string
+    password: string 
 }

@@ -28,8 +28,11 @@
             "@utils/*": ["src/utils/*"],
             "@models/*": ["src/models/*"],
             "@loaders/*": ["src/loaders/*"],
-            "@routes/*": ["src/api/*"],
-            "@interfaces/*": ["src/interfaces/*"]
+            "@api/*": ["src/api/*"],
+            "@routes/*": ["src/api/routes/*"],
+            "@interfaces/*": ["src/interfaces/*"],
+            "@services/*": ["src/services/*"],
+            "@strategies/*": ["src/strategies/*"]
         },
     },
     "include": [

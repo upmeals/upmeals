@@ -1,10 +1,13 @@
 import { Router } from 'express'
-// import auth from '@api/routes/auth'
+import auth from '@routes/auth'
+import user from '@routes/user'
 
 export default () => {
 
     const app = Router()
-    // auth(app)
+    
+    auth(app)
+    user(app)
 
     return app
 }

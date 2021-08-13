@@ -1,5 +1,4 @@
 import { Container } from 'typedi'
-import config from '@config/index'
 
 export default ({
     mongoConnection,

@@ -1,6 +1,9 @@
 import express from 'express'
 import cors from 'cors'
-import routes from '@routes/index'
+import routes from '@api/index'
+import cookieParser from 'cookie-parser'
+import config from '@config/index'
+import passport from "passport"
 
 export default ({ app }: { app: express.Application }) => {
     app.get('/status', (req, res) => {
@@ -10,10 +13,10 @@ export default ({ app }: { app: express.Application }) => {
         res.status(200).end()
     })
 
-    app.enable('trust proxy')
     app.use(cors())
+    app.use(cookieParser(config.cookieSecret))
 
-    app.use(require('method-override')())
+    app.use(passport.initialize())
 
     app.use(express.json())
     app.use('/', routes())
