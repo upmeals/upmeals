@@ -1,22 +1,16 @@
 # DOCKER-COMPOSE
 .env
 
-# NGINX
-.docker/nginx/certs/*
-
 # GLOBAL
 node_modules
 .DS_Store
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+build
 
 # FRONTEND
 frontend/.pnp.js
 frontend/.pnp
 frontend/coverage
 frontend/build
-
-# BACKEND
-backend/build
-
