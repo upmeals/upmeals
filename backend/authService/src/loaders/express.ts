@@ -3,7 +3,7 @@ import cors from 'cors'
 import routes from '@api/index'
 import cookieParser from 'cookie-parser'
 import config from '@config/index'
-import passport from "passport"
+import passport from 'passport'
 
 export default ({ app }: { app: express.Application }) => {
     app.get('/status', (req, res) => {
@@ -13,7 +13,18 @@ export default ({ app }: { app: express.Application }) => {
         res.status(200).end()
     })
 
-    app.use(cors())
+    const corsOptions = {
+        origin: function (origin, callback) {
+            if (!origin || config.whitelistedDomains.indexOf(origin) !== -1) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        },
+        credentials: true,
+    }
+    app.use(cors(corsOptions))
+
     app.use(cookieParser(config.cookieSecret))
 
     app.use(passport.initialize())

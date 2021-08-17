@@ -5,9 +5,12 @@ import user from '@routes/user'
 export default () => {
 
     const app = Router()
+    const route = Router()
+
+    app.use('/', route)
     
-    auth(app)
-    user(app)
+    auth(route)
+    user(route)
 
     return app
 }
