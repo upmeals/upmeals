@@ -1,10 +1,8 @@
-import express from 'express'
-import User from '@models/user'
-import { Router, Request, Response, NextFunction } from 'express'
-import passport from 'passport'
-import { ISession, IUser } from '@src/interfaces/IUser'
+import { Router } from 'express'
 import jwt from 'jsonwebtoken'
-import { idText } from 'typescript'
+import passport from 'passport'
+import { IUser } from '@interfaces/IUser'
+import User from '@src/models/user'
 
 const {
     getToken,
@@ -59,11 +57,11 @@ export default (app: Router) => {
     })
 
     route.post('/login', passport.authenticate('local'), (req, res, next) => {
-        const token = getToken({ _id: req.user._id })
-        const refreshToken = getRefreshToken({ _id: req.user._id })
-        User.findById(req.user._id).then(
+        const token = getToken({ _id: req.user['_id'] })
+        const {refreshToken} = getRefreshToken({ _id: req.user['_id'] })
+        User.findById(req.user['_id']).then(
             user => {
-                user.refreshToken.push({ refreshToken })
+                user.refreshToken.push(refreshToken)
                 user.save((err, user) => {
                     if (err) {
                         res.statusCode = 500
@@ -86,7 +84,7 @@ export default (app: Router) => {
                     refreshToken,
                     process.env.REFRESH_TOKEN_SECRET,
                 )
-                const userId = payload._id
+                const userId = payload['_id']
                 User.findOne({ _id: userId }).then(
                     user => {
                         if (user) {
@@ -144,7 +142,7 @@ export default (app: Router) => {
     route.get('/logout', verifyUser, (req, res, next) => {
         const { signedCookies = {} } = req
         const { refreshToken } = signedCookies
-        User.findById(req.user._id).then(
+        User.findById(req.user['_id']).then(
             user => {
                 const tokenIndex = user.refreshToken.findIndex(
                     item => item.refreshToken === refreshToken,

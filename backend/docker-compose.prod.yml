@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  auth-service:
+    build:
+      target: production
+    command: node build/index.js
