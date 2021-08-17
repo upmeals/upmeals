@@ -1,4 +1,4 @@
-export const authApiHost = 'http://localhost:3000'
+export const authApiHost = 'http://api.localhost'
 
 export const servicesMap = {
     auth: authApiHost,

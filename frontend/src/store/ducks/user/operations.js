@@ -22,7 +22,7 @@ const register = (options, callback = defaultCallback) => {
         try {
             const response = await service['rawPost'](
                 'register/',
-                options.id,
+                '',
                 options.payload,
                 options.options ? options.options : {},
             )
@@ -41,7 +41,7 @@ const login = (options, callback = defaultCallback) => {
         try {
             const response = await service['rawPost'](
                 'login/',
-                options.id,
+                '',
                 options.payload,
                 options.options ? options.options : {},
             )
