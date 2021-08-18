@@ -2,10 +2,10 @@
 import createStyles from '@material-ui/core/styles/createStyles';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import React, { useEffect } from 'react';
+import React from 'react';
 import LoginForm from './LoginForm';
 import { Typography } from '@material-ui/core';
-import withAuth from '../../hoc/withAuth';
+// import withAuth from '../../hoc/withAuth';
 
 
 // Component classes
@@ -16,12 +16,12 @@ const useStyles = makeStyles(theme =>
         },
         loginSectionTitle: {
             fontWeight: 700,
-            fontSize: 32,
+            fontSize: 28,
             margin: theme.spacing(5, 0, 2, 0),
         },
         loginSectionSubtitle: {
             fontWeight: 500,
-            fontSize: 18,
+            fontSize: 16,
             color: "#909090",
             margin: theme.spacing(0, 0, 5, 0),
         },
@@ -40,20 +40,8 @@ const useStyles = makeStyles(theme =>
 // })                             
 
 // Component
-const Login = ({ login }) => {
+const Login = () => {
     const classes = useStyles();
-
-    useEffect(() => {
-        login(
-            {
-                id: 1,
-                payload: {
-                    email: 'test@gmail.com',
-                    password: 'azertyuiop'
-                }
-            }
-        )
-    }, [login])
 
     return (
         <Grid
@@ -77,4 +65,4 @@ const Login = ({ login }) => {
     )
 }
 
-export default withAuth(Login)
+export default Login

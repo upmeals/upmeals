@@ -13,7 +13,7 @@ const {
 
 export default (route: Router) => {
     
-    route.post('/signup', (req, res, next) => {
+    route.post('/register', (req, res, next) => {
         if (!req.body.email) {
             res.statusCode = 500
             res.send({
@@ -63,7 +63,7 @@ export default (route: Router) => {
                         res.send(err)
                     }
                     res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                    res.send({ success: true, token })
+                    res.status(200).send({ success: true, token })
                 })
             },
             err => next(err),

@@ -16,16 +16,20 @@ import JSONAPIService from "../../../services/JSONAPIService";
 
 
 const register = (options, callback = defaultCallback) => {
-    const service = new JSONAPIService('auth')
+    const service = new JSONAPIService('users')
     return async (dispatch) => {
         dispatch(loginRequest())
         try {
             const response = await service['rawPost'](
                 'register/',
                 '',
-                options.payload,
+                {
+                    email: options.email,
+                    password: options.password
+                },
                 options.options ? options.options : {},
             )
+
             dispatch(loginResponse(response.data))
             return callback(response)
         } catch (error) {
@@ -35,14 +39,18 @@ const register = (options, callback = defaultCallback) => {
 }
 
 const login = (options, callback = defaultCallback) => {
-    const service = new JSONAPIService('auth')
+    const service = new JSONAPIService('users')
     return async (dispatch) => {
         dispatch(loginRequest())
         try {
             const response = await service['rawPost'](
                 'login/',
                 '',
-                options.payload,
+                {
+                    email: options.email,
+                    username: options.email,
+                    password: options.password
+                },
                 options.options ? options.options : {},
             )
             dispatch(loginResponse(response.data))

@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Typography } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
+import withAuth from '../../../hoc/withAuth';
 
 
 // Component classes
@@ -29,13 +30,13 @@ const useStyles = makeStyles(theme =>
         googleButton: {
             background: '#ffffff',
             padding: theme.spacing(2, 1),
-            margin: theme.spacing(4, 0),
+            margin: theme.spacing(2, 0),
             borderRadius: 32,
             border: '1px solid #dddddd',
             boxShadow: 'none',
             textTransform: 'none',
             fontWeight: 800,
-            fontSize: 16,
+            fontSize: 15,
             [`&:hover`]: {
                 background: "#fdfdfd",
             }
@@ -46,16 +47,17 @@ const useStyles = makeStyles(theme =>
         loginButton: {
             background: '#5138EE',
             padding: theme.spacing(2, 1),
-            margin: theme.spacing(2, 0),
+            margin: theme.spacing(1, 0),
             borderRadius: 32,
             fontWeight: 'bold',
-            fontSize: 15,
+            fontSize: 14,
             color: 'white',
             textTransform: 'capitalize',
         },
         inputLabel: {
-            margin: theme.spacing(2, 0, 0, 0),
+            margin: theme.spacing(1, 0, 0, 0),
             fontWeight: 'bold',
+            fontSize: 14,
             color: '#212121',
         },
         inputText: {
@@ -66,7 +68,7 @@ const useStyles = makeStyles(theme =>
                 borderColor: '#dddddd',
             },
             [`& input`]: {
-                padding: theme.spacing(3, 4),
+                padding: theme.spacing(2, 3),
             },
         },
         rememberAndForgotContainer: {
@@ -83,6 +85,7 @@ const useStyles = makeStyles(theme =>
         },
         forgotPassword: {
             color: '#5138EE',
+            fontSize: 14,
             fontWeight: 700,
         },
         presentationContainer: {
@@ -95,7 +98,7 @@ const useStyles = makeStyles(theme =>
             background: '#cccccc',
             color: '#bbbbbb',
             height: 1,
-            margin: theme.spacing(2, 0),
+            margin: theme.spacing(3, 0),
             position: 'relative',
             '&::after': {
                 zIndex: 10,
@@ -142,19 +145,22 @@ const validationSchema = yup.object({
 // })
 
 // Component
-const LoginForm = () => {
+const LoginForm = ({ login }) => {
     const classes = useStyles();
 
     const formik = useFormik({
         initialValues: {
+            username: '',
             email: '',
             password: '',
-            rememberMe: false,
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            alert(JSON.stringify(values, null, 2));
-        },
+        onSubmit: (values) => login(
+            {
+                email: values.email,
+                password: values.password
+            }
+        )
     });
 
     return (
@@ -164,11 +170,11 @@ const LoginForm = () => {
             justifyContent="flex-start"
             alignItems="center"
         >
-            <Button variant="contained" fullWidth type="submit" className={classes.googleButton}>
+            {/* <Button variant="contained" fullWidth type="submit" className={classes.googleButton}>
                 <img src="/logos/google_logo.png" alt="Google logo bouton de connexion" width="24px" height="24px" className={classes.googleLogo} />
                 Sign in with Google
             </Button>
-            <div className={classes.delimiterContainer} />
+            <div className={classes.delimiterContainer} /> */}
             <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <div>
                     <InputLabel id="email" className={classes.inputLabel}>
@@ -256,4 +262,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default withAuth(LoginForm)
