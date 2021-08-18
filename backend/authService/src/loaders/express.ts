@@ -24,12 +24,13 @@ export default ({ app }: { app: express.Application }) => {
         credentials: true,
     }
     app.use(cors(corsOptions))
+    app.options('*', cors(corsOptions))
 
     app.use(cookieParser(config.cookieSecret))
 
     app.use(passport.initialize())
 
-    app.use(express.json())
+    app.use(express.json({ type: 'application/vnd.api+json' }))
     app.use('/', routes())
 
     /// catch 404 and forward to error handler
