@@ -6,11 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "nodemon src/",
-    "inspect": "nodemon --inspect src/app.ts",
-    "lint": "npm run lint:js ",
-    "lint:eslint": "eslint --ignore-path .gitignore --ext .ts",
-    "lint:js": "npm run lint:eslint src/",
-    "lint:fix": "npm run lint:js -- --fix"
+    "inspect": "nodemon --inspect src/app.ts"
   },
   "author": "",
   "license": "ISC",
@@ -38,11 +34,6 @@
   "devDependencies": {
     "@types/node": "^16.4.13",
     "@types/passport-local-mongoose": "^4.0.15",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.3.2"
   },
   "_moduleAliases": {
