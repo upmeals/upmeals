@@ -4,6 +4,8 @@ export interface IUser extends Document {
     email: string
     password: string
     refreshToken: Array<ISession>
+    salt?: string
+    hash?: string
 }
 
 export interface ISession {
