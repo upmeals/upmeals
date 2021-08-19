@@ -24,24 +24,9 @@ const User = new mongoose.Schema(
                 }
             },
         },
-        // password: {
-        //     type: String,
-        //     required: true,
-        //     trim: true,
-        //     minlength: 7,
-        //     validate(value) {
-        //         if (value.toLowerCase().includes('password')) {
-        //             throw new Error('Password is insecure.')
-        //         }
-        //     },
-        // },
         authStrategy: {
             type: String,
             default: 'local',
-        },
-        points: {
-            type: Number,
-            default: 50,
         },
         refreshToken: {
             type: [Session],
@@ -55,19 +40,11 @@ User.methods.toJSON = function () {
 
     delete userObject.password
     delete userObject.refreshToken
+    delete userObject.salt
+    delete userObject.hash
 
     return userObject
 }
-
-// User.pre<IUserModel>('save', async function (next) {
-//     let userObject = this
-
-//     if (userObject.isModified('password')) {
-//         userObject.password = await bcrypt.hash(userObject.password, 8)
-//     }
-
-//     next()
-// })
 
 User.plugin(passportLocalMongoose, {
     usernameField: 'email',

@@ -17,10 +17,10 @@ export default class AuthService {
             if (!user) throw new Error('User already exists')
 
             const token = getToken({ _id: user._id })
-            const refreshToken = getRefreshToken({ _id: user._id })
+            const refreshToken = getRefreshToken({ _id: user._id }) 
 
             user.refreshToken.push({ refreshToken })
-            user = await user.save((error, user) => {
+            await user.save((error, user) => {
                 if (error) throw new Error(error)
             })
 
@@ -45,7 +45,8 @@ export default class AuthService {
             const refreshToken = getRefreshToken({ _id: userInput._id })
 
             user.refreshToken.push({ refreshToken })
-            user = await user.save((error, user) => {
+            
+            await user.save((error, user) => {
                 if (error) throw new Error(error)
             })
 
