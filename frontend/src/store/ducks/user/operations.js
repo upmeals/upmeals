@@ -47,7 +47,6 @@ const login = (options, callback = defaultCallback) => {
                 'login/',
                 '',
                 {
-                    email: options.email,
                     username: options.email,
                     password: options.password
                 },
