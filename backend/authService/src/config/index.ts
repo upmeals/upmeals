@@ -20,7 +20,7 @@ export default {
     /**
      * MongoDB Url
      */
-    mongoDb: process.env.MONGO_DB,
+    mongoDb: process.env.MONGO_DB + process.env.MONGO_DB_NAME,
 
     /**
      * Cookie Secret
