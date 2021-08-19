@@ -1,19 +1,16 @@
-import { Document } from "mongoose";
-import { StringDecoder } from "string_decoder";
+import { Document } from 'mongoose'
 
 export interface IUser extends Document {
-    _id: string
     email: string
     password: string
     refreshToken: Array<ISession>
 }
 
-export interface ISession extends Document {
-    _id: string
-    refreshToken: StringDecoder
+export interface ISession {
+    refreshToken: string
 }
 
 export interface IUserInputDTO {
     email: string
-    password: string 
+    password: string
 }
