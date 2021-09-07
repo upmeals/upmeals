@@ -10,7 +10,7 @@ import config from './config';
 // import CookieConsentBar from './components/ui/CookieConsentBar';
 import { getMessages } from './i18n';
 import history from './history';
-import { initStore } from './store/init'
+import { initStore } from './store/ducks/init/operations'
 import { IntlProvider } from 'react-intl';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
 import PropTypes from 'prop-types';

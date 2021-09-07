@@ -30,13 +30,14 @@ const loginReducer = combineReducers({
     pending: handleActions(
         {
             [actions.loginRequest]: () => true,
+            [actions.refreshTokenRequest]: () => true,
             [actions.loginResponse]: () => false,
         },
         false
     ),
     loggedIn: handleActions(
         {
-            [actions.loginResponse]: (_, action) => (action && action.payload && action.payload.success) ? true : false, 
+            [actions.loginResponse]: utils.logInUserIf, 
             [actions.logout]: () => false,
         }, 
         false
@@ -48,8 +49,6 @@ const profileReducer = combineReducers({
         {        
             [actions.fetchProfileRequest]: () => true,
             [actions.fetchProfileResponse]: () => false,
-            [actions.loginRequest]: () => true,
-            [actions.loginResponse]: () => false
         }, 
         false
     ),
@@ -66,27 +65,9 @@ const profileReducer = combineReducers({
             [actions.updateProfileResponse]: () => {},
             [actions.logout]: () => {},
         }, 
-        {}
-    )
-})
-
-const refreshTokenReducer = combineReducers({
-    requested: handleActions(
         {
-            [actions.refreshTokenRequest]: () => true,
-            [actions.refreshTokenResponse]: () => false,
-            [actions.loginRequest]: () => true,
-            [actions.loginResponse]: () => false
-        },
-        false
-    ),
-    token: handleActions(
-        {
-            [actions.loginResponse]: (_, action) => (action && action.payload && action.payload.token) ? action.payload.token : null, 
-            [actions.refreshTokenResponse]: () => null,
-            [actions.logout]: () => null,
-        },
-        null
+            ...utils.defaultUser
+        }
     )
 })
 
@@ -94,5 +75,4 @@ const refreshTokenReducer = combineReducers({
 export default combineReducers({
     login: loginReducer,
     profile: profileReducer,
-    refreshToken: refreshTokenReducer,
 })

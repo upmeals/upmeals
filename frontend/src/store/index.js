@@ -7,11 +7,11 @@ const reducer = combineReducers( reducers );
 
 // Save state to local storage
 const saveState = () => {
-    const { language, storage } = store.getState();
+    // const isLoggedIn = store.getState().user.login.loggedIn;
+
     try {
-        localStorage.selectedLanguage = language;
         // Persist all objects from storage store
-        localStorage.persistedStore = JSON.stringify(storage);
+        // localStorage.persistedStore = JSON.stringify({ isLoggedIn });
     } catch (err) {
         // Ignore errors
     }
@@ -19,14 +19,13 @@ const saveState = () => {
 
 // Load state from local storage
 const loadState = () => {
-    const languages = window.navigator.languages.filter(
-        language => language === 'en' || language === 'fr'
-    );
-    const language = languages.length ? languages[0] : 'en';
     try {
         return {
-            language,
-            storage: JSON.parse(localStorage.persistedStore) || undefined,
+            // user: {
+            //     login: {
+            //         loggedIn: JSON.parse(localStorage.persistedStore).isLoggedIn || undefined,
+            //     },
+            // }
         };
     } catch (err) {
         return {};

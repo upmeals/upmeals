@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Typography } from '@material-ui/core';
 import Link from '@material-ui/core/Link';
 import withAuth from '../../../hoc/withAuth';
+import { useHistory } from 'react-router-dom';
 
 
 // Component classes
@@ -147,6 +148,7 @@ const validationSchema = yup.object({
 // Component
 const LoginForm = ({ login }) => {
     const classes = useStyles();
+    const history = useHistory();
 
     const formik = useFormik({
         initialValues: {
@@ -154,12 +156,16 @@ const LoginForm = ({ login }) => {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => login(
-            {
-                email: values.email,
-                password: values.password
-            }
-        )
+        onSubmit: (values) => {
+            login(
+                {
+                    email: values.email,
+                    password: values.password
+                }
+            )
+
+            // return history.push('/dashboard')
+        }
     });
 
     return (

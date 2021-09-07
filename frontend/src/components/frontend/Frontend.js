@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme =>
 // })
 
 // Component
-const Frontend = () => {
+const Frontend = ({ store }) => {
     const classes = useStyles();
 
     return (

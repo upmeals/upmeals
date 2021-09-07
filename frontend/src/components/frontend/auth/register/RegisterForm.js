@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import withAuth from '../../../hoc/withAuth';
+import { useHistory } from 'react-router-dom';
 // import Checkbox from '@material-ui/core/Checkbox';
 // import { Typography } from '@material-ui/core';
 // import Link from '@material-ui/core/Link';
@@ -139,6 +140,7 @@ const validationSchema = yup.object({
 // Component
 const RegisterForm = ({ register }) => {
     const classes = useStyles();
+    const history = useHistory();
 
     const formik = useFormik({
         initialValues: {
@@ -146,13 +148,17 @@ const RegisterForm = ({ register }) => {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => register(
+        onSubmit: (values) => {
+            register(
                 {
                     email: values.email,
                     password: values.password
                 }
             )
-        },
+
+            // return history.push('/dashboard')
+        }
+    },
     );
 
     return (
