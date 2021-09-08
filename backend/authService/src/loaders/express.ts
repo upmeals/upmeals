@@ -29,7 +29,7 @@ export default ({ app }: { app: express.Application }) => {
 
     app.use(passport.initialize())
 
-    app.use(express.json({ type: 'application/vnd.api+json' }))
+    app.use(express.json({ type: 'application/json' }))
     app.use('/', routes())
 
     /// catch 404 and forward to error handler
