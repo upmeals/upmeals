@@ -18,7 +18,9 @@ services:
       dockerfile: Dockerfile
       target: base
     working_dir: /app
-    restart: always
+    depends_on: 
+      - api-gateway
+      - auth-service-db
     volumes:
       - ./authService:/app
     command: 'npm start'
@@ -30,7 +32,6 @@ services:
 
   auth-service-db:
     image: mongo
-    restart: always
     volumes:
       - mongo:/data/db
     ports: 

@@ -1,13 +1,12 @@
-import jwt from 'jsonwebtoken'
-import passport from 'passport'
-import User from '@src/models/user'
-import { Router, Request, Response, NextFunction } from 'express'
-import { Container } from 'typedi'
+import { ISession, IUser, IUserInputDTO } from '@interfaces/IUser'
 import AuthService from '@services/auth'
-import { IUser, IUserInputDTO } from '@interfaces/IUser'
+import { COOKIE_OPTIONS, verifyUser } from '@src/authenticate'
 import { celebrate, Joi } from 'celebrate'
-import { COOKIE_OPTIONS } from '@src/authenticate'
-import { getToken, getRefreshToken } from '@src/authenticate'
+import { NextFunction, Request, Response, Router } from 'express'
+import passport from 'passport'
+import { Container } from 'typedi'
+
+const authServiceInstance = Container.get(AuthService)
 
 export default (route: Router) => {
     route.post(
@@ -20,16 +19,14 @@ export default (route: Router) => {
         }),
         async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const authServiceInstance = Container.get(AuthService)
-                const { success, user, refreshToken, token } =
-                    await authServiceInstance.Register(
-                        req.body as IUserInputDTO,
-                    )
+                const { success, user, refreshToken, token } = await authServiceInstance.Register(
+                    req.body as IUserInputDTO,
+                )
 
                 res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
-                res.status(404).send({ success: false, error })
+                res.status(404).send({ success: false, error: error.message })
                 // return next(e)
             }
         },
@@ -46,21 +43,28 @@ export default (route: Router) => {
         }),
         async (req: Request, res: Response, next: NextFunction) => {
             try {
+<<<<<<< HEAD
                 const authServiceInstance = Container.get(AuthService)
                 const { success, refreshToken, token } =
                     await authServiceInstance.Login(req.user as IUser)
+=======
+                const { success, user, refreshToken, token } = await authServiceInstance.Login(
+                    req.user as IUser,
+                )
+>>>>>>> main
 
                 console.log(refreshToken)
 
                 res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
-                res.status(404).send({ success: false, error })
+                res.status(404).send({ success: false, error: error.message })
                 // return next(e)
             }
         },
     )
 
+<<<<<<< HEAD
     route.post(
         '/refreshToken',
         async (req: Request, res: Response, next: NextFunction) => {
@@ -118,39 +122,42 @@ export default (route: Router) => {
             }
         },
     )
+=======
+    route.post('/refreshToken', async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { signedCookies = {} } = req
+            const { refreshTokenCookie } = signedCookies
+            const { success, refreshToken, token } = await authServiceInstance.RefreshToken(
+                refreshTokenCookie as ISession,
+            )
 
-    // route.post(
-    //     '/logout',
-    //     verifyUser,
-    //     async (req: Request, res: Response, next: NextFunction) => {
-    //         const { signedCookies = {} } = req
-    //         const { refreshToken } = signedCookies
-    //         User.findById(req.user['_id']).then(
-    //             user => {
-    //                 const tokenIndex = user.refreshToken.findIndex(
-    //                     item => item.refreshToken === refreshToken,
-    //                 )
-    //                 if (tokenIndex !== -1) {
-    //                     user.refreshToken = user.refreshToken.filter(
-    //                         obj => obj._id !== user.refreshToken[tokenIndex]._id,
-    //                     )
-    //                 }
-    //                 user.save((err, user) => {
-    //                     if (err) {
-    //                         res.statusCode = 500
-    //                         res.send(err)
-    //                     } else {
-    //                         res.clearCookie('refreshToken', COOKIE_OPTIONS)
-    //                         res.send({ success: true })
-    //                     }
-    //                 })
-    //             },
-    //             err => next(err),
-    //         )
-    //     }
-    // )
+            res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+            return res.send({ success, refreshToken, token })
+        } catch (error) {
+            res.status(404).send({ success: false, error: error.message })
+            // return next(e)
+        }
+    })
 
-    // route.get('/me', verifyUser, (req, res, next) => {
-    //     res.send(req.user)
-    // })
+    route.post('/logout', verifyUser, async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const { signedCookies = {} } = req
+            const { refreshTokenCookie } = signedCookies
+            const { success } = await authServiceInstance.Logout(
+                refreshTokenCookie as ISession,
+                req.user['_id'],
+            )
+>>>>>>> main
+
+            res.clearCookie('refreshToken', COOKIE_OPTIONS)
+            return res.send({ success })
+        } catch (error) {
+            res.status(404).send({ success: false, error: error.message })
+            // return next(e)
+        }
+    })
+
+    route.get('/me', verifyUser, (req, res, next) => {
+        res.send(req.user)
+    })
 }
