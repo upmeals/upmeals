@@ -25,7 +25,6 @@ export default ({ app }: { app: express.Application }) => {
     }
     app.use(cors(corsOptions))
     app.options('*', cors(corsOptions))
-
     app.use(cookieParser(config.cookieSecret))
 
     app.use(passport.initialize())

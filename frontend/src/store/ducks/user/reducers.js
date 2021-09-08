@@ -1,5 +1,5 @@
 import * as actions from "./actions"
-// import * as utils from "./utils"
+import * as utils from "./utils"
 // import _ from 'lodash'
 import { combineReducers } from "redux";
 import { handleActions } from "redux-actions";
@@ -30,13 +30,14 @@ const loginReducer = combineReducers({
     pending: handleActions(
         {
             [actions.loginRequest]: () => true,
+            [actions.refreshTokenRequest]: () => true,
             [actions.loginResponse]: () => false,
         },
         false
     ),
     loggedIn: handleActions(
         {
-            [actions.loginResponse]: (state) => state.success, 
+            [actions.loginResponse]: utils.logInUserIf, 
             [actions.logout]: () => false,
         }, 
         false
@@ -64,24 +65,9 @@ const profileReducer = combineReducers({
             [actions.updateProfileResponse]: () => {},
             [actions.logout]: () => {},
         }, 
-        {}
-    )
-})
-
-const refreshTokenReducer = combineReducers({
-    requested: handleActions(
         {
-            [actions.refreshTokenRequest]: () => true,
-            [actions.refreshTokenResponse]: () => false,
-        },
-        false
-    ),
-    token: handleActions(
-        {
-            [actions.refreshTokenResponse]: (state) => state.token,
-            [actions.logout]: () => null,
-        },
-        null
+            ...utils.defaultUser
+        }
     )
 })
 
@@ -89,5 +75,4 @@ const refreshTokenReducer = combineReducers({
 export default combineReducers({
     login: loginReducer,
     profile: profileReducer,
-    refreshToken: refreshTokenReducer,
 })

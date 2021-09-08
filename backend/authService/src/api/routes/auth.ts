@@ -24,7 +24,7 @@ export default (route: Router) => {
                 )
 
                 res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                return res.send({ success, user, token })
+                res.status(200).send({ success, token })
             } catch (error) {
                 res.status(404).send({ success: false, error: error.message })
                 // return next(e)
@@ -47,8 +47,10 @@ export default (route: Router) => {
                     req.user as IUser,
                 )
 
-                res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-                return res.send({ success, user, token })
+                console.log(refreshToken)
+
+                res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
+                res.status(200).send({ success, token })
             } catch (error) {
                 res.status(404).send({ success: false, error: error.message })
                 // return next(e)

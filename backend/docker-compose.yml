@@ -29,7 +29,6 @@ services:
     ports: 
       - '4000:4000'
 
-
   auth-service-db:
     image: mongo
     volumes:

@@ -3,8 +3,8 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
-import Login from './auth/Login';
-import LoginPresentation from './auth/LoginPresentation'
+import Login from './auth/login/Login';
+import Register from './auth/register/Register';
 
 
 // Component classes
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme =>
 // })
 
 // Component
-const Frontend = () => {
+const Frontend = ({ store }) => {
     const classes = useStyles();
 
     return (
@@ -57,11 +57,14 @@ const Frontend = () => {
                 <Login />
             </Grid>
             <Grid
-                item
+                container
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
                 lg={6}
-                className={classes.presentationContainer}
+                item
             >
-                <LoginPresentation />
+                <Register />
             </Grid>
         </Grid>
     )

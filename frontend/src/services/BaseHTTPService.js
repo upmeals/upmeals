@@ -22,7 +22,7 @@ export default class BaseHTTPService {
 
 
     authenticate = (config) => {
-        const token = localStorage.getItem("user.token");
+        const token = localStorage.getItem("token");
         if (!token) {
             return config;
         }

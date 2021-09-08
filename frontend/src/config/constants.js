@@ -1,7 +1,7 @@
-export const authApiHost = 'http://localhost:3000'
+export const userApiHost = 'http://api.localhost'
 
 export const servicesMap = {
-    auth: authApiHost,
+    user: userApiHost,
 }
 
 export const languages = [
