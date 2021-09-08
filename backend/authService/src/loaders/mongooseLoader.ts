@@ -9,5 +9,5 @@ export default async (): Promise<Db> => {
         useUnifiedTopology: true,
     })
     console.log('Connection OK')
-    return connection.connection.db
+    return connection
 }
