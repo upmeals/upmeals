@@ -74,27 +74,11 @@ const updateProfile = () => {
 }
 
 const refreshTokenIfSet = (callback = defaultCallback) => {
-
-    console.log('a')
-
     if (localStorage.getItem('token')) {
-
-        console.log('b')
-
         const service = new JSONAPIService('users')
-
-        console.log(service)
-
         return async (dispatch) => {
-
-            console.log('c')
-
             dispatch(refreshTokenRequest())
-
             try {
-
-                console.log('d')
-
                 const response = await service['rawPost'](
                     'refreshToken/',
                     '',
@@ -102,14 +86,9 @@ const refreshTokenIfSet = (callback = defaultCallback) => {
                     {},
                 )
 
-                console.log('e', response)
-
                 dispatch(loginResponse(response.data))
                 return callback(response)
             } catch (e) {
-
-                console.log(e)
-
                 return dispatch(loginResponse(e))
             }
         }
