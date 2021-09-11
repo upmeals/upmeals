@@ -156,7 +156,7 @@ const RegisterForm = ({ register }) => {
                 }
             )
 
-            // return history.push('/dashboard')
+            return history.push('/dashboard')
         }
     },
     );

@@ -47,8 +47,6 @@ export default (route: Router) => {
                     req.user as IUser,
                 )
 
-                console.log(refreshToken)
-
                 res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
@@ -61,7 +59,8 @@ export default (route: Router) => {
     route.post('/refreshToken', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { signedCookies = {} } = req
-            const { refreshTokenCookie } = signedCookies
+            const refreshTokenCookie = signedCookies.refreshToken
+
             const { success, refreshToken, token } = await authServiceInstance.RefreshToken(
                 refreshTokenCookie as ISession,
             )

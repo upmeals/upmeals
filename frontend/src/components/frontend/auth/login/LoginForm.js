@@ -164,7 +164,7 @@ const LoginForm = ({ login }) => {
                 }
             )
 
-            // return history.push('/dashboard')
+            return history.push('/dashboard')
         }
     });
 

@@ -74,7 +74,8 @@ const updateProfile = () => {
 }
 
 const refreshTokenIfSet = (callback = defaultCallback) => {
-    if (localStorage.getItem('token')) {
+    let token = localStorage.getItem('token')
+    if (token) {
         const service = new JSONAPIService('users')
         return async (dispatch) => {
             dispatch(refreshTokenRequest())
