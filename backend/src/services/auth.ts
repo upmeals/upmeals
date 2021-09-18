@@ -60,26 +60,24 @@ export default class AuthService {
     }
 
     public async RefreshToken(
-        refreshTokenCookie: ISession,
-    ): Promise<{ success: boolean; refreshToken: ISession; token: string }> {
+        refreshToken: ISession,
+    ): Promise<{ success: boolean; newRefreshToken: ISession; token: string }> {
         try {
-            if (!refreshTokenCookie) throw 'Unauthorized'
+            if (!refreshToken) throw 'Unauthorized'
 
-            const payload = jwt.verify(refreshTokenCookie, config.refreshToken.secret)
+            const payload = jwt.verify(refreshToken, config.refreshToken.secret)
             const userId = payload['_id']
 
             let user = await User.findOne({ _id: userId })
             if (!user) throw 'User not found'
 
-            // Find the refresh token against the user record in database
             const tokenIndex = user.refreshToken.findIndex(
-                (item) => (item.refreshToken as any) === refreshTokenCookie,
+                (item) => (item.refreshToken as any) === refreshToken,
             )
 
             if (tokenIndex === -1) throw 'Unauthorized'
 
             const token: string = getToken({ _id: userId })
-            // If the refresh token exists, then create new one and replace it.
             const newRefreshToken: ISession = getRefreshToken({
                 _id: userId,
             })
@@ -91,29 +89,29 @@ export default class AuthService {
                 if (err) throw err
             })
 
-            return { success: true, refreshToken: newRefreshToken, token }
+            return { success: true, newRefreshToken, token }
         } catch (error) {
             throw new Error(error)
         }
     }
 
-    public async Logout(
-        refreshTokenCookie: ISession,
-        userId: IUser,
-    ): Promise<{ success: boolean }> {
+    public async Logout(refreshToken: ISession, userId: IUser): Promise<{ success: boolean }> {
         try {
+            if (!refreshToken) throw 'JWT not found'
+
             let user = await User.findById(userId)
 
             if (!user) throw 'User not found'
 
             const tokenIndex = user.refreshToken.findIndex(
-                (item) => (item.refreshToken as any) === refreshTokenCookie,
+                (item) => (item.refreshToken as any) === refreshToken,
             )
             if (tokenIndex !== -1) {
                 user.refreshToken = user.refreshToken.filter(
                     (obj) => obj['_id'] !== user.refreshToken[tokenIndex]['_id'],
                 )
             }
+
             await user.save((err, user) => {
                 if (err) throw err
             })
