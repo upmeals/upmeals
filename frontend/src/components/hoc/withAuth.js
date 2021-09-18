@@ -3,7 +3,7 @@ import {
     login,
     logoutUser,
     fetchProfile,
-    updateProfile,
+    // updateProfile,
     refreshTokenIfSet
 } from '../../store/ducks/user/operations';
 import PropTypes from "prop-types";
@@ -19,7 +19,7 @@ const mapDispatch = (dispatch) =>
             login,
             logoutUser,
             fetchProfile,
-            updateProfile,
+            // updateProfile,
             refreshTokenIfSet
         },
         dispatch
@@ -30,7 +30,7 @@ export const APIPropTypes = {
     login: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     fetchProfile: PropTypes.func.isRequired,
-    updateProfile: PropTypes.func.isRequired,
+    // updateProfile: PropTypes.func.isRequired,
     refreshTokenIfSet: PropTypes.func.isRequired,
 };
 

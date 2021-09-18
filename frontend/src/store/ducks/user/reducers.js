@@ -37,34 +37,36 @@ const loginReducer = combineReducers({
     ),
     loggedIn: handleActions(
         {
-            [actions.loginResponse]: utils.logInUserIf, 
+            [actions.loginResponse]: utils.logInUserIf,
             [actions.logout]: () => false,
-        }, 
+        },
         false
     )
 })
 
 const profileReducer = combineReducers({
     requested: handleActions(
-        {        
+        {
             [actions.fetchProfileRequest]: () => true,
             [actions.fetchProfileResponse]: () => false,
-        }, 
+        },
         false
     ),
     updating: handleActions(
-        {        
+        {
             [actions.updateProfileRequest]: () => true,
             [actions.updateProfileResponse]: () => false,
-        }, 
+        },
         false
     ),
     data: handleActions(
         {
-            [actions.fetchProfileResponse]: () => {},
-            [actions.updateProfileResponse]: () => {},
-            [actions.logout]: () => {},
-        }, 
+            [actions.fetchProfileResponse]: () => utils.getUser,
+            [actions.updateProfileResponse]: () => { },
+            [actions.logout]: () => {
+                return { ...utils.defaultUser }
+            }
+        },
         {
             ...utils.defaultUser
         }

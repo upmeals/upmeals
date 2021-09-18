@@ -5,16 +5,44 @@ import {
     fetchProfileRequest,
     fetchProfileResponse,
     refreshTokenRequest,
-    refreshTokenResponse,
-    updateProfileRequest,
-    updateProfileResponse,
+    // updateProfileRequest,
+    // updateProfileResponse,
 } from './actions';
-import { Factory } from "../../../models";
 import {
     defaultCallback,
 } from './utils'
 import JSONAPIService from "../../../services/JSONAPIService";
 
+
+
+const fetchProfile = (callback = defaultCallback) => {
+    const service = new JSONAPIService('users')
+    return async (dispatch) => {
+        dispatch(fetchProfileRequest())
+        try {
+            console.log('a')
+
+            const response = await service['rawPost'](
+                'me/',
+                '',
+                {},
+                {},
+            )
+
+            console.log('b')
+
+            dispatch(fetchProfileResponse(response.data))
+
+            return callback(response)
+        } catch (error) {
+            return dispatch(fetchProfileResponse(undefined))
+        }
+    }
+}
+
+// const updateProfile = () => {
+
+// }
 
 const register = (options, callback = defaultCallback) => {
     const service = new JSONAPIService('users')
@@ -32,6 +60,7 @@ const register = (options, callback = defaultCallback) => {
             )
 
             dispatch(loginResponse(response.data))
+
             return callback(response)
         } catch (error) {
             return dispatch(loginResponse(error))
@@ -53,7 +82,9 @@ const login = (options, callback = defaultCallback) => {
                 },
                 options.options ? options.options : {},
             )
+
             dispatch(loginResponse(response.data))
+
             return callback(response)
         } catch (error) {
             return dispatch(loginResponse(error))
@@ -61,16 +92,23 @@ const login = (options, callback = defaultCallback) => {
     }
 }
 
-const logoutUser = () => {
-
-}
-
-const fetchProfile = () => {
-
-}
-
-const updateProfile = () => {
-
+const logoutUser = (options, callback = defaultCallback) => {
+    const service = new JSONAPIService('users')
+    return async (dispatch) => {
+        dispatch(logout())
+        try {
+            const response = await service['rawPost'](
+                'logout/',
+                '',
+                {},
+                options.options ? options.options : {},
+            )
+            localStorage.removeItem('token')
+            return callback(response)
+        } catch (error) {
+            return
+        }
+    }
 }
 
 const refreshTokenIfSet = (callback = defaultCallback) => {
@@ -104,6 +142,6 @@ export {
     login,
     logoutUser,
     fetchProfile,
-    updateProfile,
+    // updateProfile,
     refreshTokenIfSet
 }

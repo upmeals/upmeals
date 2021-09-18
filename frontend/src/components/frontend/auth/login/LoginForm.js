@@ -187,7 +187,7 @@ const LoginForm = ({ login }) => {
                     </InputLabel>
                     <TextField
                         fullWidth
-                        id="email"
+                        id="login_email"
                         name="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
@@ -204,7 +204,7 @@ const LoginForm = ({ login }) => {
                     </InputLabel>
                     <TextField
                         fullWidth
-                        id="password"
+                        id="login_password"
                         name="password"
                         type="password"
                         value={formik.values.password}

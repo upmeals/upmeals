@@ -20,13 +20,13 @@ const saveState = () => {
 // Load state from local storage
 const loadState = () => {
     try {
-        return {
-            // user: {
-            //     login: {
-            //         loggedIn: JSON.parse(localStorage.persistedStore).isLoggedIn || undefined,
-            //     },
-            // }
-        };
+        // return {
+        //     // user: {
+        //     //     login: {
+        //     //         loggedIn: JSON.parse(localStorage.persistedStore).isLoggedIn || undefined,
+        //     //     },
+        //     // }
+        // };
     } catch (err) {
         return {};
     }

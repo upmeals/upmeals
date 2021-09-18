@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Factory } from "../../../models";
+// import { Factory } from "../../../models";
 
 
 const defaultCallback = (response) => {
@@ -42,9 +42,18 @@ const logInUserIf = (_, action) => {
     }
 }
 
+const getUser = (_, action) => {
+    console.log(action)
+
+    return {
+        email: 'connected !'
+    }
+}
+
 
 export {
     defaultCallback,
     defaultUser,
     logInUserIf,
+    getUser,
 }

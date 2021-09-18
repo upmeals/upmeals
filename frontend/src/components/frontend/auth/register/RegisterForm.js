@@ -180,7 +180,7 @@ const RegisterForm = ({ register }) => {
                     </InputLabel>
                     <TextField
                         fullWidth
-                        id="email"
+                        id="register_email"
                         name="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
@@ -197,7 +197,7 @@ const RegisterForm = ({ register }) => {
                     </InputLabel>
                     <TextField
                         fullWidth
-                        id="password"
+                        id="register_password"
                         name="password"
                         type="password"
                         value={formik.values.password}

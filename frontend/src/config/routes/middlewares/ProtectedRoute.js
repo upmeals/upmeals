@@ -15,7 +15,7 @@ const ProtectedRoute = ({ user, component }) => {
         if (!isMount && !user.login.pending && !user.login.loggedIn) {
             history.push('/')
         }
-    }, [user])
+    }, [user]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <>
