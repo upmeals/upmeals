@@ -54,6 +54,7 @@ const register = (options, callback = defaultCallback) => {
             )
 
             dispatch(loginResponse(response.data))
+            await fetchProfile()(dispatch);
 
             return callback(response)
         } catch (error) {
@@ -78,6 +79,7 @@ const login = (options, callback = defaultCallback) => {
             )
 
             dispatch(loginResponse(response.data))
+            await fetchProfile()(dispatch);
 
             return callback(response)
         } catch (error) {
