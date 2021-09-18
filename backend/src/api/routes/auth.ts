@@ -11,8 +11,6 @@ const authServiceInstance = Container.get(AuthService)
 const route = Router()
 
 export default (): Router => {
-    route.use('/auth', route)
-
     route.post(
         '/register',
         celebrate({
@@ -51,8 +49,6 @@ export default (): Router => {
                     req.user as IUser,
                 )
 
-                console.log(refreshToken)
-
                 res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
@@ -65,13 +61,14 @@ export default (): Router => {
     route.post('/refreshToken', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { signedCookies = {} } = req
-            const { refreshTokenCookie } = signedCookies
-            const { success, refreshToken, token } = await authServiceInstance.RefreshToken(
-                refreshTokenCookie as ISession,
+            const { refreshToken } = signedCookies
+
+            const { success, newRefreshToken, token } = await authServiceInstance.RefreshToken(
+                refreshToken as ISession,
             )
 
-            res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
-            return res.send({ success, refreshToken, token })
+            res.cookie('refreshToken', newRefreshToken, COOKIE_OPTIONS)
+            return res.send({ success, token })
         } catch (error) {
             res.status(404).send({ success: false, error: error.message })
             // return next(e)
@@ -81,13 +78,15 @@ export default (): Router => {
     route.post('/logout', verifyUser, async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { signedCookies = {} } = req
-            const { refreshTokenCookie } = signedCookies
+            const { refreshToken } = signedCookies
+
             const { success } = await authServiceInstance.Logout(
-                refreshTokenCookie as ISession,
+                refreshToken as ISession,
                 req.user['_id'],
             )
 
             res.clearCookie('refreshToken', COOKIE_OPTIONS)
+            // res.cookie('refreshToken', {}, {...COOKIE_OPTIONS, expires: new Date(1)})
             return res.send({ success })
         } catch (error) {
             res.status(404).send({ success: false, error: error.message })
