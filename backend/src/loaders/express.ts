@@ -6,13 +6,6 @@ import express from 'express'
 import passport from 'passport'
 
 export default ({ app }: { app: express.Application }) => {
-    app.get('/status', (req, res) => {
-        res.status(200).end()
-    })
-    app.head('/status', (req, res) => {
-        res.status(200).end()
-    })
-
     const corsOptions = {
         origin: function (origin, callback) {
             if (!origin || config.whitelistedDomains.indexOf(origin) !== -1) {
@@ -23,8 +16,10 @@ export default ({ app }: { app: express.Application }) => {
         },
         credentials: true,
     }
-    app.use(cors(corsOptions))
+
     app.options('*', cors(corsOptions))
+    app.use(cors(corsOptions))
+
     app.use(cookieParser(config.cookieSecret))
 
     app.use(passport.initialize())
