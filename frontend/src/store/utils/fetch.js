@@ -23,7 +23,7 @@ function parseStatus(status, res) {
 
 function requestHeaders() {
     return {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: "application/vnd.api+json",
+        "Content-Type": "application/vnd.api+json",
     };
 }

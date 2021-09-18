@@ -3,7 +3,7 @@ import {
     login,
     logoutUser,
     fetchProfile,
-    updateProfile,
+    // updateProfile,
     refreshTokenIfSet
 } from '../../store/ducks/user/operations';
 import PropTypes from "prop-types";
@@ -11,7 +11,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-const mapState = (state) => ({ user: state.user });
+const mapState = (state) => ({ user: state.user, init: state.init });
 const mapDispatch = (dispatch) =>
     bindActionCreators(
         {
@@ -19,7 +19,7 @@ const mapDispatch = (dispatch) =>
             login,
             logoutUser,
             fetchProfile,
-            updateProfile,
+            // updateProfile,
             refreshTokenIfSet
         },
         dispatch
@@ -30,7 +30,7 @@ export const APIPropTypes = {
     login: PropTypes.func.isRequired,
     logoutUser: PropTypes.func.isRequired,
     fetchProfile: PropTypes.func.isRequired,
-    updateProfile: PropTypes.func.isRequired,
+    // updateProfile: PropTypes.func.isRequired,
     refreshTokenIfSet: PropTypes.func.isRequired,
 };
 

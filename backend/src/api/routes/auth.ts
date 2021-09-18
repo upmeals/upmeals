@@ -48,7 +48,7 @@ export default (): Router => {
                 const { success, user, refreshToken, token } = await authServiceInstance.Login(
                     req.user as IUser,
                 )
-
+                
                 res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
