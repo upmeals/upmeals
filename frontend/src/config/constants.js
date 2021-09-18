@@ -1,4 +1,4 @@
-export const userApiHost = 'http://api.localhost'
+export const userApiHost = 'http://localhost'
 
 export const servicesMap = {
     user: userApiHost,

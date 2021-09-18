@@ -1,5 +1,5 @@
 import { initStoreStart, initStoreDone, loadSettings } from './actions';
-import { refreshTokenIfSet } from '../user/operations';
+import { refreshTokenIfSet, fetchProfile } from '../user/operations';
 // import JSONAPIService from "../../../services/JSONAPIService";
 
 
@@ -8,6 +8,7 @@ const initStore = () => {
         try {
             dispatch(initStoreStart());
             await refreshTokenIfSet()(dispatch);
+            await fetchProfile()(dispatch);
             // await setupApp(result)(dispatch);
             dispatch(initStoreDone());
         } catch (error) {

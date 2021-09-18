@@ -11,7 +11,7 @@ const authServiceInstance = Container.get(AuthService)
 const route = Router()
 
 export default (): Router => {
-    route.use('/auth', route)
+    // route.use('/auth', route)
 
     route.post(
         '/register',
@@ -51,9 +51,7 @@ export default (): Router => {
                     req.user as IUser,
                 )
 
-                console.log(refreshToken)
-
-                res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
+                res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
                 res.status(404).send({ success: false, error: error.message })
@@ -65,7 +63,8 @@ export default (): Router => {
     route.post('/refreshToken', async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { signedCookies = {} } = req
-            const { refreshTokenCookie } = signedCookies
+            const refreshTokenCookie = signedCookies.refreshToken
+
             const { success, refreshToken, token } = await authServiceInstance.RefreshToken(
                 refreshTokenCookie as ISession,
             )

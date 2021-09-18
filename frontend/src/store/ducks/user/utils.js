@@ -42,9 +42,19 @@ const logInUserIf = (_, action) => {
     }
 }
 
+const getUser = (_, action) => {
+    return Factory.createRecord(
+        {
+            type: 'users',
+        },
+        action.payload
+    )
+}
+
 
 export {
     defaultCallback,
     defaultUser,
     logInUserIf,
+    getUser,
 }

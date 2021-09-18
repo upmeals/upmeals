@@ -156,15 +156,15 @@ const LoginForm = ({ login }) => {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            login(
+        onSubmit: async (values) => {
+            await login(
                 {
                     email: values.email,
                     password: values.password
                 }
             )
 
-            // return history.push('/dashboard')
+            return history.push('/dashboard')
         }
     });
 
@@ -187,7 +187,7 @@ const LoginForm = ({ login }) => {
                     </InputLabel>
                     <TextField
                         fullWidth
-                        id="email"
+                        id="login_email"
                         name="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
@@ -204,7 +204,7 @@ const LoginForm = ({ login }) => {
                     </InputLabel>
                     <TextField
                         fullWidth
-                        id="password"
+                        id="login_password"
                         name="password"
                         type="password"
                         value={formik.values.password}

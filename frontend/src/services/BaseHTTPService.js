@@ -30,6 +30,8 @@ export default class BaseHTTPService {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
+            withCredentials: true,
+            credentials: 'include'
         });
     };
 
