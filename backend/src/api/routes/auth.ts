@@ -11,7 +11,7 @@ const authServiceInstance = Container.get(AuthService)
 const route = Router()
 
 export default (): Router => {
-    route.use('/auth', route)
+    // route.use('/auth', route)
 
     route.post(
         '/register',

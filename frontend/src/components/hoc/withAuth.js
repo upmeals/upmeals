@@ -11,7 +11,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-const mapState = (state) => ({ user: state.user });
+const mapState = (state) => ({ user: state.user, init: state.init });
 const mapDispatch = (dispatch) =>
     bindActionCreators(
         {

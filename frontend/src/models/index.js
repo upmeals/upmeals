@@ -1,11 +1,11 @@
 import Record from './Record'
-
+import User from './User'
 
 
 const createRecord = (rawData, state) => {
     switch(rawData.type) {
         case "users":
-            return new Record(rawData, state); // User
+            return new User(state); // User
         default:
             return new Record(rawData, state)
     }

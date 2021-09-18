@@ -156,8 +156,8 @@ const LoginForm = ({ login }) => {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            login(
+        onSubmit: async (values) => {
+            await login(
                 {
                     email: values.email,
                     password: values.password

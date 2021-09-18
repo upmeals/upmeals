@@ -20,16 +20,10 @@ const fetchProfile = (callback = defaultCallback) => {
     return async (dispatch) => {
         dispatch(fetchProfileRequest())
         try {
-            console.log('a')
-
-            const response = await service['rawPost'](
-                'me/',
+            const response = await service['get'](
+                'me',
                 '',
-                {},
-                {},
             )
-
-            console.log('b')
 
             dispatch(fetchProfileResponse(response.data))
 
@@ -45,7 +39,7 @@ const fetchProfile = (callback = defaultCallback) => {
 // }
 
 const register = (options, callback = defaultCallback) => {
-    const service = new JSONAPIService('users')
+    const service = new JSONAPIService('auth')
     return async (dispatch) => {
         dispatch(loginRequest())
         try {
@@ -69,7 +63,7 @@ const register = (options, callback = defaultCallback) => {
 }
 
 const login = (options, callback = defaultCallback) => {
-    const service = new JSONAPIService('users')
+    const service = new JSONAPIService('auth')
     return async (dispatch) => {
         dispatch(loginRequest())
         try {
@@ -93,7 +87,7 @@ const login = (options, callback = defaultCallback) => {
 }
 
 const logoutUser = (options, callback = defaultCallback) => {
-    const service = new JSONAPIService('users')
+    const service = new JSONAPIService('auth')
     return async (dispatch) => {
         dispatch(logout())
         try {
@@ -114,7 +108,7 @@ const logoutUser = (options, callback = defaultCallback) => {
 const refreshTokenIfSet = (callback = defaultCallback) => {
     let token = localStorage.getItem('token')
     if (token) {
-        const service = new JSONAPIService('users')
+        const service = new JSONAPIService('auth')
         return async (dispatch) => {
             dispatch(refreshTokenRequest())
             try {

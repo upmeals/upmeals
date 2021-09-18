@@ -1,5 +1,5 @@
 import _ from 'lodash'
-// import { Factory } from "../../../models";
+import { Factory } from "../../../models";
 
 
 const defaultCallback = (response) => {
@@ -43,11 +43,12 @@ const logInUserIf = (_, action) => {
 }
 
 const getUser = (_, action) => {
-    console.log(action)
-
-    return {
-        email: 'connected !'
-    }
+    return Factory.createRecord(
+        {
+            type: 'users',
+        },
+        action.payload
+    )
 }
 
 

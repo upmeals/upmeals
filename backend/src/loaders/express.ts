@@ -22,9 +22,11 @@ export default ({ app }: { app: express.Application }) => {
             }
         },
         credentials: true,
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        preflightContinue: true,
     }
     app.use(cors(corsOptions))
-    app.options('*', cors(corsOptions))
+    // app.options('*', cors(corsOptions))
     app.use(cookieParser(config.cookieSecret))
 
     app.use(passport.initialize())

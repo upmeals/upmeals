@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import withAuth from '../hoc/withAuth';
 
 
-const Dashboard = ({ logoutUser }) => {
+const Dashboard = ({ logoutUser, user }) => {
     return (
         <Grid
             container

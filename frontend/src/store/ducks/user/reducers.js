@@ -61,7 +61,7 @@ const profileReducer = combineReducers({
     ),
     data: handleActions(
         {
-            [actions.fetchProfileResponse]: () => utils.getUser,
+            [actions.fetchProfileResponse]: utils.getUser,
             [actions.updateProfileResponse]: () => { },
             [actions.logout]: () => {
                 return { ...utils.defaultUser }
