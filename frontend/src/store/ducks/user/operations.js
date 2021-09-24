@@ -29,6 +29,7 @@ const fetchProfile = (callback = defaultCallback) => {
 
             return callback(response)
         } catch (error) {
+            await logout()(dispatch);
             return dispatch(fetchProfileResponse(undefined))
         }
     }
@@ -58,6 +59,7 @@ const register = (options, callback = defaultCallback) => {
 
             return callback(response)
         } catch (error) {
+            await logout()(dispatch);
             return dispatch(loginResponse(error))
         }
     }
@@ -83,6 +85,7 @@ const login = (options, callback = defaultCallback) => {
 
             return callback(response)
         } catch (error) {
+            await logout()(dispatch);
             return dispatch(loginResponse(error))
         }
     }
@@ -102,6 +105,7 @@ const logoutUser = (options, callback = defaultCallback) => {
             localStorage.removeItem('token')
             return callback(response)
         } catch (error) {
+            localStorage.removeItem('token')
             return
         }
     }
@@ -124,6 +128,7 @@ const refreshTokenIfSet = (callback = defaultCallback) => {
                 dispatch(loginResponse(response.data))
                 return callback(response)
             } catch (e) {
+                await logout()(dispatch);
                 return dispatch(loginResponse(e))
             }
         }
