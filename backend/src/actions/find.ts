@@ -1,7 +1,7 @@
 import mongooseAdapter from '@lib/mongoose-adapter'
 import Pagination from '@lib/pagination'
-import jsonapiSerializer from '@serializer/index'
-import jsonApiMongoParser from '@serializer/jsonapiMongoParser'
+import jsonapiSerializer from '@serializers/index'
+import jsonApiMongoParser from '@serializers/jsonapiMongoParser'
 import _ from 'lodash'
 
 export default async (resource, model, req) => {
