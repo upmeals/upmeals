@@ -1,9 +1,8 @@
 import { IUser } from '@interfaces/IUser'
+import Session from '@models/session'
 import mongoose, { PassportLocalSchema } from 'mongoose'
 import passportLocalMongoose from 'passport-local-mongoose'
 import validator from 'validator'
-import Session from '@models/session'
-import Group from '@models/group'
 
 const User = new mongoose.Schema(
     {
@@ -27,9 +26,9 @@ const User = new mongoose.Schema(
         },
         group: {
             type: String,
-            ref: "Group",
+            ref: 'Group',
             foreignField: 'name',
-            default: 'User'
+            default: 'User',
         },
     },
     { timestamps: true },
@@ -38,7 +37,7 @@ const User = new mongoose.Schema(
 User.methods.toJSON = function () {
     let userObject = this.toObject() as IUser
 
-    delete userObject.password
+    // delete userObject.password
     delete userObject.refreshToken
     delete userObject.salt
     delete userObject.hash

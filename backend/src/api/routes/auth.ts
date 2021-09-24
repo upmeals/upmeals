@@ -21,7 +21,7 @@ export default (): Router => {
         }),
         async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const { success, user, refreshToken, token } = await authServiceInstance.Register(
+                const { success, refreshToken, token } = await authServiceInstance.Register(
                     req.body as IUserInputDTO,
                 )
 
@@ -45,10 +45,10 @@ export default (): Router => {
         }),
         async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const { success, user, refreshToken, token } = await authServiceInstance.Login(
+                const { success, refreshToken, token } = await authServiceInstance.Login(
                     req.user as IUser,
                 )
-                
+
                 res.cookie('refreshToken', refreshToken, COOKIE_OPTIONS)
                 res.status(200).send({ success, token })
             } catch (error) {
