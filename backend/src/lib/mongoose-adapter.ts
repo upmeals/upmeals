@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 let mongooseAdapter: any = {}
 
-let buildCollectionQuery = function (dbQuery, query) {
+let buildCollectionQuery = (dbQuery, query) => {
     // Select
     dbQuery.select(query.select)
 
@@ -22,12 +22,12 @@ let buildCollectionQuery = function (dbQuery, query) {
     }
 }
 
-mongooseAdapter.find = async function (model, query) {
+mongooseAdapter.find = async (model, query) => {
     return await async.parallel({
-        total: function (cb) {
+        total: (cb) => {
             model.countDocuments(cb)
         },
-        data: function (cb) {
+        data: (cb) => {
             let dbQuery = model.find().lean()
             buildCollectionQuery(dbQuery, query)
             dbQuery.exec(cb)
@@ -35,7 +35,7 @@ mongooseAdapter.find = async function (model, query) {
     })
 }
 
-mongooseAdapter.findByIds = async function (model, ids, query) {
+mongooseAdapter.findByIds = async (model, ids, query) => {
     let conditions = {
         _id: {
             $in: ids,
@@ -43,10 +43,10 @@ mongooseAdapter.findByIds = async function (model, ids, query) {
     }
 
     return await async.parallel({
-        total: function (cb) {
+        total: (cb) => {
             model.countDocuments(conditions).exec(cb)
         },
-        data: function (cb) {
+        data: (cb) => {
             let dbQuery = model.find(conditions).lean()
             buildCollectionQuery(dbQuery, query)
             dbQuery.exec(cb)
@@ -54,7 +54,7 @@ mongooseAdapter.findByIds = async function (model, ids, query) {
     })
 }
 
-mongooseAdapter.findById = async function (model, id, query) {
+mongooseAdapter.findById = async (model, id, query) => {
     let dbQuery = model.findById(id).lean()
 
     // Select
@@ -68,16 +68,16 @@ mongooseAdapter.findById = async function (model, id, query) {
     return await dbQuery.exec()
 }
 
-mongooseAdapter.findByIdAndUpdate = function (model, id, body, callback) {
+mongooseAdapter.findByIdAndUpdate = async (model, id, body) => {
     let update = {}
 
     // Attributes
     Object.assign(update, body.attributes)
 
     // relationships
-    _.forOwn(body.relationships, function (value, key) {
+    _.forOwn(body.relationships, (value, key) => {
         if (_.isArray(value.data)) {
-            update[key] = value.data.map(function (d) {
+            update[key] = value.data.map((d) => {
                 return d.id
             })
         } else {
@@ -85,97 +85,83 @@ mongooseAdapter.findByIdAndUpdate = function (model, id, body, callback) {
         }
     })
 
-    model.findByIdAndUpdate(
-        id,
-        update,
-        {
-            new: true,
-        },
-        callback,
-    )
+    return await model.findByIdAndUpdate(id, update, {
+        new: true,
+    })
 }
 
-mongooseAdapter.findRelationship = function (
-    model,
-    id,
-    relationship,
-    relationshipModel,
-    query,
-    callback,
-) {
+// TODO
+mongooseAdapter.findRelationship = async (model, id, relationship, relationshipModel, query) => {
     let dbQuery = model.findById(id).lean()
 
-    dbQuery.exec(function (err, document) {
+    dbQuery.exec(async (err, document) => {
         let relationshipId = document[relationship]
 
         // To many relationship
         if (_.isArray(relationshipId)) {
-            mongooseAdapter.findByIds(relationshipModel, relationshipId, query, callback)
+            return await mongooseAdapter.findByIds(relationshipModel, relationshipId, query)
         }
         // To one relationship
         else {
-            mongooseAdapter.findById(relationshipModel, relationshipId, query, callback)
+            return await mongooseAdapter.findById(relationshipModel, relationshipId, query)
         }
     })
 }
 
-mongooseAdapter.updateRelationship = function (model, id, relationship, data, callback) {
+mongooseAdapter.updateRelationship = async (model, id, relationship, data) => {
     let update = {}
 
     if (_.isArray(data)) {
-        update[relationship] = data.map(function (d) {
+        update[relationship] = data.map((d) => {
             return d.id
         })
     } else {
         update[relationship] = data.id
     }
 
-    model.findByIdAndUpdate(
-        id,
-        update,
-        {
-            new: true,
-        },
-        callback,
-    )
+    return await model.findByIdAndUpdate(id, update, {
+        new: true,
+    })
 }
 
-mongooseAdapter.createRelationship = function (model, id, relationship, data, callback) {
-    model.findById(id, function (err, result) {
+// TODO
+mongooseAdapter.createRelationship = async (model, id, relationship, data) => {
+    return await model.findById(id, (err, result) => {
         result[relationship] = _.concat(
             result[relationship],
-            data.map(function (d) {
+            data.map((d) => {
                 return d.id
             }),
         )
 
-        result.save(callback)
+        return result.save()
     })
 }
 
-mongooseAdapter.deleteRelationship = function (model, id, relationship, data, callback) {
-    model.findById(id, function (err, result) {
+// TODO
+mongooseAdapter.deleteRelationship = async (model, id, relationship, data) => {
+    return await model.findById(id, (err, result) => {
         result[relationship] = _.difference(
             result[relationship].toString(),
-            data.map(function (d) {
+            data.map((d) => {
                 return d.id
             }),
         )
 
-        result.save(callback)
+        return result.save()
     })
 }
 
-mongooseAdapter.save = function (model, body, callback) {
+mongooseAdapter.save = async (model, body) => {
     let newObject = {}
 
     // Attributes
     Object.assign(newObject, body.attributes)
 
     // Relationships
-    _.forOwn(body.relationships, function (value, key) {
+    _.forOwn(body.relationships, (value, key) => {
         if (_.isArray(value.data)) {
-            newObject[key] = value.data.map(function (d) {
+            newObject[key] = value.data.map((d) => {
                 return d.id
             })
         } else {
@@ -185,7 +171,7 @@ mongooseAdapter.save = function (model, body, callback) {
 
     // Save
     let doc = new model(newObject)
-    doc.save(callback)
+    return await doc.save()
 }
 
 export default mongooseAdapter
