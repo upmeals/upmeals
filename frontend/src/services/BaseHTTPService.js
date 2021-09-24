@@ -23,12 +23,9 @@ export default class BaseHTTPService {
 
     authenticate = (config) => {
         const token = localStorage.getItem("token");
-        if (!token) {
-            return config;
-        }
         return _.merge(config || {}, {
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: token ? `Bearer ${token}` : 'none',
             },
             withCredentials: true,
             credentials: 'include'
