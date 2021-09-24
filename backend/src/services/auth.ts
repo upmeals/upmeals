@@ -10,7 +10,6 @@ import { Service } from 'typedi'
 export default class AuthService {
     public async Register(userInput: IUserInputDTO): Promise<{
         success: boolean
-        user: IUser
         refreshToken: ISession
         token
     }> {
@@ -27,7 +26,7 @@ export default class AuthService {
                 if (error) throw error
             })
 
-            return { success: true, user, refreshToken, token }
+            return { success: true, refreshToken, token }
         } catch (error) {
             throw error
         }
@@ -35,7 +34,6 @@ export default class AuthService {
 
     public async Login(userInput: IUser): Promise<{
         success: boolean
-        user: IUser
         refreshToken: ISession
         token
     }> {
@@ -53,7 +51,7 @@ export default class AuthService {
                 if (error) throw error
             })
 
-            return { success: true, user, refreshToken, token }
+            return { success: true, refreshToken, token }
         } catch (error) {
             throw new Error(error)
         }

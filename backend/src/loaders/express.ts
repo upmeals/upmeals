@@ -15,13 +15,13 @@ export default ({ app }: { app: express.Application }) => {
             }
         },
         credentials: true,
-        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
         preflightContinue: true,
     }
-    
+
     app.options('*', cors(corsOptions))
     app.use(cors(corsOptions))
-  
+
     app.use(cookieParser(config.cookieSecret))
 
     app.use(passport.initialize())
