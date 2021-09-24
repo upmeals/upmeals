@@ -1,16 +1,16 @@
 import UserModel from '@models/user'
-import actions from '@src/actions'
+import actions from '@actions/index'
 import { verifyUser } from '@src/authenticate'
-import { NextFunction, Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 
 const route = Router()
 
 export default (): Router => {
-    route.get('/me', verifyUser, (req, res, next) => {
+    route.get('/me', verifyUser, (req, res) => {
         res.send(req.user)
     })
 
-    route.get('/', async (req: Request, res: Response, next: NextFunction) => {
+    route.get('/', async (req: Request, res: Response) => {
         try {
             const datas = await actions.find('user', UserModel, req)
 
@@ -20,7 +20,7 @@ export default (): Router => {
         }
     })
 
-    route.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    route.get('/:id', async (req: Request, res: Response) => {
         try {
             const datas = await actions.get('user', UserModel, req)
 

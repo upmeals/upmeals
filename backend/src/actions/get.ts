@@ -1,8 +1,8 @@
 import mongooseAdapter from '@lib/mongoose-adapter'
-import jsonapiSerializer from '@serializer/index'
-import jsonApiMongoParser from '@serializer/jsonapiMongoParser'
+import jsonapiSerializer from '@serializers/index'
+import jsonApiMongoParser from '@serializers/jsonapiMongoParser'
 
-export default async function (resource, model, req) {
+export default async (resource, model, req) => {
     let document = await mongooseAdapter.findById(
         model,
         req.params.id,

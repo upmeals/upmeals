@@ -1,6 +1,6 @@
 var JSONAPISerializer = require('json-api-serializer')
 
-var userSerializer = require('@serializer/userSerializer')
+var userSerializer = require('@serializers/userSerializer')
 var Serializer = new JSONAPISerializer()
 
 // User

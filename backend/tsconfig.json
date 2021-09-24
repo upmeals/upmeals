@@ -23,7 +23,6 @@
         "esModuleInterop": true,
         "baseUrl": "./",
         "paths": {
-            "@src/*": ["src/*"],
             "@config/*": ["src/config/*"],
             "@utils/*": ["src/utils/*"],
             "@models/*": ["src/models/*"],
@@ -33,9 +32,10 @@
             "@interfaces/*": ["src/interfaces/*"],
             "@services/*": ["src/services/*"],
             "@strategies/*": ["src/strategies/*"],
-            "@serializer/*": ["src/serializer/*"],
+            "@serializers/*": ["src/serializers/*"],
             "@lib/*": ["src/lib/*"],
-            "@actions/*": ["src/actions/*"]
+            "@actions/*": ["src/actions/*"],
+            "@src/*": ["src/*"],
         },
     },
     "include": [

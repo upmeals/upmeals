@@ -43,7 +43,6 @@
         "prettier-plugin-organize-imports": "^2.3.3"
     },
     "_moduleAliases": {
-        "@src": "src/",
         "@config": "src/config/",
         "@utils": "src/utils/",
         "@models": "src/models/",
@@ -55,6 +54,7 @@
         "@strategies": "src/strategies/",
         "@actions": "src/actions/",
         "@lib": "src/lib/",
-        "@serializer": "src/serializer/"
+        "@serializers": "src/serializers/",
+        "@src": "src/"
     }
 }
