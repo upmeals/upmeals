@@ -1,5 +1,5 @@
 import config from '@config/index'
-import Group from '@src/models/group'
+// import Group from '@models/group'
 import mongoose from 'mongoose'
 
 export default async () => {

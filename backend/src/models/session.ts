@@ -1,4 +1,4 @@
-import { ISession } from '@src/interfaces/ISession'
+import { ISession } from '@interfaces/ISession'
 import mongoose from 'mongoose'
 
 const Session = new mongoose.Schema({

@@ -1,4 +1,4 @@
-import { IGroup } from '@src/interfaces/IGroup'
+import { IGroup } from '@interfaces/IGroup'
 import mongoose from 'mongoose'
 
 const Group = new mongoose.Schema({
