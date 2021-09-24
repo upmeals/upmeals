@@ -32,7 +32,10 @@
             "@routes/*": ["src/api/routes/*"],
             "@interfaces/*": ["src/interfaces/*"],
             "@services/*": ["src/services/*"],
-            "@strategies/*": ["src/strategies/*"]
+            "@strategies/*": ["src/strategies/*"],
+            "@serializer/*": ["src/serializer/*"],
+            "@lib/*": ["src/lib/*"],
+            "@actions/*": ["src/actions/*"]
         },
     },
     "include": [
