@@ -1,31 +1,25 @@
 // import { defineMessages, injectIntl } from 'react-intl';
-// import createStyles from '@material-ui/core/styles/createStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
+import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
-// import makeStyles from '@material-ui/core/styles/makeStyles';
+import Button from '@material-ui/core/Button'
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
-import Login from './auth/login/Login';
-import Register from './auth/register/Register';
-
 
 // Component classes
-// const useStyles = makeStyles(theme =>
-//     createStyles({
-//         mainText: {
-//             color: theme.palette.black,
-//             fontSize: '32px',
-//             marginTop: '100px',
-//             marginBottom: '32px',
-//         },
-//         reactLogo: {
-//             width: '256px',
-//             marginBottom: '32px'
-//         },
-//         presentationContainer: {
-//             background: '#4F37E8',
-//             height: '100vh',
-//         }
-//     })
-// )
+const useStyles = makeStyles(theme =>
+    createStyles({
+        container: {
+            height: '100vh',
+        },
+        title: {
+            margin: theme.spacing(2, 0),
+        },
+        button: {
+            margin: theme.spacing(1, 0),
+        }
+    })
+)
 
 // Component texts
 // const i18n = defineMessages({
@@ -36,36 +30,42 @@ import Register from './auth/register/Register';
 // })
 
 // Component
-const Frontend = ({ store }) => {
-    // const classes = useStyles()
+const Frontend = () => {
+    const classes = useStyles()
 
     return (
         <Grid
             container
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="flex-start"
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            className={classes.container}
         >
-            <Grid
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
-                lg={6}
-                item
+            <Typography className={classes.title}>Page d'accueil</Typography>
+            <Button
+                href="/dashboard"
+                className={classes.button}
+                variant="contained"
+                color="primary"
             >
-                <Login />
-            </Grid>
-            <Grid
-                container
-                direction="column"
-                justifyContent="flex-start"
-                alignItems="center"
-                lg={6}
-                item
+                Dashboard
+            </Button>
+            <Button
+                href="/login"
+                className={classes.button}
+                variant="contained"
+                color="primary"
             >
-                <Register />
-            </Grid>
+                Login
+            </Button>
+            <Button
+                href="/register"
+                className={classes.button}
+                variant="contained"
+                color="primary"
+            >
+                Register
+            </Button>
         </Grid>
     )
 }
