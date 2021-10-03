@@ -1,6 +1,6 @@
-import UserModel from '@models/user'
 import actions from '@actions/index'
-import { verifyUser } from '@src/authenticate'
+import UserModel from '@models/user'
+import { verifyUser } from '@lib/authenticate'
 import { Request, Response, Router } from 'express'
 
 const route = Router()
