@@ -148,8 +148,8 @@ const RegisterForm = ({ register }) => {
             password: '',
         },
         validationSchema: validationSchema,
-        onSubmit: (values) => {
-            register(
+        onSubmit: async (values) => {
+            await register(
                 {
                     email: values.email,
                     password: values.password
