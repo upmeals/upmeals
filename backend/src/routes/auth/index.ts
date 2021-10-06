@@ -1,7 +1,7 @@
 import { ISession } from '@interfaces/ISession'
 import { IUser, IUserInputDTO } from '@interfaces/IUser'
-import AuthService from '@services/auth'
 import { COOKIE_OPTIONS, verifyUser } from '@lib/authenticate'
+import AuthService from '@services/auth'
 import { celebrate, Joi } from 'celebrate'
 import { NextFunction, Request, Response, Router } from 'express'
 import passport from 'passport'
@@ -86,7 +86,6 @@ export default (): Router => {
             )
 
             res.clearCookie('refreshToken', COOKIE_OPTIONS)
-            // res.cookie('refreshToken', {}, {...COOKIE_OPTIONS, expires: new Date(1)})
             return res.send({ success })
         } catch (error) {
             res.status(404).send({ success: false, error: error.message })

@@ -9,7 +9,7 @@ export const COOKIE_OPTIONS = {
     secure: false,
     signed: true,
     maxAge: eval(config.refreshToken.expiry) * 1000,
-    sameSite: null,
+    // sameSite: 'Lax',
 }
 
 export function getToken(user) {

@@ -1,26 +1,45 @@
-import routes from '@routes/index'
 import config from '@config/index'
+import routes from '@routes/index'
 import cookieParser from 'cookie-parser'
-import cors from 'cors'
 import express from 'express'
 import passport from 'passport'
 
 export default ({ app }: { app: express.Application }) => {
-    const corsOptions = {
-        origin: function (origin, callback) {
-            if (!origin || config.whitelistedDomains.indexOf(origin) !== -1) {
-                callback(null, true)
-            } else {
-                callback(new Error('Not allowed by CORS'))
-            }
-        },
-        credentials: true,
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: true,
-    }
+    // const corsOptions = {
+    //     origin: function (origin, callback) {
+    //         if (!origin || config.whitelistedDomains.indexOf(origin) !== -1) {
+    //             callback(null, true)
+    //         } else {
+    //             callback(new Error('Not allowed by CORS'))
+    //         }
+    //     },
+    //     credentials: true,
+    //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    //     preflightContinue: true,
+    // }
 
-    app.options('*', cors(corsOptions))
-    app.use(cors(corsOptions))
+    // app.options('*', cors(corsOptions))
+    // app.use(cors(corsOptions))
+
+    app.use(function (req, res, next) {
+        let origin = req.headers.origin
+        console.log("origin: ", origin)
+        if (!origin || config.whitelistedDomains.indexOf(origin) !== -1) {
+            console.log(true)
+        } else {
+            console.log(false)
+        }
+    })
+
+    app.use(function (req, res, next) {
+        let origin = req.headers.origin
+        if (config.whitelistedDomains.includes(origin)) {
+            res.header('Access-Control-Allow-Origin', origin) // restrict it to the required domain
+        }
+
+        res.header('Access-Control-Allow-Credentials', 'true')
+        next()
+    })
 
     app.use(cookieParser(config.cookieSecret))
 
