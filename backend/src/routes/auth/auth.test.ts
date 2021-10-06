@@ -2,6 +2,6 @@ describe('Auth routes', () => {
 
     it('', () => {
 
-    }
+    })
 
 })
