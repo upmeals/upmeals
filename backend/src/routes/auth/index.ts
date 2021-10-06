@@ -1,7 +1,7 @@
 import { ISession } from '@interfaces/ISession'
 import { IUser, IUserInputDTO } from '@interfaces/IUser'
 import AuthService from '@services/auth'
-import { COOKIE_OPTIONS, verifyUser } from '@src/authenticate'
+import { COOKIE_OPTIONS, verifyUser } from '@lib/authenticate'
 import { celebrate, Joi } from 'celebrate'
 import { NextFunction, Request, Response, Router } from 'express'
 import passport from 'passport'

@@ -2,7 +2,7 @@ import config from '@config/index'
 import { ISession } from '@interfaces/ISession'
 import { IUser, IUserInputDTO } from '@interfaces/IUser'
 import User from '@models/user'
-import { getRefreshToken, getToken } from '@src/authenticate'
+import { getRefreshToken, getToken } from '@lib/authenticate'
 import jwt from 'jsonwebtoken'
 import { Service } from 'typedi'
 

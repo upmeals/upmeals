@@ -6,6 +6,8 @@
     "scripts": {
         "build": "tsc",
         "start": "nodemon src/",
+        "test": "npx jest",
+        "test-watch": "npx jest --watch",
         "inspect": "nodemon --inspect src/app.ts"
     },
     "author": "",
@@ -33,22 +35,25 @@
         "reflect-metadata": "^0.1.13",
         "ts-node": "^10.1.0",
         "typedi": "^0.10.0",
-        "typescript": "^4.3.5",
         "validator": "^13.6.0"
     },
     "devDependencies": {
+        "@types/jest": "^27.0.2",
         "@types/node": "^16.4.13",
         "@types/passport-local-mongoose": "^4.0.15",
+        "jest": "^27.2.4",
         "prettier": "^2.3.2",
-        "prettier-plugin-organize-imports": "^2.3.3"
+        "prettier-plugin-organize-imports": "^2.3.3",
+        "ts-jest": "^27.0.5",
+        "typescript": "^4.4.3"
     },
     "_moduleAliases": {
         "@config": "src/config/",
         "@utils": "src/utils/",
         "@models": "src/models/",
         "@loaders": "src/loaders/",
-        "@api": "src/api/",
-        "@routes": "src/api/routes/",
+        "@middlewares": "src/middlewares/",
+        "@routes": "src/routes/",
         "@interfaces": "src/interfaces/",
         "@services": "src/services/",
         "@strategies": "src/strategies/",
