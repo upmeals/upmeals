@@ -53,7 +53,7 @@
         "@models": "src/models/",
         "@loaders": "src/loaders/",
         "@middlewares": "src/middlewares/",
-        "@routes": "src/api/routes/",
+        "@routes": "src/routes/",
         "@interfaces": "src/interfaces/",
         "@services": "src/services/",
         "@strategies": "src/strategies/",

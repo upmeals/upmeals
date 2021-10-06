@@ -1,4 +1,4 @@
-import routes from '@api/index'
+import routes from '@routes/index'
 import config from '@config/index'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'

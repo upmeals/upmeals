@@ -1,5 +1,5 @@
-// import attachCurrentUser from '@api/middlewares/attachCurrentUser'
-// import isAuth from '@api/middlewares/isAuth'
+// import attachCurrentUser from '@middlewares/attachCurrentUser'
+// import isAuth from '@middlewares/isAuth'
 
 export default {
     // attachCurrentUser,
