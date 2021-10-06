@@ -52,7 +52,7 @@
         "@utils": "src/utils/",
         "@models": "src/models/",
         "@loaders": "src/loaders/",
-        "@api": "src/api/",
+        "@middlewares": "src/middlewares/",
         "@routes": "src/api/routes/",
         "@interfaces": "src/interfaces/",
         "@services": "src/services/",
