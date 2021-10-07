@@ -3,7 +3,7 @@ import * as actions from "./actions"
 
 
 
-describe('init actions', () => {
+describe('Init duck actions', () => {
     it('should execute init store action', () => {
         expect(actions.initStoreStart()).toEqual({"type": types.INIT_STORE_START})
     })

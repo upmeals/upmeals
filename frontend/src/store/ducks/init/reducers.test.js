@@ -3,7 +3,7 @@ import reducer from './reducers'
 
 
 
-describe('init reducers', () => {
+describe('Init duck reducers', () => {
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual(
             {

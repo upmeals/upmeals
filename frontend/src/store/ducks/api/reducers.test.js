@@ -14,7 +14,7 @@ jest.mock('./utils', () => ({
 
 
 
-describe('api reducers', () => {
+describe('Api duck reducers', () => {
     it('should return the initial state', () => {
         expect(reducer(undefined, {})).toEqual(
             {
