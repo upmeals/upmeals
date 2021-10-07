@@ -6,10 +6,10 @@ export const COOKIE_OPTIONS = {
     httpOnly: true,
     // Since localhost is not having https protocol,
     // secure cookies do not work correctly (in postman)
-    secure: false,
+    secure: true,
     signed: true,
     maxAge: eval(config.refreshToken.expiry) * 1000,
-    // sameSite: 'Lax',
+    sameSite: "None"
 }
 
 export function getToken(user) {
