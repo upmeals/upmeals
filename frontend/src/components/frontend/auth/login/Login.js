@@ -12,7 +12,8 @@ import { Typography } from '@material-ui/core';
 const useStyles = makeStyles(theme =>
     createStyles({
         loginFormContainer: {
-            width: '60%',
+            width: '100%',
+            padding: '0px 25%',
         },
         loginSectionTitle: {
             fontWeight: 700,
@@ -51,7 +52,9 @@ const Login = () => {
             alignItems="flex-start"
             className={classes.loginFormContainer}
         >
-            <img src="/logos/app_logo.png" alt="app logo" width="48px" height="48px" className={classes.appLogo} />
+            <a href="/">
+                <img src="/logos/app_logo.png" alt="app logo" width="48px" height="48px" className={classes.appLogo} />
+            </a>
             <Grid>
                 <Typography variant="h3" className={classes.loginSectionTitle}>
                     Login

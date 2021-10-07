@@ -31,7 +31,7 @@ describe('JSONAPIService', () => {
 
         expect(service.resource_path).toBe('todos')
         expect(service.resource_name).toBe('todos')
-        expect(service.axios.defaults.baseURL).toBe('https://localhost/todos')
+        expect(service.axios.defaults.baseURL).toBe('http://localhost/todos')
     })
 
     test('findRelatedRecord function should find a related record', () => {

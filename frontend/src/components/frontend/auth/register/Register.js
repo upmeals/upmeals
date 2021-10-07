@@ -12,7 +12,8 @@ import RegisterForm from './RegisterForm';
 const useStyles = makeStyles(theme =>
     createStyles({
         registerFormContainer: {
-            width: '60%',
+            width: '100%',
+            padding: '0px 25%',
         },
         registerSectionTitle: {
             fontWeight: 700,
@@ -51,7 +52,9 @@ const Register = () => {
             alignItems="flex-start"
             className={classes.registerFormContainer}
         >
-            <img src="/logos/app_logo.png" alt="app logo" width="48px" height="48px" className={classes.appLogo} />
+            <a href="/">
+                <img src="/logos/app_logo.png" alt="app logo" width="48px" height="48px" className={classes.appLogo} />
+            </a>
             <Grid>
                 <Typography variant="h3" className={classes.registerSectionTitle}>
                     register

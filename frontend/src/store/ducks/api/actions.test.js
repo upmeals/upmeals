@@ -3,7 +3,7 @@ import * as actions from "./actions"
 
 
 
-describe('api actions', () => {
+describe('Api duck actions', () => {
     it('should execute api request action', () => {
         expect(actions.apiRequest()).toEqual({"type": types.API_REQUEST})
     })

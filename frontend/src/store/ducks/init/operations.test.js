@@ -14,7 +14,7 @@ jest.mock('./actions', () => ({
 }))
 
 
-describe('init operations', () => {
+describe('Init duck operations', () => {
 
     it('should execute init store operation', async () => {
         const dispatch = jest.fn()
