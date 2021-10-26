@@ -1,5 +1,5 @@
-import routes from '@routes/index'
 import config from '@config/index'
+import routes from '@routes/index'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express from 'express'
@@ -15,8 +15,8 @@ export default ({ app }: { app: express.Application }) => {
             }
         },
         credentials: true,
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: true,
+        // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTION',
+        // preflightContinue: true,
     }
 
     app.options('*', cors(corsOptions))

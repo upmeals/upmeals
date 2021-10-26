@@ -28,7 +28,6 @@ export default class BaseHTTPService {
                 Authorization: token ? `Bearer ${token}` : 'none',
             },
             withCredentials: true,
-            credentials: 'include'
         });
     };
 
