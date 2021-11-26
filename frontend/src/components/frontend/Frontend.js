@@ -4,7 +4,9 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import React from 'react';
+import React, { useEffect } from 'react';
+import ModalLogin from './auth/login/ModalLogin';
+import { useHistory } from 'react-router-dom';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -32,6 +34,18 @@ const useStyles = makeStyles(theme =>
 // Component
 const Frontend = () => {
     const classes = useStyles()
+    const history = useHistory()
+    const [openLogin, setOpenLogin] = React.useState(false)
+    const handleOpenLogin = () => {
+        setOpenLogin(true)
+        history.push({search:'login=true'})
+    }
+
+    useEffect(() => {
+        if (history.location.search === '?login=true') {
+            handleOpenLogin()
+        }
+    }, [])
 
     return (
         <Grid
@@ -51,7 +65,7 @@ const Frontend = () => {
                 Dashboard
             </Button>
             <Button
-                href="/login"
+                onClick={handleOpenLogin}
                 className={classes.button}
                 variant="contained"
                 color="primary"
@@ -66,6 +80,10 @@ const Frontend = () => {
             >
                 Register
             </Button>
+            <ModalLogin
+                open={openLogin}
+                setOpenLogin={setOpenLogin}
+            />
         </Grid>
     )
 }

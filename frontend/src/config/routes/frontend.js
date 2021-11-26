@@ -3,8 +3,8 @@ import React from 'react';
 // Import routes
 const Frontend = React.lazy(() => import('../../components/frontend/Frontend'))
 const Dashboard = React.lazy(() => import('../../components/frontend/dashboard/Dashboard'))
-const Login = React.lazy(() => import('../../components/frontend/auth/login/Login'))
-const Register = React.lazy(() => import('../../components/frontend/auth/register/Register'))
+//const Login = React.lazy(() => import('../../components/frontend/auth/login/Login'))
+//const Register = React.lazy(() => import('../../components/frontend/auth/register/Register'))
 const Listing = React.lazy(() => import('../../components/frontend/dashboard/listing/ListingPage'))
 const Cook = React.lazy(() => import('../../components/frontend/dashboard/cook/CookPage'))
 const Recipe = React.lazy(() => import('../../components/frontend/dashboard/recipe/RecipePage'))
@@ -56,7 +56,7 @@ export default [
         exact: true,
         isProtected: true
     },
-    {
+    /*{
         path: '/login',
         component: Login,
         exact: true
@@ -65,5 +65,5 @@ export default [
         path: '/register',
         component: Register,
         exact: true
-    }
+    }*/
 ]
