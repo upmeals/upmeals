@@ -4,7 +4,8 @@ import withAuth from '../../hoc/withAuth';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import createStyles from '@material-ui/core/styles/createStyles';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -39,7 +40,10 @@ const Header = ({ logoutUser, user }) => {
             alignItems="center"
             className={classes.containerHeader}
         >   
-            <img className={classes.headerLogo} src="https://upmeals.io/images/logo.svg" alt="logo upmeals" />
+            <Link href="/dashboard">
+                <img className={classes.headerLogo} src="https://upmeals.io/images/logo.svg" alt="logo upmeals" />
+            </Link>
+
             <Avatar 
                 alt="Travis Howard"
                 src="/static/images/avatar/1.jpg"

@@ -1,5 +1,7 @@
 import Grid from '@material-ui/core/Grid'
 import React from 'react';
+import Sidebar from '../Sidebar';
+import Header from '../Header';
 
 const ListingPage = () => {
     return (
@@ -9,7 +11,9 @@ const ListingPage = () => {
             justifyContent="space-around"
             alignItems="flex-start"
         >
+            <Header />
             <p>ListingPage</p>
+            <Sidebar />
         </Grid>
     )
 }
