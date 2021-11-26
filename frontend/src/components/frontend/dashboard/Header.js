@@ -10,7 +10,6 @@ import Link from '@material-ui/core/Link';
 const useStyles = makeStyles(theme =>
     createStyles({
         containerHeader: {
-            height: '13vh',
             marginRight: '4rem',
             marginLeft: '4rem',
             marginTop: '1.75rem',
@@ -18,18 +17,14 @@ const useStyles = makeStyles(theme =>
             borderBottom: '2px solid #707070',
         },
         headerLogo: {
-            width: '12vw',
+            width: '8vw',
             height: 'auto',
-        },
-        headerAvatar: {
-            width: '60px',
-            height: '60px',
         }
     })
 )
 
 
-const Header = ({ logoutUser, user }) => {
+const Header = ({ logoutUser }) => {
     const classes = useStyles();
 
     return (

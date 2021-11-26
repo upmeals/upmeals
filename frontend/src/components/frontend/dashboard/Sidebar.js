@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme =>
     createStyles({
         sidebarIcons: {
             width: '107px',
-            height: 'calc(18vh - 10px)',
+            height: 'calc(18vh - 6.5px)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
