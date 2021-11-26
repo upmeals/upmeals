@@ -1,7 +1,0 @@
-describe('Auth routes', () => {
-
-    it('', () => {
-
-    })
-
-})
