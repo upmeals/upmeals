@@ -10,6 +10,7 @@ import Link from '@material-ui/core/Link';
 const useStyles = makeStyles(theme =>
     createStyles({
         containerHeader: {
+            height: '70px',
             marginRight: '4rem',
             marginLeft: '4rem',
             marginTop: '1.75rem',
@@ -17,7 +18,7 @@ const useStyles = makeStyles(theme =>
             borderBottom: '2px solid #707070',
         },
         headerLogo: {
-            width: '8vw',
+            width: '115px',
             height: 'auto',
         }
     })
