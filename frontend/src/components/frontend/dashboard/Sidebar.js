@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import React from 'react';
 import Link from '@material-ui/core/Link';
+import Typography  from '@material-ui/core/Typography';
 // import icons
 import ListOutlinedIcon from '@material-ui/icons/ListOutlined';
 import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
@@ -50,33 +51,43 @@ const Sidebar = () => {
             justifyContent="space-around"
             alignItems="flex-start"
         >
-            <Link href="#" className={classes.sidebarIcons}>
+            <Link href="/listing" className={classes.sidebarIcons}>
                 <ListOutlinedIcon className={classes.sidebarIcons__icon} />
-                <p>Listing</p>
+                <Typography variant="body">
+                    Listing
+                </Typography>
             </Link>
 
-            <Link href="#" className={classes.sidebarIcons}>
+            <Link href="/suggest" className={classes.sidebarIcons}>
                 <EmojiObjectsOutlinedIcon className={classes.sidebarIcons__icon} />
-                <p>Suggestions</p>
+                <Typography variant="body">
+                    Suggestions
+                </Typography>
             </Link>
 
-            <Link href="#" className={classes.sidebarIcons}>
+            <Link href="/wishlist" className={classes.sidebarIcons}>
                 <FavoriteBorderOutlinedIcon className={classes.sidebarIcons__icon} />
-                <p>Wishlist</p>
+                <Typography variant="body">
+                    Wishlist
+                </Typography>
             </Link>
 
-            <Link href="#" className={classes.sidebarIcons}>
+            <Link href="/recipe" className={classes.sidebarIcons}>
                 <LocalDiningOutlinedIcon className={classes.sidebarIcons__icon} />
-                <p>Ajouter une recette</p>
+                <Typography variant="body">
+                    Ajouter une recette
+                </Typography>
             </Link>
 
-            <Link href="#" className={classes.sidebarIcons}>
+            <Link href="/cook" className={classes.sidebarIcons}>
                 <FastfoodOutlinedIcon className={classes.sidebarIcons__icon} />
-                <p>Cook now</p>
+                <Typography variant="body">
+                    Cook now
+                </Typography>
             </Link>
         </Grid>
     )
 }
 
 
-export default (Sidebar)
+export default Sidebar
