@@ -13,9 +13,16 @@ import FastfoodOutlinedIcon from '@material-ui/icons/FastfoodOutlined';
 
 const useStyles = makeStyles(theme =>
     createStyles({
+        sidebarContainer: {
+            height: 'calc(100vh - 98px)',
+        },
+        sidebarContainer__height: {
+            height: '100vh',
+            backgroundColor: '#F5F5F4',
+        },
         sidebarIcons: {
             width: '107px',
-            height: 'calc(20vh - 10px)',
+            height: 'calc(18vh - 7px)',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -50,41 +57,44 @@ const Sidebar = () => {
             direction="column"
             justifyContent="space-around"
             alignItems="flex-start"
+            className={classes.sidebarContainer}
         >
-            <Link href="/listing" className={classes.sidebarIcons}>
-                <ListOutlinedIcon className={classes.sidebarIcons__icon} />
-                <Typography variant="body">
-                    Listing
-                </Typography>
-            </Link>
+            <Grid className={classes.sidebarContainer__height}>
+                <Link href="/listing" className={classes.sidebarIcons}>
+                    <ListOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <Typography variant="body">
+                        Listing
+                    </Typography>
+                </Link>
 
-            <Link href="/suggest" className={classes.sidebarIcons}>
-                <EmojiObjectsOutlinedIcon className={classes.sidebarIcons__icon} />
-                <Typography variant="body">
-                    Suggestions
-                </Typography>
-            </Link>
+                <Link href="/suggest" className={classes.sidebarIcons}>
+                    <EmojiObjectsOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <Typography variant="body">
+                        Suggestions
+                    </Typography>
+                </Link>
 
-            <Link href="/wishlist" className={classes.sidebarIcons}>
-                <FavoriteBorderOutlinedIcon className={classes.sidebarIcons__icon} />
-                <Typography variant="body">
-                    Wishlist
-                </Typography>
-            </Link>
+                <Link href="/wishlist" className={classes.sidebarIcons}>
+                    <FavoriteBorderOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <Typography variant="body">
+                        Wishlist
+                    </Typography>
+                </Link>
 
-            <Link href="/recipe" className={classes.sidebarIcons}>
-                <LocalDiningOutlinedIcon className={classes.sidebarIcons__icon} />
-                <Typography variant="body">
-                    Ajouter une recette
-                </Typography>
-            </Link>
+                <Link href="/recipe" className={classes.sidebarIcons}>
+                    <LocalDiningOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <Typography variant="body">
+                        Ajouter une recette
+                    </Typography>
+                </Link>
 
-            <Link href="/cook" className={classes.sidebarIcons}>
-                <FastfoodOutlinedIcon className={classes.sidebarIcons__icon} />
-                <Typography variant="body">
-                    Cook now
-                </Typography>
-            </Link>
+                <Link href="/cook" className={classes.sidebarIcons}>
+                    <FastfoodOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <Typography variant="body">
+                        Cook now
+                    </Typography>
+                </Link>
+            </Grid>
         </Grid>
     )
 }
