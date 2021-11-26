@@ -1,7 +1,8 @@
 import Grid from '@material-ui/core/Grid'
 import React from 'react';
 import Button from '@material-ui/core/Button'
-import withAuth from '../hoc/withAuth';
+import withAuth from '../../hoc/withAuth';
+import Sidebar from './Sidebar';
 
 
 const Dashboard = ({ logoutUser, user }) => {
@@ -16,6 +17,9 @@ const Dashboard = ({ logoutUser, user }) => {
             <Button variant="contained" color="secondary" onClick={logoutUser}>
                 Logout
             </Button>
+
+            <Sidebar />
+
         </Grid>
     )
 }
