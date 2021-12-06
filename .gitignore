@@ -16,3 +16,4 @@ frontend/.pnp.js
 frontend/.pnp
 frontend/coverage
 frontend/build
+frontend/package-lock.json

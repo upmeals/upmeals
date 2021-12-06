@@ -1,6 +1,10 @@
 import { Grid, Typography, Link } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { ListOutlinedIcon, EmojiObjectsOutlinedIcon, FavoriteBorderOutlinedIcon, LocalDiningOutlinedIcon, FastfoodOutlinedIcon } from '@mui/icons-material'
+import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import LocalDiningOutlinedIcon from '@mui/icons-material/LocalDiningOutlined';
+import FastfoodOutlinedIcon from '@mui/icons-material/FastfoodOutlined';
 import React from 'react';
 
 
