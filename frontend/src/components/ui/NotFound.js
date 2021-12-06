@@ -1,9 +1,8 @@
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Typography } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import propTypes from 'prop-types'
 import React from 'react'
-import Typography from '@material-ui/core/Typography'
 
 
 // Component classes

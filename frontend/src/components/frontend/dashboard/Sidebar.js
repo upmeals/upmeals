@@ -1,15 +1,8 @@
-import createStyles from '@material-ui/core/styles/createStyles';
-import Grid from '@material-ui/core/Grid'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid, Typography, Link } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
+import { ListOutlinedIcon, EmojiObjectsOutlinedIcon, FavoriteBorderOutlinedIcon, LocalDiningOutlinedIcon, FastfoodOutlinedIcon } from '@mui/icons-material'
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import Typography  from '@material-ui/core/Typography';
-// import icons
-import ListOutlinedIcon from '@material-ui/icons/ListOutlined';
-import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import LocalDiningOutlinedIcon from '@material-ui/icons/LocalDiningOutlined';
-import FastfoodOutlinedIcon from '@material-ui/icons/FastfoodOutlined';
+
 
 const useStyles = makeStyles(theme =>
     createStyles({

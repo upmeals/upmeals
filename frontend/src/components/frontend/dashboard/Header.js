@@ -1,11 +1,8 @@
-import Grid from '@material-ui/core/Grid'
+import { Grid, Link, Button, Avatar } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import withAuth from '../../hoc/withAuth';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+
 
 const useStyles = makeStyles(theme =>
     createStyles({

@@ -24,37 +24,37 @@ export default [
         path: '/dashboard',
         component: Dashboard,
         exact: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: '/listing',
         component: Listing,
         exact: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: '/cook',
         component: Cook,
         exact: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: '/recipe',
         component: Recipe,
         exact: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: '/suggest',
         component: Suggest,
         exact: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: '/wishlist',
         component: Wishlist,
         exact: true,
-        isProtected: true
+        isProtected: false
     },
     {
         path: '/login',

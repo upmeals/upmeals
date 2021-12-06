@@ -1,18 +1,10 @@
-// import { defineMessages, injectIntl } from 'react-intl';
-import createStyles from '@material-ui/core/styles/createStyles';
-import Grid from '@material-ui/core/Grid'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid, Typography, TextField, InputLabel, Checkbox, Link, Button } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import withAuth from '../../../hoc/withAuth';
 import { useHistory } from 'react-router-dom';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import { Typography } from '@material-ui/core';
-// import Link from '@material-ui/core/Link';
 
 
 // Component classes
