@@ -24,37 +24,37 @@ const routes = [
         path: '/dashboard',
         component: Dashboard,
         exact: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: '/command',
         component: CommandPage,
         exact: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: '/cook',
         component: CookPage,
         exact: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: '/create',
         component: CreatePage,
         exact: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: '/ideas',
         component: IdeasPage,
         exact: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: '/favorites',
         component: FavoritesPage,
         exact: true,
-        isProtected: false
+        isProtected: true
     },
     {
         path: '/login',
