@@ -1,4 +1,4 @@
-import { Grid, Typography, TextField, InputLabel, Checkbox, Link, Button } from '@mui/material';
+import { Grid, TextField, InputLabel, Button } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import { useFormik } from 'formik';
@@ -20,32 +20,14 @@ const useStyles = makeStyles(theme =>
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
         },
-        googleButton: {
-            background: '#ffffff',
-            padding: theme.spacing(2, 1),
-            margin: theme.spacing(2, 0),
-            borderRadius: 32,
-            border: '1px solid #dddddd',
-            boxShadow: 'none',
-            textTransform: 'none',
-            fontWeight: 800,
-            fontSize: 15,
-            [`&:hover`]: {
-                background: "#fdfdfd",
-            }
-        },
-        googleLogo: {
-            marginRight: theme.spacing(2),
-        },
         registerButton: {
-            background: '#5138EE',
-            padding: theme.spacing(2, 1),
-            margin: theme.spacing(3, 0),
-            borderRadius: 32,
-            fontWeight: 'bold',
-            fontSize: 14,
-            color: 'white',
-            textTransform: 'capitalize',
+            background: '#5138EE !important',
+            padding: `${theme.spacing(2, 1)} !important`,
+            margin: `${theme.spacing(3, 0)} !important`,
+            borderRadius: `32px !important`,
+            fontWeight: 'bold !important',
+            fontSize: `14px !important`,
+            color: 'white !important',
         },
         inputLabel: {
             margin: theme.spacing(1, 0, 0, 0),
@@ -56,12 +38,14 @@ const useStyles = makeStyles(theme =>
         inputText: {
             margin: theme.spacing(2, 0),
             boxSizing: 'border-box',
+            borderRadius: '32px !important',
             [`& fieldset`]: {
                 borderRadius: 32,
                 borderColor: '#dddddd',
             },
             [`& input`]: {
                 padding: theme.spacing(2, 3),
+                boxShadow: '0 0 0px 1000px #ffffff inset !important',
             },
         },
         rememberAndForgotContainer: {
@@ -91,7 +75,7 @@ const useStyles = makeStyles(theme =>
             background: '#cccccc',
             color: '#bbbbbb',
             height: 1,
-            margin: theme.spacing(3, 0),
+            margin: theme.spacing(6, 0, 2, 0),
             position: 'relative',
             '&::after': {
                 zIndex: 10,
@@ -103,7 +87,7 @@ const useStyles = makeStyles(theme =>
                 padding: theme.spacing(0, 3),
                 left: '50%',
                 marginLeft: -103.175,
-                content: `"or Sign in with Email"`,
+                content: `"Sign in with  an Email"`,
                 fontFamily: 'Poppins, sans-serif'
             },
         },
@@ -160,11 +144,7 @@ const RegisterForm = ({ register }) => {
             justifyContent="flex-start"
             alignItems="center"
         >
-            {/* <Button variant="contained" fullWidth type="submit" className={classes.googleButton}>
-                <img src="/logos/google_logo.png" alt="Google logo bouton de connexion" width="24px" height="24px" className={classes.googleLogo} />
-                Sign in with Google
-            </Button>
-            <div className={classes.delimiterContainer} /> */}
+            <div className={classes.delimiterContainer} />
             <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <div>
                     <InputLabel id="email" className={classes.inputLabel}>

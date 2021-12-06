@@ -19,12 +19,14 @@ const muiTheme = createTheme({
         MuiInputBase: {
             input: {
                 '&:-webkit-autofill': {
-                    transitionDelay: '9999s',
-                    transitionProperty: 'background-color, color',
+                    transitionDelay: '9999s !important',
+                    transitionProperty: 'background-color, color !important',
                 },
+                
             },
         },
     },
+
 })
 
 export default muiTheme;

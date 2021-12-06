@@ -9,10 +9,10 @@ const useStyles = makeStyles(theme =>
             height: '100vh',
         },
         title: {
-            margin: theme.spacing(2, 0),
+            margin: `${theme.spacing(2, 0)} !important`,
         },
         button: {
-            margin: theme.spacing(1, 0),
+            margin: `${theme.spacing(1, 0)} !important`,
         }
     })
 )
