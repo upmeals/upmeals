@@ -1,12 +1,9 @@
-// import { defineMessages, injectIntl } from 'react-intl';
-import createStyles from '@material-ui/core/styles/createStyles';
-import { Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid, Button, Typography } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React, { useEffect } from 'react';
-import ModalLogin from './auth/login/ModalLogin';
 import { useHistory } from 'react-router-dom';
+import ModalLogin from './auth/login/ModalLogin';
+
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -15,10 +12,10 @@ const useStyles = makeStyles(theme =>
             height: '100vh',
         },
         title: {
-            margin: theme.spacing(2, 0),
+            margin: `${theme.spacing(2, 0)} !important`,
         },
         button: {
-            margin: theme.spacing(1, 0),
+            margin: `${theme.spacing(1, 0)} !important`,
         }
     })
 )
@@ -40,11 +37,12 @@ const Frontend = () => {
         setOpenLogin(true)
         history.push({search:'login=true'})
     }
-
+    
     useEffect(() => {
         if (history.location.search === '?login=true') {
             handleOpenLogin()
         }
+        // eslint-disable-next-line
     }, [])
 
     return (

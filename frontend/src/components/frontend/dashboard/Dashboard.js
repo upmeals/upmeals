@@ -1,23 +1,17 @@
-import Grid from '@material-ui/core/Grid'
+import { Grid } from '@mui/material';
 import React from 'react';
-import withAuth from '../../hoc/withAuth';
-import Sidebar from './Sidebar';
-import Header from './Header';
+import Page from '../../ui/Page'
 
 
-const Dashboard = ({ logoutUser, user }) => {
+const Dashboard = () => {
     return (
-        <Grid
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignItems="flex-start"
-        >
-            <Header />
-            <Sidebar />
-        </Grid>
+        <Page>
+            <Grid>
+                <p>Dashboard</p>
+            </Grid>
+        </Page>
     )
 }
 
 
-export default withAuth(Dashboard)
+export default Dashboard

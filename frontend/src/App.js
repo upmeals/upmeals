@@ -6,13 +6,12 @@ import { Router } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import config from './config';
-// import Cookies from 'js-cookies';
-// import CookieConsentBar from './components/ui/CookieConsentBar';
 import { getMessages } from './i18n';
 import history from './history';
 import { initStore } from './store/ducks/init/operations'
 import { IntlProvider } from 'react-intl';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
+
 import PropTypes from 'prop-types';
 import React, { Suspense } from 'react';
 import RoutedApp from './config/routes/middlewares/RoutedApp';
