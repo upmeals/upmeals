@@ -1,7 +1,6 @@
 import * as colors from '../../styles/colors';
+import { createTheme } from '@mui/material/styles';
 
-import { createTheme } from '@material-ui/core/styles';
-// import { darken, lighten } from '@material-ui/core/styles/colorManipulator';
 
 const muiTheme = createTheme({
     palette: {
@@ -20,12 +19,14 @@ const muiTheme = createTheme({
         MuiInputBase: {
             input: {
                 '&:-webkit-autofill': {
-                    transitionDelay: '9999s',
-                    transitionProperty: 'background-color, color',
+                    transitionDelay: '9999s !important',
+                    transitionProperty: 'background-color, color !important',
                 },
+                
             },
         },
     },
+
 })
 
 export default muiTheme;

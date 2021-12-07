@@ -1,21 +1,17 @@
-import Grid from '@material-ui/core/Grid'
+import { Grid, Link, Button, Avatar } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import withAuth from '../../hoc/withAuth';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import createStyles from '@material-ui/core/styles/createStyles';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
+import withAuth from '../hoc/withAuth';
+
 
 const useStyles = makeStyles(theme =>
     createStyles({
         containerHeader: {
             height: '70px',
-            marginRight: '4rem',
-            marginLeft: '4rem',
             marginTop: '1.75rem',
             paddingBottom: '1.75rem',
-            borderBottom: '2px solid #707070',
+            padding: theme.spacing(0, 4),
+            borderBottom: '2px solid #000000',
         },
         headerLogo: {
             width: '115px',
@@ -36,7 +32,7 @@ const Header = ({ logoutUser }) => {
             alignItems="center"
             className={classes.containerHeader}
         >   
-            <Link href="/dashboard">
+            <Link href="/dashboard" onClick={logoutUser}>
                 <img className={classes.headerLogo} src="https://upmeals.io/images/logo.svg" alt="logo upmeals" />
             </Link>
 
@@ -45,7 +41,7 @@ const Header = ({ logoutUser }) => {
                 src="/static/images/avatar/1.jpg"
                 className={classes.headerAvatar}
             >
-                <Button onClick={logoutUser}>
+                <Button>
                     Profile
                 </Button>
             </Avatar>
