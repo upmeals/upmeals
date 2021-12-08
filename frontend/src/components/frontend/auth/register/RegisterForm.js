@@ -16,12 +16,19 @@ const useStyles = makeStyles(theme =>
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            '&:focus-visible': {
+                outline: 'unset',
+            },
         },
         modalContainer__button: {
             width: '50%',
             height: '4rem',
             color: '#707070!important',
             fontFamily: 'Jost!important',
+        },
+        modalContainer_active: {
+            backgroundColor: '#F5F5F4!important',
+            borderRadius: 'unset!important',
         },
         modalComponentContainer: {
             display: 'flex',
@@ -106,7 +113,7 @@ const RegisterForm = ({ register }) => {
             <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <Grid>
                     <Button href="?register=true" className={classes.modalContainer__button}>Inscription</Button>
-                    <Button href="?login=true" className={classes.modalContainer__button}>Connexion</Button>
+                    <Button href="?login=true" className={`${classes.modalContainer__button} ${classes.modalContainer_active}`}>Connexion</Button>
                 </Grid>
                 <Grid>
                     <Grid className={classes.modalComponentContainer}>
