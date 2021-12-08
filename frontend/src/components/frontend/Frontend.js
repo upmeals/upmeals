@@ -3,6 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import ModalLogin from './auth/login/ModalLogin';
+import ModalRegister from './auth/register/ModalRegister';
 
 
 // Component classes
@@ -33,14 +34,22 @@ const Frontend = () => {
     const classes = useStyles()
     const history = useHistory()
     const [openLogin, setOpenLogin] = React.useState(false)
+    const [openRegister, setOpenRegister] = React.useState(false)
+
     const handleOpenLogin = () => {
         setOpenLogin(true)
         history.push({search:'login=true'})
+    }
+    const handleOpenRegister = () => {
+        setOpenRegister(true)
+        history.push({search:'register=true'})
     }
     
     useEffect(() => {
         if (history.location.search === '?login=true') {
             handleOpenLogin()
+        } else if (history.location.search === '?register=true') {
+            handleOpenRegister()
         }
         // eslint-disable-next-line
     }, [])
@@ -71,7 +80,7 @@ const Frontend = () => {
                 Login
             </Button>
             <Button
-                href="/register"
+                onClick={handleOpenRegister}
                 className={classes.button}
                 variant="contained"
                 color="primary"
@@ -81,6 +90,10 @@ const Frontend = () => {
             <ModalLogin
                 open={openLogin}
                 setOpenLogin={setOpenLogin}
+            />
+            <ModalRegister
+                open={openRegister}
+                setOpenRegister={setOpenRegister}
             />
         </Grid>
     )

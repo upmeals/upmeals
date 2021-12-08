@@ -127,8 +127,8 @@ const LoginForm = ({ login }) => {
         >
             <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <Grid>
-                    <Button className={classes.modalContainer__button}>Inscription</Button>
-                    <Button className={classes.modalContainer__button}>Connexion</Button>
+                    <Button href="?register=true" className={classes.modalContainer__button}>Inscription</Button>
+                    <Button href="?login=true" className={classes.modalContainer__button}>Connexion</Button>
                 </Grid>
                 <Grid>
                     <Grid className={classes.modalComponentContainer}>
