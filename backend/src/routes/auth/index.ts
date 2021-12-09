@@ -5,9 +5,8 @@ import AuthService from '@services/auth'
 import { celebrate, Joi } from 'celebrate'
 import { NextFunction, Request, Response, Router } from 'express'
 import passport from 'passport'
-import { Container } from 'typedi'
 
-const authServiceInstance = Container.get(AuthService)
+const authServiceInstance = new AuthService()
 const route = Router()
 
 export default (): Router => {

@@ -1,4 +1,4 @@
-import { IIngredient } from "./IIngredient";
+import { IIngredient } from './IIngredient'
 
 export interface IRecepe {
     author: string
