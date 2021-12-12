@@ -3,15 +3,15 @@ import React from 'react';
 import Page from '../../../ui/Page'
 
 
-const CookPage = () => {
+const CommandPage = () => {
     return (
         <Page>
             <Grid>
-                <p>Cuisiner</p>
+                <p>Commander</p>
             </Grid>
         </Page>
     )
 }
 
 
-export default CookPage
+export default CommandPage

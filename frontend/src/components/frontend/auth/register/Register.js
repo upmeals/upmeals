@@ -1,11 +1,7 @@
-// import { defineMessages, injectIntl } from 'react-intl';
-import createStyles from '@material-ui/core/styles/createStyles';
-import Grid from '@material-ui/core/Grid'
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Grid, Typography } from '@mui/material';
+import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
-import { Typography } from '@material-ui/core';
 import RegisterForm from './RegisterForm';
-// import withAuth from '../../hoc/withAuth';
 
 
 // Component classes
@@ -16,15 +12,15 @@ const useStyles = makeStyles(theme =>
             padding: '0px 25%',
         },
         registerSectionTitle: {
-            fontWeight: 700,
-            fontSize: 28,
-            margin: theme.spacing(5, 0, 2, 0),
+            fontWeight: `700 !important`,
+            fontSize: `42px !important`,
+            margin: `${theme.spacing(2, 0, 2, 0)} !important`,
         },
         registerSectionSubtitle: {
-            fontWeight: 500,
-            fontSize: 16,
-            color: "#909090",
-            margin: theme.spacing(0, 0, 5, 0),
+            fontWeight: `500 !important`,
+            fontSize: `16px !important`,
+            color: "#909090 !important",
+            margin: `theme.spacing(0, 0, 5, 0) !important`,
         },
         appLogo: {
             margin: theme.spacing(6, 0, 5, 0),
@@ -57,7 +53,7 @@ const Register = () => {
             </a>
             <Grid>
                 <Typography variant="h3" className={classes.registerSectionTitle}>
-                    register
+                    Register
                 </Typography>
                 <Typography variant="h6" className={classes.registerSectionSubtitle}>
                     See your growth and get consulting support!

@@ -5,15 +5,15 @@ const Frontend = React.lazy(() => import('../../components/frontend/Frontend'))
 const Dashboard = React.lazy(() => import('../../components/frontend/dashboard/Dashboard'))
 const Login = React.lazy(() => import('../../components/frontend/auth/login/Login'))
 const Register = React.lazy(() => import('../../components/frontend/auth/register/Register'))
-const Listing = React.lazy(() => import('../../components/frontend/dashboard/listing/ListingPage'))
-const Cook = React.lazy(() => import('../../components/frontend/dashboard/cook/CookPage'))
-const Recipe = React.lazy(() => import('../../components/frontend/dashboard/recipe/RecipePage'))
-const Suggest = React.lazy(() => import('../../components/frontend/dashboard/suggest/SuggestPage'))
-const Wishlist = React.lazy(() => import('../../components/frontend/dashboard/wishlist/WishlistPage'))
+const CommandPage = React.lazy(() => import('../../components/frontend/dashboard/command/CommandPage'))
+const CookPage = React.lazy(() => import('../../components/frontend/dashboard/cook/CookPage'))
+const CreatePage = React.lazy(() => import('../../components/frontend/dashboard/create/CreatePage'))
+const IdeasPage = React.lazy(() => import('../../components/frontend/dashboard/ideas/IdeasPage'))
+const FavoritesPage = React.lazy(() => import('../../components/frontend/dashboard/favorites/FavoritesPage'))
 
 
 // Routes
-export default [
+const routes = [
     {
         path: '/',
         component: Frontend,
@@ -27,32 +27,32 @@ export default [
         isProtected: true
     },
     {
-        path: '/listing',
-        component: Listing,
+        path: '/command',
+        component: CommandPage,
         exact: true,
         isProtected: true
     },
     {
         path: '/cook',
-        component: Cook,
+        component: CookPage,
         exact: true,
         isProtected: true
     },
     {
-        path: '/recipe',
-        component: Recipe,
+        path: '/create',
+        component: CreatePage,
         exact: true,
         isProtected: true
     },
     {
-        path: '/suggest',
-        component: Suggest,
+        path: '/ideas',
+        component: IdeasPage,
         exact: true,
         isProtected: true
     },
     {
-        path: '/wishlist',
-        component: Wishlist,
+        path: '/favorites',
+        component: FavoritesPage,
         exact: true,
         isProtected: true
     },
@@ -67,3 +67,5 @@ export default [
         exact: true
     }
 ]
+
+export default routes
