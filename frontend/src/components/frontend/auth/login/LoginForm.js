@@ -10,6 +10,10 @@ import { useHistory } from 'react-router-dom';
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({
+        notchedOutline: { 
+            borderColor: '#F46E58 !important',
+            color: '#F46E58 !important',
+        },
         formContainer: {
             width: '100%',
             height: '75vh',
@@ -64,7 +68,7 @@ const useStyles = makeStyles(theme =>
             color: '#212121',
         },
         rememberAndForgotContainer: {
-            margin: theme.spacing(2, 0, 2, 0),
+            justifyContent: 'space-around!important',
         },
         inputRememberMeContainer: {
             display: 'flex',
@@ -76,9 +80,8 @@ const useStyles = makeStyles(theme =>
             },
         },
         forgotPassword: {
-            color: '#5138EE',
-            fontSize: 14,
-            fontWeight: 700,
+            color: '#F46E58',
+            textDecoration: 'underline',
         }
     })
 )
@@ -134,8 +137,8 @@ const LoginForm = ({ login }) => {
         >
             <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <Grid>
-                    <Button href="?register=true" className={`${classes.modalContainer__button} ${classes.modalContainer_active}`}>Inscription</Button>
-                    <Button href="?login=true" className={classes.modalContainer__button}>Connexion</Button>
+                    <Button className={`${classes.modalContainer__button} ${classes.modalContainer_active}`}>Inscription</Button>
+                    <Button className={classes.modalContainer__button}>Connexion</Button>
                 </Grid>
                 <Grid>
                     <Grid className={classes.modalComponentContainer}>
@@ -148,6 +151,11 @@ const LoginForm = ({ login }) => {
                             error={formik.touched.email && Boolean(formik.errors.email)}
                             helperText={formik.touched.email && formik.errors.email}
                             className={classes.modalInputContainer__input}
+                            InputProps={ {
+                                classes: {
+                                    notchedOutline: classes.notchedOutline,
+                                },
+                            } }
                         />
                     </Grid>
                     <Grid className={classes.modalComponentContainer}>
@@ -162,6 +170,11 @@ const LoginForm = ({ login }) => {
                             helperText={formik.touched.password && formik.errors.password}
                             className={classes.modalInputContainer__input}
                             autoComplete="on"
+                            InputProps={ {
+                                classes: {
+                                    notchedOutline: classes.notchedOutline,
+                                },
+                            } }
                         />
                     </Grid>
                 </Grid>
@@ -182,12 +195,12 @@ const LoginForm = ({ login }) => {
                             size="medium"
                         />
                         <InputLabel id="rememberMe" htmlFor="rememberMe" className={classes.inputLabel}>
-                            Remember Me
+                            Rester connecté
                         </InputLabel>
                     </div>
                     <Link href="/forgot-password">
                         <Typography variant="body1" className={classes.forgotPassword}>
-                            Forgot password ?
+                            Mot de passe oublié
                         </Typography>
                     </Link>
                 </Grid>
