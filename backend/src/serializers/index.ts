@@ -7,7 +7,7 @@ var recepeSerializer = require('@serializers/recepeSerializer')
 var Serializer = new JSONAPISerializer()
 
 // User
-Serializer.register('user', userSerializer)
+Serializer.register('people', userSerializer)
 
 // Ingredient
 Serializer.register('ingredient', ingredientSerializer)

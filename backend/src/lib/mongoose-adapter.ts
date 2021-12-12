@@ -42,7 +42,7 @@ mongooseAdapter.findByIds = async (model, ids, query) => {
         },
     }
 
-    return await async.parallel({
+    let data = await async.parallel({
         total: (cb) => {
             model.countDocuments(conditions).exec(cb)
         },
@@ -52,6 +52,8 @@ mongooseAdapter.findByIds = async (model, ids, query) => {
             dbQuery.exec(cb)
         },
     })
+
+    return data
 }
 
 mongooseAdapter.findById = async (model, id, query) => {
@@ -92,19 +94,16 @@ mongooseAdapter.findByIdAndUpdate = async (model, id, body) => {
 
 // TODO
 mongooseAdapter.findRelationship = async (model, id, relationship, relationshipModel, query) => {
-    let dbQuery = model.findById(id).lean()
+    return new Promise((resolve, reject) => {
+        let dbQuery = model.findById(id).lean()
 
-    dbQuery.exec(async (err, document) => {
+        dbQuery.exec(async (err, document) => {
         let relationshipId = document[relationship]
-
-        // To many relationship
-        if (_.isArray(relationshipId)) {
-            return await mongooseAdapter.findByIds(relationshipModel, relationshipId, query)
-        }
-        // To one relationship
-        else {
-            return await mongooseAdapter.findById(relationshipModel, relationshipId, query)
-        }
+            let data = _.isArray(relationshipId)
+                ? await mongooseAdapter.findByIds(relationshipModel, relationshipId, query)
+                : await mongooseAdapter.findById(relationshipModel, relationshipId, query)
+            resolve(data)
+        })
     })
 }
 

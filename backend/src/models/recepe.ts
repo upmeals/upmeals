@@ -3,7 +3,12 @@ import mongoose from 'mongoose'
 
 const Recepe = new mongoose.Schema(
     {
-        name: {
+        title: {
+            type: String,
+            required: true,
+            lowercase: true,
+        },
+        description: {
             type: String,
             required: true,
             lowercase: true,
@@ -13,13 +18,15 @@ const Recepe = new mongoose.Schema(
             ref: 'User',
             required: true,
         },
-        ingredients: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Ingredients',
-        },
+        ingredients: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Ingredients',
+            },
+        ],
         steps: {
-            type: Array
-        }
+            type: Array,
+        },
     },
     { timestamps: true },
 )

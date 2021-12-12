@@ -8,7 +8,7 @@ module.exports = {
     },
     relationships: {
         author: {
-            type: 'user',
+            type: 'people',
             links: {
                 self: function (data) {
                     return '/recepies/' + data._id + '/relationships/author'
@@ -18,14 +18,14 @@ module.exports = {
                 },
             },
         },
-        ingredient: {
+        ingredients: {
             type: 'ingredient',
             links: {
                 self: function (data) {
-                    return '/recepies/' + data._id + '/relationships/ingredient'
+                    return '/recepies/' + data._id + '/relationships/ingredients'
                 },
                 related: function (data) {
-                    return '/recepies/' + data._id + '/ingredient'
+                    return '/recepies/' + data._id + '/ingredients'
                 },
             },
         },
