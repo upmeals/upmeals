@@ -11,8 +11,7 @@ import React from 'react';
 const useStyles = makeStyles(theme =>
     createStyles({
         sidebarContainer: {
-            height: 'calc(100vh - 98px)',
-            borderRight: '2px solid #F2F2F2',
+            height: 'calc(100vh - 97px)',
             backgroundColor: '#F5F5F4',
         },
         sidebarIcons: {
@@ -21,13 +20,13 @@ const useStyles = makeStyles(theme =>
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#F5F5F4',
+            backgroundColor: '#F4F6F7',
             flexDirection: 'column',
             color: '#252626 !important',
             textAlign: 'center',
             textDecoration: 'none !important',
             "&:hover": {
-                backgroundColor: '#fefefe !important',
+                backgroundColor: '#FBFCFC !important',
                 textDecoration: 'none !important',
             }
         },
