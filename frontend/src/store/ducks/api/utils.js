@@ -13,12 +13,16 @@ const defaultCallback = (response) => {
     }
     const result = Array.isArray(data) ? data.map(({ id }) => id) : data.id;
     if (response.data.meta) {
-        result.recordCount = response.data.meta.page.total;
+        result.recordCount = response.data.meta.totalPage;
     }
     if (response.data.links) {
         result.next = response.data.links.next;
         result.prev = response.data.links.prev;
+        result.first = response.data.links.first;
+        result.last = response.data.links.last;
+        result.self = response.data.links.self;
     }
+
     return result;
 };
 

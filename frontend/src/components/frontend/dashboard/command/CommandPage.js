@@ -8,6 +8,8 @@ const CommandPage = () => {
 
     const { loading: loadingRecipies, records: recipies } = useAllRecords('recipies');
 
+    // console.log(recipies)
+
     return (
         <Page>
             <Grid>

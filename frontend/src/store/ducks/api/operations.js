@@ -36,7 +36,7 @@ const connectApiCall = (method, callback = defaultCallback) => {
                 // dispatch request to httpservice
                 const response = await service[method](...args);
                 // dispatch response
-                dispatch(apiResponse(response.data));
+                dispatch(apiResponse(response.data.data));
                 // execute callback
                 return callback(response, dispatch, type, args);
             } catch (error) {
@@ -65,8 +65,9 @@ const indexAll = (type, options = {}) => {
     return (dispatch) => {
         // execute an index (authGet) request to the API
         return service.index({ ...options, page: { size: 1 } }).then((response) => {
+
             // get the number of pages
-            const count = (response.data.meta.page.total);
+            const count = (response.data.meta.count);
             
             // if no pages return nothing
             if (!count) {
