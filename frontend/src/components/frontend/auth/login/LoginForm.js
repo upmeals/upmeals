@@ -65,6 +65,7 @@ const useStyles = makeStyles(theme =>
             fontWeight: 'bold',
             fontSize: 14,
             color: '#212121',
+            cursor: 'pointer',
         },
         rememberAndForgotContainer: {
             marginLeft: '8% !important',
