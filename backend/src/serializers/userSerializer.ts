@@ -6,7 +6,19 @@ module.exports = {
             return '/users/' + data._id
         },
     },
-    relationships: {},
+    relationships: {
+        recipies: {
+            type: 'recipe',
+            links: {
+                self: function (data) {
+                    return '/users/' + data._id + '/relationships/recipies'
+                },
+                related: function (data) {
+                    return '/users/' + data._id + '/recipies'
+                },
+            },
+        },
+    },
     topLevelMeta: {
         total: function (extraOptions) {
             return extraOptions.total
