@@ -23,7 +23,7 @@ let buildCollectionQuery = (dbQuery, query) => {
 }
 
 mongooseAdapter.find = async (model, query) => {
-    return await async.parallel({
+    let data = await async.parallel({
         total: (cb) => {
             model.countDocuments(cb)
         },
@@ -33,6 +33,7 @@ mongooseAdapter.find = async (model, query) => {
             dbQuery.exec(cb)
         },
     })
+    return data
 }
 
 mongooseAdapter.findByIds = async (model, ids, query) => {
@@ -98,7 +99,7 @@ mongooseAdapter.findRelationship = async (model, id, relationship, relationshipM
         let dbQuery = model.findById(id).lean()
 
         dbQuery.exec(async (err, document) => {
-        let relationshipId = document[relationship]
+            let relationshipId = document[relationship]
             let data = _.isArray(relationshipId)
                 ? await mongooseAdapter.findByIds(relationshipModel, relationshipId, query)
                 : await mongooseAdapter.findById(relationshipModel, relationshipId, query)

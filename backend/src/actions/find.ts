@@ -7,8 +7,8 @@ import _ from 'lodash'
 export default async (resource, model, req) => {
     // Default pagination
     let defaultPagination = {
-        offset: 0,
-        limit: 50,
+        offset: "0",
+        limit: "50",
     }
 
     req.query.page = req.query.page || defaultPagination
