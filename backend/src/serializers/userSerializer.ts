@@ -8,7 +8,7 @@ module.exports = {
     },
     relationships: {
         recipies: {
-            type: 'recipe',
+            type: 'recipies',
             links: {
                 self: function (data) {
                     return '/users/' + data._id + '/relationships/recipies'

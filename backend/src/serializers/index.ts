@@ -7,12 +7,12 @@ var recipeSerializer = require('@serializers/recipeSerializer')
 var Serializer = new JSONAPISerializer()
 
 // User
-Serializer.register('people', userSerializer)
+Serializer.register('users', userSerializer)
 
 // Ingredient
-Serializer.register('ingredient', ingredientSerializer)
+Serializer.register('ingredients', ingredientSerializer)
 
 // recipe
-Serializer.register('recipe', recipeSerializer)
+Serializer.register('recipies', recipeSerializer)
 
 export default Serializer

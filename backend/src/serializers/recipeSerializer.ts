@@ -8,7 +8,7 @@ module.exports = {
     },
     relationships: {
         author: {
-            type: 'people',
+            type: 'users',
             links: {
                 self: function (data) {
                     return '/recipies/' + data._id + '/relationships/author'
@@ -19,7 +19,7 @@ module.exports = {
             },
         },
         ingredients: {
-            type: 'ingredient',
+            type: 'ingredients',
             links: {
                 self: function (data) {
                     return '/recipies/' + data._id + '/relationships/ingredients'
