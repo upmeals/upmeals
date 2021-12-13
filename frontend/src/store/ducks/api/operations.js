@@ -36,7 +36,7 @@ const connectApiCall = (method, callback = defaultCallback) => {
                 // dispatch request to httpservice
                 const response = await service[method](...args);
                 // dispatch response
-                dispatch(apiResponse(response.data.data));
+                dispatch(apiResponse(response.data));
                 // execute callback
                 return callback(response, dispatch, type, args);
             } catch (error) {

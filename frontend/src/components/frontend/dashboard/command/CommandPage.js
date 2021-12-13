@@ -1,14 +1,22 @@
 import { Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Page from '../../../ui/Page';
 import useAllRecords from '../../../../hooks/useAllRecords';
 
 
 const CommandPage = () => {
-
     const { loading: loadingRecipies, records: recipies } = useAllRecords('recipies');
 
-    // console.log(recipies)
+    const [selectedRecipies, setSelectedRecipies] = useState([])
+    
+    useEffect(() => {
+        if (recipies.length && !loadingRecipies) {
+            const numberOfPlates = Math.floor(Math.random() * 5) + 4
+            const shuffled = recipies.sort(() => 0.5 - Math.random());
+            setSelectedRecipies(shuffled.slice(0, numberOfPlates));
+        }
+    
+    }, [loadingRecipies]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Page>
@@ -16,21 +24,16 @@ const CommandPage = () => {
                 <p>Commander</p>
 
                 {
-                    loadingRecipies ? (
+                    !selectedRecipies.length ? (
                         <p>Loading...</p>
                     ) : (
-                        <Grid
-                            container
-                        >
+                        <Grid>
                             {
-                                recipies.map((recipe, index) => {
+                                selectedRecipies.map((recipe, index) => {
                                     return (
-                                        <Grid
-                                            container
-                                            key={index}
-                                        >
+                                        <Grid key={index}>
                                             <Typography variant="body2">
-                                                {JSON.stringify(recipe)}
+                                                {recipe.attributes.title}
                                             </Typography>
                                         </Grid>
                                     )

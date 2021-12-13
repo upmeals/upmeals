@@ -13,6 +13,8 @@ const useStyles = makeStyles(theme =>
         sidebarContainer: {
             height: 'calc(100vh - 97px)',
             backgroundColor: '#F5F5F4',
+            position: 'fixed',
+            marginTop: 97,
         },
         sidebarIcons: {
             width: '107px',

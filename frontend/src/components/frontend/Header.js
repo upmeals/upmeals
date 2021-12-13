@@ -8,8 +8,10 @@ const useStyles = makeStyles(theme =>
     createStyles({
         containerHeader: {
             padding: theme.spacing(2.5, 1),
-            margin: theme.spacing(0, 4),
+            margin: theme.spacing(1, 4),
+            width: 'calc(100% - 64px) !important',
             borderBottom: '2px solid #707070',
+            position: 'fixed',
         },
         headerLogo: {
             width: '130px',
