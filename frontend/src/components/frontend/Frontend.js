@@ -88,10 +88,12 @@ const Frontend = () => {
                 Register
             </Button>
             <ModalLogin
+                handleOpenRegister={handleOpenRegister}
                 open={openLogin}
                 setOpenLogin={setOpenLogin}
             />
             <ModalRegister
+                handleOpenLogin={handleOpenLogin}
                 open={openRegister}
                 setOpenRegister={setOpenRegister}
             />

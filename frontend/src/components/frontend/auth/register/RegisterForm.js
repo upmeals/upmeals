@@ -80,9 +80,14 @@ const validationSchema = yup.object({
 // })
 
 // Component
-const RegisterForm = ({ register }) => {
+const RegisterForm = ({ register, handleOpenLogin, handleClose }) => {
     const classes = useStyles();
     const history = useHistory();
+    
+    const handleSwitchToRegister = () => {
+        handleClose();
+        handleOpenLogin();
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -112,8 +117,8 @@ const RegisterForm = ({ register }) => {
         >
             <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
                 <Grid>
-                    <Button href="?register=true" className={classes.modalContainer__button}>Inscription</Button>
-                    <Button href="?login=true" className={`${classes.modalContainer__button} ${classes.modalContainer_active}`}>Connexion</Button>
+                    <Button className={classes.modalContainer__button}>Inscription</Button>
+                    <Button onClick={handleSwitchToRegister} className={`${classes.modalContainer__button} ${classes.modalContainer_active}`}>Connexion</Button>
                 </Grid>
                 <Grid>
                     <Grid className={classes.modalComponentContainer}>

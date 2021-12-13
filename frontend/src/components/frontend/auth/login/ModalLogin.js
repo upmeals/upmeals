@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme =>
 )
 
 // Component
-const ModalLogin = ({ open, setOpenLogin }) => {
+const ModalLogin = ({ open, setOpenLogin, handleOpenRegister }) => {
     const classes = useStyles();
     const history = useHistory()
     const handleClose = () => {
@@ -39,7 +39,10 @@ const ModalLogin = ({ open, setOpenLogin }) => {
         >
             <Modal open={open} onClose={handleClose}>
                 <Box className={classes.modalContainer}>
-                    <LoginForm/>
+                    <LoginForm 
+                        handleOpenRegister={handleOpenRegister}
+                        handleClose={handleClose}
+                    />
                 </Box>
             </Modal>
         </Grid>

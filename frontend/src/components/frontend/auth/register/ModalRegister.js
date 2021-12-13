@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme =>
 )
 
 // Component
-const ModalRegister = ({ open, setOpenRegister }) => {
+const ModalRegister = ({ open, setOpenRegister, handleOpenLogin }) => {
     const classes = useStyles();
     const history = useHistory()
     const handleClose = () => {
@@ -39,7 +39,10 @@ const ModalRegister = ({ open, setOpenRegister }) => {
         >
             <Modal open={open} onClose={handleClose}>
                 <Box className={classes.modalContainer}>
-                    <RegisterForm/>
+                    <RegisterForm
+                        handleOpenLogin={handleOpenLogin}
+                        handleClose={handleClose}
+                    />
                 </Box>
             </Modal>
         </Grid>
