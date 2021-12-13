@@ -6,7 +6,7 @@ const muiTheme = createTheme({
     palette: {
         black: colors.black,
         primary: {
-            main: '#5138EE',
+            main: '#F46E58',
         }
     },
     typography: {
