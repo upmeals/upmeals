@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme =>
             left: '50%',
             transform: 'translate(-50%, -50%)',
             width: '35%',
-            height: '75vh',
+            height: '500px',
             backgroundColor: '#FFFFFF',
         }
 

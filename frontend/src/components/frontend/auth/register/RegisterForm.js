@@ -10,9 +10,12 @@ import { useHistory } from 'react-router-dom';
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({
+        notchedOutline: { 
+            borderColor: '#B3B6B7 !important',
+        },
         formContainer: {
             width: '100%',
-            height: '75vh',
+            height: '500px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -24,7 +27,6 @@ const useStyles = makeStyles(theme =>
             width: '50%',
             height: '4rem',
             color: '#707070!important',
-            fontFamily: 'Jost!important',
         },
         modalContainer_active: {
             backgroundColor: '#F5F5F4!important',
@@ -54,8 +56,8 @@ const useStyles = makeStyles(theme =>
             color: 'white!important',
             textTransform: 'none!important',
             fontSize: '1.25rem!important',
-            fontFamily: 'Jost!important',
             padding: '0.5rem 1.5rem!important',
+            cursor: 'pointer',
         },
     })
 )
@@ -132,6 +134,11 @@ const RegisterForm = ({ register, handleOpenLogin, handleClose }) => {
                             helperText={formik.touched.email && formik.errors.email}
                             placeholder="Identifiant ou email"
                             className={classes.modalInputContainer__input}
+                            InputProps={ {
+                                classes: {
+                                    notchedOutline: classes.notchedOutline,
+                                },
+                            } }
                         />
                     </Grid>
                     <Grid className={classes.modalComponentContainer}>
@@ -147,6 +154,11 @@ const RegisterForm = ({ register, handleOpenLogin, handleClose }) => {
                             placeholder="Min. 8 character"
                             className={classes.modalInputContainer__input}
                             autoComplete="on"
+                            InputProps={ {
+                                classes: {
+                                    notchedOutline: classes.notchedOutline,
+                                },
+                            } }
                         />
                     </Grid>
                 </Grid>

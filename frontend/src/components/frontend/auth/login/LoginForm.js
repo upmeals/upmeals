@@ -1,5 +1,6 @@
 import { Grid, Typography, TextField, InputLabel, Checkbox, Link, Button } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
+import { deepOrange, grey } from '@mui/material/colors';
 import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup'
@@ -11,12 +12,11 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles(theme =>
     createStyles({
         notchedOutline: { 
-            borderColor: '#F46E58 !important',
-            color: '#F46E58 !important',
+            borderColor: '#B3B6B7 !important',
         },
         formContainer: {
             width: '100%',
-            height: '75vh',
+            height: '500px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme =>
             width: '50%',
             height: '4rem',
             color: '#707070!important',
-            fontFamily: 'Jost!important',
         },
         modalContainer_active: {
             backgroundColor: '#F5F5F4!important',
@@ -58,8 +57,8 @@ const useStyles = makeStyles(theme =>
             color: 'white!important',
             textTransform: 'none!important',
             fontSize: '1.25rem!important',
-            fontFamily: 'Jost!important',
             padding: '0.5rem 1.5rem!important',
+            cursor: 'pointer',
         },
         inputLabel: {
             margin: theme.spacing(1, 0, 0, 0),
@@ -68,7 +67,8 @@ const useStyles = makeStyles(theme =>
             color: '#212121',
         },
         rememberAndForgotContainer: {
-            justifyContent: 'space-around!important',
+            marginLeft: '8% !important',
+            width: '82.25% !important',
         },
         inputRememberMeContainer: {
             display: 'flex',
@@ -96,6 +96,8 @@ const validationSchema = yup.object({
         .min(8, 'Password should be of minimum 8 characters length')
         .required('Password is required'),
 });
+
+const label = { InputProps: { 'aria-label': 'Checkbox demo' } };
 
 // Component texts
 // const i18n = defineMessages({
@@ -193,10 +195,16 @@ const LoginForm = ({ login, handleOpenRegister, handleClose }) => {
                     <div className={classes.inputRememberMeContainer}>
                         <Checkbox
                             onChange={formik.handleChange}
+                            {...label}
+                            sx={{
+                                color: grey[400],
+                                '&.Mui-checked': {
+                                    color: deepOrange[600],
+                                }
+                            }}
                             id="rememberMe"
                             name="rememberMe"
                             type="checkbox"
-                            color="primary"
                             size="medium"
                         />
                         <InputLabel id="rememberMe" htmlFor="rememberMe" className={classes.inputLabel}>
