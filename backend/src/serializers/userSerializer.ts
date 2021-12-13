@@ -7,14 +7,14 @@ module.exports = {
         },
     },
     relationships: {
-        recepies: {
-            type: 'recepe',
+        recipies: {
+            type: 'recipe',
             links: {
                 self: function (data) {
-                    return '/users/' + data._id + '/relationships/recepies'
+                    return '/users/' + data._id + '/relationships/recipies'
                 },
                 related: function (data) {
-                    return '/users/' + data._id + '/recepies'
+                    return '/users/' + data._id + '/recipies'
                 },
             },
         },

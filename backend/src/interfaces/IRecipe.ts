@@ -1,6 +1,6 @@
 import { IIngredient } from './IIngredient'
 
-export interface IRecepe {
+export interface IRecipe {
     title: string
     description: string
     author: string

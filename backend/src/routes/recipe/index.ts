@@ -1,7 +1,7 @@
 import actions from '@actions/index'
-import IngredientModel from '@models/ingredient'
-import UserModel from '@models/user'
-import RecepeModel from '@models/recepe'
+import Ingredient from '@models/ingredient'
+import Recipe from '@models/recipe'
+import User from '@models/user'
 import { Request, Response, Router } from 'express'
 
 const route = Router()
@@ -9,7 +9,7 @@ const route = Router()
 export default (): Router => {
     route.get('/', async (req: Request, res: Response) => {
         try {
-            const datas = await actions.find('recepe', RecepeModel, req)
+            const datas = await actions.find('recipe', Recipe, req)
 
             res.status(200).send(datas)
         } catch (error) {
@@ -19,7 +19,7 @@ export default (): Router => {
 
     route.post('/', async (req: Request, res: Response) => {
         try {
-            const datas = await actions.post('recepe', RecepeModel, req)
+            const datas = await actions.post('recipe', Recipe, req)
 
             res.status(200).send(datas)
         } catch (error) {
@@ -29,7 +29,7 @@ export default (): Router => {
 
     route.get('/:id', async (req: Request, res: Response) => {
         try {
-            const datas = await actions.get('recepe', RecepeModel, req)
+            const datas = await actions.get('recipe', Recipe, req)
 
             res.status(200).send(datas)
         } catch (error) {
@@ -39,7 +39,7 @@ export default (): Router => {
 
     route.patch('/:id', async (req: Request, res: Response) => {
         try {
-            const datas = await actions.get('recepe', RecepeModel, req)
+            const datas = await actions.get('recipe', Recipe, req)
 
             res.status(200).send(datas)
         } catch (error) {
@@ -49,7 +49,7 @@ export default (): Router => {
 
     route.patch('/:id', async (req: Request, res: Response) => {
         try {
-            const datas = await actions.patch('recepe', RecepeModel, req)
+            const datas = await actions.patch('recipe', Recipe, req)
 
             res.status(200).send(datas)
         } catch (error) {
@@ -60,11 +60,11 @@ export default (): Router => {
     route.get('/:id/ingredients', async (req: Request, res: Response) => {
         try {
             const datas = await actions.findRelationship(
-                'recepe',
-                RecepeModel,
+                'recipe',
+                Recipe,
                 'ingredients',
                 'ingredient',
-                IngredientModel,
+                Ingredient,
                 req,
             )
 
@@ -77,11 +77,11 @@ export default (): Router => {
     route.get('/:id/author', async (req: Request, res: Response) => {
         try {
             const datas = await actions.findRelationship(
-                'recepe',
-                RecepeModel,
+                'recipe',
+                Recipe,
                 'author',
                 'people',
-                UserModel,
+                User,
                 req,
             )
 

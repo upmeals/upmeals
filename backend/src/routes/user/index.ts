@@ -1,7 +1,7 @@
 import actions from '@actions/index'
-import UserModel from '@models/user'
-import RecepeModel from '@models/recepe'
 import { verifyUser } from '@lib/authenticate'
+import recipeModel from '@models/recipe'
+import UserModel from '@models/user'
 import { Request, Response, Router } from 'express'
 
 const route = Router()
@@ -31,14 +31,14 @@ export default (): Router => {
         }
     })
 
-    route.get('/:id/recepies', async (req: Request, res: Response) => {
+    route.get('/:id/recipies', async (req: Request, res: Response) => {
         try {
             const datas = await actions.findRelationship(
                 'people',
                 UserModel,
                 'poeple',
-                'recepe',
-                RecepeModel,
+                'recipe',
+                recipeModel,
                 req,
             )
 

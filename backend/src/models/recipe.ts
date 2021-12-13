@@ -1,7 +1,7 @@
-import { IRecepe } from '@interfaces/IRecepe'
+import { IRecipe } from '@interfaces/IRecipe'
 import mongoose from 'mongoose'
 
-const Recepe = new mongoose.Schema(
+const Recipe = new mongoose.Schema(
     {
         title: {
             type: String,
@@ -31,4 +31,4 @@ const Recepe = new mongoose.Schema(
     { timestamps: true },
 )
 
-export default mongoose.model<IRecepe & mongoose.Document>('Recepe', Recepe)
+export default mongoose.model<IRecipe & mongoose.Document>('recipe', Recipe)

@@ -1,43 +1,42 @@
 import { IIngredient } from '@interfaces/IIngredient'
-import { IRecepe } from '@interfaces/IRecepe'
+import { IRecipe } from '@interfaces/IRecipe'
 import Ingredient from '@models/ingredient'
-import Recepe from '@models/recepe'
+import Recipe from '@models/recipe'
 import user from '@models/user'
 import faker from 'faker'
 import _ from 'lodash'
 
 export default async () => {
-
     const insertedIngredient = await Ingredient.find()
 
-    // make a bunch of recepies
-    let recepies: Array<IRecepe> = []
+    // make a bunch of recipies
+    let recipies: Array<IRecipe> = []
     for (let r = 0; r < 100; r++) {
         const numberOfIngredient = generateRandomInt(3, 10)
         const numberOfSteps = generateRandomInt(1, 10)
 
-        let recepeIngredients: Array<IIngredient> = []
+        let recipeIngredients: Array<IIngredient> = []
         for (let i = 0; i < numberOfIngredient; i++) {
-            recepeIngredients.push(_.sample(insertedIngredient)._id)
+            recipeIngredients.push(_.sample(insertedIngredient)._id)
         }
 
-        let recepeSteps: Array<any> = []
+        let recipeSteps: Array<any> = []
         for (let i = 0; i < numberOfSteps; i++) {
-            recepeSteps.push(faker.lorem.sentence())
+            recipeSteps.push(faker.lorem.sentence())
         }
 
-        let newRecepies = {
+        let newRecipies = {
             title: faker.lorem.words(7),
             description: faker.commerce.productDescription(),
             author: (await user.findOne({}))._id,
-            ingredients: recepeIngredients,
-            steps: recepeSteps,
+            ingredients: recipeIngredients,
+            steps: recipeSteps,
         }
-        recepies.push(newRecepies)
+        recipies.push(newRecipies)
     }
 
-    Recepe.insertMany(recepies)
-    console.log('Recepies seeded!')
+    Recipe.insertMany(recipies)
+    console.log('recipies seeded!')
 }
 
 function generateRandomInt(min, max) {
