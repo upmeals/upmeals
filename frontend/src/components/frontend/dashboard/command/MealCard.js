@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     },
     media: {
       height: 140,
-      borderRadius: 20
+      maxWidth: '220px'
     },
     cardInfos: {
         display: 'flex',
@@ -57,6 +57,7 @@ const useStyles = makeStyles({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        fontWeight: '200'
     },
     cardInfosIcon: {
         marginRight: 5
@@ -66,10 +67,12 @@ const useStyles = makeStyles({
     },
     cardActionItem: {
         fontSize: 11,
-        fontWeight: 'normal',
+        fontWeight: '200',
+        borderRadius: 0,
+        padding: '6px 0',
         textTransform: 'none',
         '&:hover': {
-            background: '#FFF'
+            backgroundColor: 'lightgrey!important'
         },
         '&:nth-child(odd)':{
             backgroundColor: "#F5F5F4"
@@ -94,12 +97,12 @@ const MealCard = () => {
                     Rostis & saumon fumé
                 </Typography>
                 <Typography className={classes.cardInfos} variant="body2" component="div">
-                <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                        <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 45 mn. 
-                </Typography>
-                <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                        <EuroOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 8,13/pers. 
-                </Typography>
+                    <Typography className={classes.cardInfosContent} variant="body2" component="p">
+                            <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 45 mn. 
+                    </Typography>
+                    <Typography className={classes.cardInfosContent} variant="body2" component="p">
+                            <EuroOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 8,13/pers. 
+                    </Typography>
                 </Typography>
                 <Typography className={classes.cardActionContainer} variant="body2" component="div">
                     <Button fullWidth className={classes.cardActionItem} variant="texte">Remplacer aléatoirement</Button>
