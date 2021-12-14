@@ -35,7 +35,7 @@ const DynamicTitle = ({ nbrMeals, nbrPersons, setNbrMeals, setNbrPersons, loadin
         <>
             {
                 loading ? (
-                    <Skeleton variant="text" width={500} height={64} style={{ margin: '0px 0px 16px 0px' }} />
+                    <Skeleton variant="text" width={500} height={64} />
                 ) : (
                     <Grid className={classes.titleContainer}>
                         <Typography className={classes.title} variant="h1">

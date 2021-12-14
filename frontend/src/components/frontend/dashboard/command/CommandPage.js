@@ -49,7 +49,7 @@ const CommandPage = () => {
                     loading={loadingRecipies}
                 />
                 <MealsFilter
-
+                    loading={loadingRecipies}
                 />
                 <MealsContainer 
                     selectedRecipies={selectedRecipies}

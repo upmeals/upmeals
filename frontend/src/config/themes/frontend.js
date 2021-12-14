@@ -22,11 +22,53 @@ const muiTheme = createTheme({
                     transitionDelay: '9999s !important',
                     transitionProperty: 'background-color, color !important',
                 },
-                
+
             },
         },
     },
-    
+    components: {
+        MuiTooltip: {
+            styleOverrides: {
+                tooltip: {
+                    marginTop: '4px !important',
+                    display: 'flex',
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                    flexDirection: 'column',
+                    background: 'white',
+                    border: '1px solid #cecece',
+                    borderRadius: '8px',
+                }
+            },
+        },
+        MuiButton: {
+            variants: [
+                {
+                    props: { color: 'primary' },
+                },
+                {
+                    props: { variant: 'outlined' },
+                    style: {
+                        border: '1px solid #F46E59',
+                        color: '#F46E59',
+                        borderRadius: 15,
+                        fontWeight: 400,
+                        boxShadow: 'none',
+                    },
+                },
+                {
+                    props: { variant: 'contained' },
+                    style: {
+                        background: '#F46E59',
+                        color: 'white',
+                        borderRadius: 15,
+                        fontWeight: 400,
+                        boxShadow: 'none',
+                    },
+                }
+            ]
+        },
+    },
 })
 
 export default muiTheme;
