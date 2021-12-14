@@ -14,6 +14,7 @@ const useAllRecords = (
     const [loading, setLoading] = useState(false);
     const [recordIds, setRecordIds] = useState([]);
     const dispatch = useDispatch();
+
     const unorderedRecords = useSelector((state) =>
         Object.values(state.api.entities[resource] || {}).filter((item) =>
             recordIds.includes(item.id)

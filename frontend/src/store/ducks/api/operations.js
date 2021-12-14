@@ -65,8 +65,9 @@ const indexAll = (type, options = {}) => {
     return (dispatch) => {
         // execute an index (authGet) request to the API
         return service.index({ ...options, page: { size: 1 } }).then((response) => {
+
             // get the number of pages
-            const count = (response.data.meta.page.total);
+            const count = (response.data.meta.count);
             
             // if no pages return nothing
             if (!count) {
