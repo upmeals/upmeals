@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import BlenderOutlinedIcon from '@mui/icons-material/BlenderOutlined';
 import React from 'react';
 
@@ -70,7 +70,7 @@ const Sidebar = () => {
                 </Link>
 
                 <Link href="/create" className={classes.sidebarIcons}>
-                    <AddCircleOutlineOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <AddCircleOutlineIcon className={classes.sidebarIcons__icon} />
                     <Typography variant="body2">
                         Créer
                     </Typography>

@@ -7,7 +7,6 @@ import DynamicTitle from './DynamicTitle';
 import MealsContainer from './MealsContainer';
 import MealsFilter from './MealsFilter';
 
-
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({

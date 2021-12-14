@@ -65,8 +65,23 @@ const muiTheme = createTheme({
                         fontWeight: 400,
                         boxShadow: 'none',
                     },
-                }
+                },
+                {
+                    props: { variant: 'text' },
+                    style: {
+                        margin: 0,
+                        color: 'black',
+                        fontWeight: 300,
+                        textTransform: 'none',
+                        borderRadius: 0,
+                    },
+                },
             ]
+        },
+        MuiButtonBase: {
+            defaultProps: {
+                disableRipple: true,
+            },
         },
     },
 })

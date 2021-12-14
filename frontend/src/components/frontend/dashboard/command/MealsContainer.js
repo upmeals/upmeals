@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@mui/styles';
-import { Grid, Typography, Skeleton } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material';
+import MealCard from './MealCard';
+
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -55,11 +57,7 @@ const MealsContainer = ({ selectedRecipies }) => {
                         {
                             selectedRecipies.map((recipe, index) => {
                                 return (
-                                    <Grid key={index} className={classes.mealContainer}>
-                                        <Typography variant="body2">
-                                            {recipe.attributes.title}
-                                        </Typography>
-                                    </Grid>
+                                    <MealCard key={index} recipe={recipe} index={index} />
                                 )
                             })
                         }
