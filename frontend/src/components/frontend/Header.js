@@ -7,16 +7,20 @@ import withAuth from '../hoc/withAuth';
 const useStyles = makeStyles(theme =>
     createStyles({
         containerHeader: {
-            height: '70px',
-            marginTop: '1.75rem',
-            paddingBottom: '1.75rem',
-            padding: theme.spacing(0, 4),
-            borderBottom: '2px solid #000000',
+            padding: theme.spacing(2.5, 1),
+            margin: theme.spacing(1, 4),
+            width: 'calc(100% - 64px) !important',
+            borderBottom: '2px solid #707070',
+            position: 'fixed',
         },
         headerLogo: {
-            width: '115px',
+            width: '130px',
             height: 'auto',
-        }
+        },
+        headerAvatar: {
+            width: '55px',
+            height: '55px',
+        },
     })
 )
 

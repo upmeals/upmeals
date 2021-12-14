@@ -3,29 +3,29 @@ module.exports = {
     blacklist: ['__v'],
     links: {
         self: function (data) {
-            return '/recepies/' + data._id
+            return '/recipies/' + data._id
         },
     },
     relationships: {
         author: {
-            type: 'user',
+            type: 'users',
             links: {
                 self: function (data) {
-                    return '/recepies/' + data._id + '/relationships/author'
+                    return '/recipies/' + data._id + '/relationships/author'
                 },
                 related: function (data) {
-                    return '/recepies/' + data._id + '/author'
+                    return '/recipies/' + data._id + '/author'
                 },
             },
         },
-        ingredient: {
-            type: 'ingredient',
+        ingredients: {
+            type: 'ingredients',
             links: {
                 self: function (data) {
-                    return '/recepies/' + data._id + '/relationships/ingredient'
+                    return '/recipies/' + data._id + '/relationships/ingredients'
                 },
                 related: function (data) {
-                    return '/recepies/' + data._id + '/ingredient'
+                    return '/recipies/' + data._id + '/ingredients'
                 },
             },
         },

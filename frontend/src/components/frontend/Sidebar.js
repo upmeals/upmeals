@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import BlenderOutlinedIcon from '@mui/icons-material/BlenderOutlined';
 import React from 'react';
 
@@ -11,9 +11,10 @@ import React from 'react';
 const useStyles = makeStyles(theme =>
     createStyles({
         sidebarContainer: {
-            height: 'calc(100vh - 98px)',
-            borderRight: '2px solid #F2F2F2',
+            height: 'calc(100vh - 97px)',
             backgroundColor: '#F5F5F4',
+            position: 'fixed',
+            marginTop: 97,
         },
         sidebarIcons: {
             width: '107px',
@@ -21,13 +22,13 @@ const useStyles = makeStyles(theme =>
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: '#F5F5F4',
+            backgroundColor: '#F4F6F7',
             flexDirection: 'column',
             color: '#252626 !important',
             textAlign: 'center',
             textDecoration: 'none !important',
             "&:hover": {
-                backgroundColor: '#fefefe !important',
+                backgroundColor: '#FBFCFC !important',
                 textDecoration: 'none !important',
             }
         },
@@ -69,7 +70,7 @@ const Sidebar = () => {
                 </Link>
 
                 <Link href="/create" className={classes.sidebarIcons}>
-                    <AddCircleOutlineOutlinedIcon className={classes.sidebarIcons__icon} />
+                    <AddCircleOutlineIcon className={classes.sidebarIcons__icon} />
                     <Typography variant="body2">
                         Créer
                     </Typography>

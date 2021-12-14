@@ -26,7 +26,7 @@ export default async (resource, model, relationship, relationshipType, relations
     }
 
     // To many relationships
-    if (results.data) {
+    if (results) {
         // Pagination links
         let pagination = new Pagination(req.query.page, results.total)
         let paginationLinks = pagination.getLinks(req.originalUrl)
@@ -35,14 +35,12 @@ export default async (resource, model, relationship, relationshipType, relations
         extraOptions = _.assign(
             extraOptions,
             {
-                count: results.data.length,
+                count: results.length,
             },
             _.pick(pagination, ['total', 'totalPage', 'number', 'size', 'offset', 'limit']),
             _.pick(paginationLinks, ['self', 'first', 'last', 'prev', 'next']),
         )
     }
-
-    results = results.data || results
 
     return jsonapiSerializer.serialize(relationshipType, results, extraOptions)
 }

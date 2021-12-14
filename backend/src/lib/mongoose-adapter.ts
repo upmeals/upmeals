@@ -23,7 +23,7 @@ let buildCollectionQuery = (dbQuery, query) => {
 }
 
 mongooseAdapter.find = async (model, query) => {
-    return await async.parallel({
+    let data = await async.parallel({
         total: (cb) => {
             model.countDocuments(cb)
         },
@@ -33,6 +33,7 @@ mongooseAdapter.find = async (model, query) => {
             dbQuery.exec(cb)
         },
     })
+    return data
 }
 
 mongooseAdapter.findByIds = async (model, ids, query) => {
@@ -42,7 +43,7 @@ mongooseAdapter.findByIds = async (model, ids, query) => {
         },
     }
 
-    return await async.parallel({
+    let data = await async.parallel({
         total: (cb) => {
             model.countDocuments(conditions).exec(cb)
         },
@@ -52,6 +53,8 @@ mongooseAdapter.findByIds = async (model, ids, query) => {
             dbQuery.exec(cb)
         },
     })
+
+    return data
 }
 
 mongooseAdapter.findById = async (model, id, query) => {
@@ -92,19 +95,16 @@ mongooseAdapter.findByIdAndUpdate = async (model, id, body) => {
 
 // TODO
 mongooseAdapter.findRelationship = async (model, id, relationship, relationshipModel, query) => {
-    let dbQuery = model.findById(id).lean()
+    return new Promise((resolve, reject) => {
+        let dbQuery = model.findById(id).lean()
 
-    dbQuery.exec(async (err, document) => {
-        let relationshipId = document[relationship]
-
-        // To many relationship
-        if (_.isArray(relationshipId)) {
-            return await mongooseAdapter.findByIds(relationshipModel, relationshipId, query)
-        }
-        // To one relationship
-        else {
-            return await mongooseAdapter.findById(relationshipModel, relationshipId, query)
-        }
+        dbQuery.exec(async (err, document) => {
+            let relationshipId = document[relationship]
+            let data = _.isArray(relationshipId)
+                ? await mongooseAdapter.findByIds(relationshipModel, relationshipId, query)
+                : await mongooseAdapter.findById(relationshipModel, relationshipId, query)
+            resolve(data)
+        })
     })
 }
 

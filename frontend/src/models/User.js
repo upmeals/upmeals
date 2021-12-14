@@ -6,7 +6,11 @@ export class User {
     }
 
     getUsername () {
-        return this.email
+        if (this.email) {
+            return this.email
+        } else {
+            return undefined
+        }
     }
  }
 
