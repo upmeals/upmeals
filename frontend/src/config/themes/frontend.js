@@ -26,7 +26,7 @@ const muiTheme = createTheme({
             },
         },
     },
-
+    
 })
 
 export default muiTheme;

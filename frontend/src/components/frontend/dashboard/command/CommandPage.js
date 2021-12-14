@@ -1,47 +1,59 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Page from '../../../ui/Page';
 import useAllRecords from '../../../../hooks/useAllRecords';
+import { createStyles, makeStyles } from '@mui/styles';
+import DynamicTitle from './DynamicTitle';
+import MealsContainer from './MealsContainer';
+import MealsFilter from './MealsFilter';
+
+
+// Component classes
+const useStyles = makeStyles(theme =>
+    createStyles({
+        commandContainer: {
+            padding: theme.spacing(4),
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'flex-start',
+        },
+    })
+)
 
 
 const CommandPage = () => {
+    const classes = useStyles();
+
     const { loading: loadingRecipies, records: recipies } = useAllRecords('recipies');
 
-    const [selectedRecipies, setSelectedRecipies] = useState([])
-    
+    const [selectedRecipies, setSelectedRecipies] = useState([]);
+    const [nbrMeals, setNbrMeals] = useState(4);
+    const [nbrPersons, setNbrPersons] = useState(1);
+
     useEffect(() => {
         if (recipies.length && !loadingRecipies) {
-            const numberOfPlates = Math.floor(Math.random() * 5) + 4
-            const shuffled = recipies.sort(() => 0.5 - Math.random());
-            setSelectedRecipies(shuffled.slice(0, numberOfPlates));
+            setSelectedRecipies(recipies.slice(0, nbrMeals))
         }
-    
-    }, [loadingRecipies]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    }, [loadingRecipies, nbrMeals, nbrPersons]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Page>
-            <Grid>
-                <p>Commander</p>
+            <Grid container className={classes.commandContainer}>
+                <DynamicTitle
+                    nbrMeals={nbrMeals}
+                    nbrPersons={nbrPersons}
+                    setNbrMeals={setNbrMeals}
+                    setNbrPersons={setNbrPersons}
+                    loading={loadingRecipies}
+                />
+                <MealsFilter
 
-                {
-                    !selectedRecipies.length ? (
-                        <p>Loading...</p>
-                    ) : (
-                        <Grid>
-                            {
-                                selectedRecipies.map((recipe, index) => {
-                                    return (
-                                        <Grid key={index}>
-                                            <Typography variant="body2">
-                                                {recipe.attributes.title}
-                                            </Typography>
-                                        </Grid>
-                                    )
-                                })
-                            }
-                        </Grid>
-                    )
-                }
+                />
+                <MealsContainer 
+                    selectedRecipies={selectedRecipies}
+                />
             </Grid>
         </Page>
     )
