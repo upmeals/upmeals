@@ -1,6 +1,10 @@
 import { Grid, Button, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import ModalLogin from './auth/login/ModalLogin';
+import ModalRegister from './auth/register/ModalRegister';
+
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -28,6 +32,27 @@ const useStyles = makeStyles(theme =>
 // Component
 const Frontend = () => {
     const classes = useStyles()
+    const history = useHistory()
+    const [openLogin, setOpenLogin] = React.useState(false)
+    const [openRegister, setOpenRegister] = React.useState(false)
+
+    const handleOpenLogin = () => {
+        setOpenLogin(true)
+        history.push({search:'login=true'})
+    }
+    const handleOpenRegister = () => {
+        setOpenRegister(true)
+        history.push({search:'register=true'})
+    }
+    
+    useEffect(() => {
+        if (history.location.search === '?login=true') {
+            handleOpenLogin()
+        } else if (history.location.search === '?register=true') {
+            handleOpenRegister()
+        }
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <Grid
@@ -47,7 +72,7 @@ const Frontend = () => {
                 Dashboard
             </Button>
             <Button
-                href="/login"
+                onClick={handleOpenLogin}
                 className={classes.button}
                 variant="contained"
                 color="primary"
@@ -55,13 +80,23 @@ const Frontend = () => {
                 Login
             </Button>
             <Button
-                href="/register"
+                onClick={handleOpenRegister}
                 className={classes.button}
                 variant="contained"
                 color="primary"
             >
                 Register
             </Button>
+            <ModalLogin
+                handleOpenRegister={handleOpenRegister}
+                open={openLogin}
+                setOpenLogin={setOpenLogin}
+            />
+            <ModalRegister
+                handleOpenLogin={handleOpenLogin}
+                open={openRegister}
+                setOpenRegister={setOpenRegister}
+            />
         </Grid>
     )
 }

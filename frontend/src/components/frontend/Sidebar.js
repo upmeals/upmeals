@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import EmojiObjectsOutlinedIcon from '@mui/icons-material/EmojiObjectsOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import BlenderOutlinedIcon from '@mui/icons-material/BlenderOutlined';
 import React from 'react';
 
