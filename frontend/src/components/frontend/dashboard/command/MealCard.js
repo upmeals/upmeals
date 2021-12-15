@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 
 
@@ -16,18 +16,15 @@ const useStyles = makeStyles(theme =>
             borderRadius: '20px !important',
             margin: theme.spacing(1, 4, 4, 0),
             backgroundColor: "#FFF!important",
-            '&:hover': {
-                backgroundColor: "#FFF!important"
-            }
-        },
-        rootButton: {
-            boxShadow: "none!important",
-            "&:hover $focusHighlight": {
-                opacity: 0
-            }
+            cursor: 'pointer',
+            '&:hover $cardContainer': {
+				background: '#FBFBFA',
+                transition: '0.25s !important',
+            },
         },
         cardContainer: {
-            padding: '0px !important'
+            padding: '0px !important',
+            transition: '0.25s !important',
         },
         media: {
             height: 220,
@@ -84,12 +81,12 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const MealCard = ({ recipe, index }) => {
+const MealCard = ({ recipe, index, handleMealRandom }) => {
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <CardActionArea classes={{ root: classes.rootButton, focusHighlight: classes.focusHighlight }}>
+            <Grid>
                 <CardMedia
                     className={classes.media}
                     image={`/images/meals/${index + 1}.svg`}
@@ -108,12 +105,11 @@ const MealCard = ({ recipe, index }) => {
                         </Typography>
                     </Typography>
                     <Typography className={classes.cardActionContainer} variant="body2" component="div">
-                        <Button fullWidth className={classes.cardActionItem} variant="text">Remplacer aléatoirement</Button>
-                        <Button fullWidth className={classes.cardActionItem} variant="text">Remplacer en recherchant un plat…</Button>
-                        <Button fullWidth className={classes.cardActionItem} variant="text">Remplacer par un plat de ma collection…</Button>
+                        <Button fullWidth className={classes.cardActionItem} variant="text" onClick={() => {handleMealRandom(null, index)}}>Remplacer aléatoirement</Button>
+                        <Button fullWidth className={classes.cardActionItem} variant="text">Remplacer en recherchant un plat</Button>
                     </Typography>
                 </CardContent>
-            </CardActionArea>
+            </Grid>
         </Card>
     )
 }

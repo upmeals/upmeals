@@ -30,11 +30,30 @@ const CommandPage = () => {
     const [nbrMeals, setNbrMeals] = useState(4);
     const [nbrPersons, setNbrPersons] = useState(1);
 
-    useEffect(() => {
-        if (recipies.length && !loadingRecipies) {
-            setSelectedRecipies(recipies.slice(0, nbrMeals))
-        }
+    const handleUpdateSelectedRecipies = (newSelectedRecipies) => {
+        setSelectedRecipies(newSelectedRecipies)
+        setNbrMeals(newSelectedRecipies.length)
+    }
 
+    useEffect(() => {
+        // Premier load
+        if (recipies.length && !loadingRecipies && selectedRecipies.length === 0) {
+            setSelectedRecipies(recipies.slice(0, nbrMeals))
+        // Si le nbrMeals change après le premier load il faut calculer correctement l'array
+        } else if (recipies.length && !loadingRecipies && selectedRecipies.length > 0) {
+            let selectedRecipiesIds = selectedRecipies.map((recipe) => recipe.id)
+            if (nbrMeals < selectedRecipies.length) {
+                setSelectedRecipies(selectedRecipies.slice(0, nbrMeals))
+            } else {
+                let unselectedRecipies = recipies.filter((recipe) => !(selectedRecipiesIds.includes(recipe.id)))
+                setSelectedRecipies(
+                    [
+                        ...selectedRecipies,
+                        ...unselectedRecipies.slice(0, (nbrMeals - selectedRecipies.length))
+                    ]
+                )
+            }
+        }
     }, [loadingRecipies, nbrMeals, nbrPersons]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -50,8 +69,10 @@ const CommandPage = () => {
                 <MealsFilter
                     loading={loadingRecipies}
                 />
-                <MealsContainer 
+                <MealsContainer
+                    handleUpdateSelectedRecipies={handleUpdateSelectedRecipies}
                     selectedRecipies={selectedRecipies}
+                    recipies={recipies}
                 />
             </Grid>
         </Page>
