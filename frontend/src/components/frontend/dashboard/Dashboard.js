@@ -1,14 +1,14 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import Page from '../../ui/Page'
-import AjoutPlat from "./ajoutPlat/AjoutPlat";
+import DetailPlat from "./detailPlat/DetailPlat";
 
 
 const Dashboard = () => {
     return (
         <Page>
             <Grid>
-              <AjoutPlat />
+              <DetailPlat />
             </Grid>
         </Page>
     )
