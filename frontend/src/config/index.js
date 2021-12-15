@@ -19,9 +19,9 @@ export default () => {
     }
 
     const configurations = {
-        'default': {
-            appName: 'frontend',
-            title: 'frontend website',
+        'app': {
+            appName: 'Upmeals App',
+            title: 'Upmeals App',
             theme: require('./themes/frontend').default,
             routes: require('./routes/frontend').default,
             mainColor: frontendMainColor,
