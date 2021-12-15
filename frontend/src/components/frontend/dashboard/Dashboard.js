@@ -8,6 +8,7 @@ const Dashboard = () => {
         <Page>
             <Grid>
                 Dashboard
+                
             </Grid>
         </Page>
     )
