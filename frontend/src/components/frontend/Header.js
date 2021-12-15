@@ -37,7 +37,7 @@ const Header = ({ logoutUser }) => {
             className={classes.containerHeader}
         >   
             <Link href="/dashboard" onClick={logoutUser}>
-                <img className={classes.headerLogo} src="https://upmeals.io/images/logo.svg" alt="logo upmeals" />
+                <img className={classes.headerLogo} src="/logos/upmeals_logo.png" alt="logo upmeals" />
             </Link>
 
             <Avatar 

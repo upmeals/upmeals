@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Grid, Skeleton } from '@mui/material';
 import MealCard from './MealCard';
 import AddMeal from './AddMeal';
-
+import DetailsMeal from './DetailsMeal';
+import { useHistory } from 'react-router-dom';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -26,6 +27,9 @@ const useStyles = makeStyles(theme =>
 
 const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipies }) => {
     const classes = useStyles();
+    const history = useHistory()
+
+    const [detailsModalOpen, setDetailsModalOpen] = React.useState(false)
 
     const handleMealRandom = (_, index) => {
         if (selectedRecipies.length < 9 || index !== undefined) {
@@ -53,7 +57,24 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipi
         }
     }
 
-    // console.log('b', selectedRecipies[0])
+    const handleToggleDetails = ({ e, recipe }) => {
+        if (e.target.id !== 'blacklist_onclick_toggle') {
+            if (history.location.search === '' && recipe && recipe.id) {
+                history.push({search:'id=' + recipe.id})
+            } else {
+                history.push({search:''})
+            }
+        }
+    }
+
+    useEffect(() => {
+        console.log(history.location.search, history.location.search.includes('?id='), history.location.search.split('?id=')[1])
+        if (history.location.search !== '' && history.location.search.includes('?id=')) {
+            setDetailsModalOpen(history.location.search.split('?id=')[1])
+        } else if (history.location.search === '') {
+            setDetailsModalOpen(false)
+        }
+    }, [history.location.search])
 
     return (
         <>
@@ -86,7 +107,7 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipi
                         {
                             selectedRecipies.map((recipe, index) => {
                                 return (
-                                    <MealCard key={index} recipe={recipe} index={index} handleMealRandom={handleMealRandom} />
+                                    <MealCard key={index} recipe={recipe} index={index} handleMealRandom={handleMealRandom} handleToggleDetails={handleToggleDetails} />
                                 )
                             })
                         }
@@ -98,6 +119,7 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipi
                     </Grid>
                 )
             }
+            <DetailsMeal detailsModalOpen={detailsModalOpen} handleToggleDetails={handleToggleDetails} />
         </>
     )
 }

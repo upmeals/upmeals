@@ -2,6 +2,8 @@ import _ from "lodash";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useState } from "react";
 
+import { useHistory } from 'react-router-dom';
+
 import withAPI, { APIPropTypes } from "./withAPI";
 
 
@@ -57,10 +59,12 @@ const withRecord = (recordType, options = {}) => (WrappedComponent) => {
         updateRecord,
         ...props
     }) => {
+        const history = useHistory();
         const [error, setError] = useState(false);
         const [ready, setReady] = useState(false);
-
-        const thisId = recordId || match.params.recordId;
+        
+        const searchId = (history.location.search !== '' && history.location.search.includes('id')) ? history.location.search.split('?id=')[1] : undefined
+        const thisId = recordId || match.params.recordId || searchId;
 
         const loadRecord = useCallback(
             () => fetchRecord(recordType, thisId, { include, fields }),

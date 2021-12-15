@@ -11,10 +11,10 @@ import React from 'react';
 const useStyles = makeStyles(theme =>
     createStyles({
         sidebarContainer: {
-            height: 'calc(100vh - 97px)',
+            height: 'calc(100vh - 90px)',
             backgroundColor: '#F5F5F4',
             position: 'fixed',
-            marginTop: 97,
+            marginTop: 90,
         },
         sidebarIcons: {
             width: '107px',

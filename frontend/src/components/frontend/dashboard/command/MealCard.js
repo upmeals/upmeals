@@ -15,10 +15,12 @@ const useStyles = makeStyles(theme =>
             maxWidth: 220,
             borderRadius: '20px !important',
             margin: theme.spacing(1, 4, 4, 0),
-            backgroundColor: "#FFF!important",
+            backgroundColor: '#FFFFFF !important',
             cursor: 'pointer',
+            outline: 0,
+            border: 0,
             '&:hover $cardContainer': {
-				background: '#FBFBFA',
+                background: '#FBFBFA',
                 transition: '0.25s !important',
             },
         },
@@ -81,36 +83,38 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const MealCard = ({ recipe, index, handleMealRandom }) => {
+const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails }) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
-            <Grid>
-                <CardMedia
-                    className={classes.media}
-                    image={`/images/meals/${index + 1}.svg`}
-                    title={recipe.attributes.title}
-                />
-                <CardContent className={classes.cardContainer}>
-                    <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p">
-                        {recipe.attributes.title}
-                    </Typography>
-                    <Typography className={classes.cardInfos} variant="body2" component="div">
-                        <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                            <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 25mn.
+        <>
+            <Card className={classes.root} onClick={(e) => { handleToggleDetails({ e, recipe }) }}>
+                <Grid>
+                    <CardMedia
+                        className={classes.media}
+                        image={`/images/meals/${index + 1}.svg`}
+                        title={recipe.attributes.title}
+                    />
+                    <CardContent className={classes.cardContainer}>
+                        <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p">
+                            {recipe.attributes.title}
                         </Typography>
-                        <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                            4,5€/pers.
+                        <Typography className={classes.cardInfos} variant="body2" component="div">
+                            <Typography className={classes.cardInfosContent} variant="body2" component="p">
+                                <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 25mn.
+                            </Typography>
+                            <Typography className={classes.cardInfosContent} variant="body2" component="p">
+                                4,5€/pers.
+                            </Typography>
                         </Typography>
-                    </Typography>
-                    <Typography className={classes.cardActionContainer} variant="body2" component="div">
-                        <Button fullWidth className={classes.cardActionItem} variant="text" onClick={() => {handleMealRandom(null, index)}}>Remplacer aléatoirement</Button>
-                        <Button fullWidth className={classes.cardActionItem} variant="text">Remplacer en recherchant un plat</Button>
-                    </Typography>
-                </CardContent>
-            </Grid>
-        </Card>
+                        <Typography className={classes.cardActionContainer} variant="body2" component="div">
+                            <Button id="blacklist_onclick_toggle" fullWidth className={classes.cardActionItem} variant="text" onClick={() => { handleMealRandom(null, index) }}>Remplacer aléatoirement</Button>
+                            <Button id="blacklist_onclick_toggle" fullWidth className={classes.cardActionItem} variant="text">Remplacer en recherchant un plat</Button>
+                        </Typography>
+                    </CardContent>
+                </Grid>
+            </Card>
+        </>
     )
 }
 
