@@ -6,7 +6,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import DynamicTitle from './DynamicTitle';
 import MealsContainer from './MealsContainer';
 import MealsFilter from './MealsFilter';
-
+import ModalSelectionPlat from '../selectionPlat/ModalSelectionPlat';
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -75,6 +75,7 @@ const CommandPage = () => {
                     recipies={recipies}
                 />
             </Grid>
+            <ModalSelectionPlat />
         </Page>
     )
 }
