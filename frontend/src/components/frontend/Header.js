@@ -37,7 +37,7 @@ const Header = ({ logoutUser }) => {
             alignItems="center"
             className={classes.containerHeader}
         >   
-            <Link href="/dashboard" onClick={logoutUser}>
+            <Link href="/command" onClick={logoutUser}>
                 <img className={classes.headerLogo} src="/logos/upmeals_logo.png" alt="logo upmeals" />
             </Link>
 
