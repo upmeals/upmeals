@@ -36,10 +36,10 @@ export default () => {
     }
 
     if (process.env.NODE_ENV === 'test') {
-        return configurations['default']
+        return configurations['app']
     }
 
-    let subdomain = getSubdomain(window.location.hostname) || "default"
+    let subdomain = getSubdomain(window.location.hostname) || "app"
 
     if (!Object.keys(configurations).includes(subdomain)) {
         throw Error(`No valid configuration found for host ${subdomain}`);
