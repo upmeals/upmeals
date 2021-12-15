@@ -16,16 +16,13 @@ const useStyles = makeStyles(theme =>
 
 const ChipTag = ({props}) => {
   const classes = useStyles();
-  const handleClick = () => {
-    console.log('Si on veut rendre les tags clickable, on peut supprimer si pas besoin');
-  };
 
   return (
     <Stack direction="row" spacing={1}>
-      <Chip label={props[0]} variant="outlined" onClick={handleClick} className={classes.chipsTags}/>
-      <Chip label={props[1]} variant="outlined" onClick={handleClick} className={classes.chipsTags}/>
-      <Chip label={props[2]} variant="outlined" onClick={handleClick} className={classes.chipsTags}/>
-      <Chip label={props[3]} variant="outlined" onClick={handleClick} className={classes.chipsTags}/>
+      <Chip label={props[0]} variant="outlined" className={classes.chipsTags}/>
+      <Chip label={props[1]} variant="outlined" className={classes.chipsTags}/>
+      <Chip label={props[2]} variant="outlined" className={classes.chipsTags}/>
+      <Chip label={props[3]} variant="outlined" className={classes.chipsTags}/>
     </Stack>
   );
 }

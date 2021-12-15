@@ -104,8 +104,7 @@ const RegisterForm = ({ register, handleOpenLogin, handleClose }) => {
                     password: values.password
                 }
             )
-
-            return history.push('/dashboard')
+            return history.push('/command')
         }
     },
     );

@@ -9,6 +9,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 const useStyles = makeStyles(theme =>
 	createStyles({
 		root: {
+			margin: theme.spacing(1, 0),
 			width: '220px',
 			maxWidth: 220,
 			cursor: 'pointer',
@@ -29,6 +30,7 @@ const useStyles = makeStyles(theme =>
 			alignItems: 'center',
 			height: '220px',
 			backgroundColor: '#F5F5F4',
+			transition: '0.25s !important',
 		},
 		addIcon: {
 			width: '1.5em !important',
@@ -38,6 +40,7 @@ const useStyles = makeStyles(theme =>
 		cardContent: {
 			paddingBottom: '12px !important',
 			paddingTop: '12px !important',
+			transition: '0.25s !important',
 		},
 		typographyCard: {
 			textAlign: 'center',
@@ -46,11 +49,11 @@ const useStyles = makeStyles(theme =>
 	})
 )
 
-export default function AjoutPlat() {
+const AddMeal = ({ handleMealRandom }) => {
 	const classes = useStyles();
 
 	return (
-		<Card className={classes.root}>
+		<Card className={classes.root} onClick={handleMealRandom}>
 			<CardMedia className={classes.cardMedia}>
 				<AddIcon className={classes.addIcon} />
 			</CardMedia>
@@ -62,3 +65,5 @@ export default function AjoutPlat() {
 		</Card>
 	);
 }
+
+export default AddMeal

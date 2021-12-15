@@ -6,7 +6,8 @@ import { createStyles, makeStyles } from '@mui/styles';
 import DynamicTitle from './DynamicTitle';
 import MealsContainer from './MealsContainer';
 import MealsFilter from './MealsFilter';
-import ModalSelectionPlat from '../selectionPlat/ModalSelectionPlat';
+
+
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -27,14 +28,45 @@ const CommandPage = () => {
     const { loading: loadingRecipies, records: recipies } = useAllRecords('recipies');
 
     const [selectedRecipies, setSelectedRecipies] = useState([]);
+    const [unselectedRecipies, setUnselectedRecipies] = useState([]);
     const [nbrMeals, setNbrMeals] = useState(4);
     const [nbrPersons, setNbrPersons] = useState(1);
 
-    useEffect(() => {
-        if (recipies.length && !loadingRecipies) {
-            setSelectedRecipies(recipies.slice(0, nbrMeals))
-        }
+    const handleUpdateSelectedRecipies = (newSelectedRecipies) => {
+        let newSelectedRecipiesIds = newSelectedRecipies.map((recipe) => recipe.id)
+        let newUnselectedRecipies = recipies.filter((recipe) => !(newSelectedRecipiesIds.includes(recipe.id)))
+        setUnselectedRecipies(newUnselectedRecipies)
+        setSelectedRecipies(newSelectedRecipies)
+        setNbrMeals(newSelectedRecipies.length)
+    }
 
+    useEffect(() => {
+        // Premier load
+        if (recipies.length && !loadingRecipies && selectedRecipies.length === 0) {
+            let newSelectedRecipes = recipies.slice(0, nbrMeals)
+            let newSelectedRecipiesIds = newSelectedRecipes.map((recipe) => recipe.id)
+            let newUnselectedRecipies = recipies.filter((recipe) => !(newSelectedRecipiesIds.includes(recipe.id)))
+            setSelectedRecipies(newSelectedRecipes)
+            setUnselectedRecipies(newUnselectedRecipies)
+            // Si le nbrMeals change après le premier load il faut calculer correctement l'array
+        } else if (recipies.length && !loadingRecipies && selectedRecipies.length > 0) {
+            if (nbrMeals < selectedRecipies.length) {
+                let newSelectedRecipes = selectedRecipies.slice(0, nbrMeals)
+                let newSelectedRecipiesIds = newSelectedRecipes.map((recipe) => recipe.id)
+                let newUnselectedRecipies = recipies.filter((recipe) => !(newSelectedRecipiesIds.includes(recipe.id)))
+                setSelectedRecipies(newSelectedRecipes)
+                setUnselectedRecipies(newUnselectedRecipies)
+            } else {
+                let newSelectedRecipes = [
+                    ...selectedRecipies,
+                    ...unselectedRecipies.slice(0, (nbrMeals - selectedRecipies.length))
+                ]
+                let newSelectedRecipiesIds = newSelectedRecipes.map((recipe) => recipe.id)
+                let newUnselectedRecipies = recipies.filter((recipe) => !(newSelectedRecipiesIds.includes(recipe.id)))
+                setSelectedRecipies(newSelectedRecipes)
+                setUnselectedRecipies(newUnselectedRecipies)
+            }
+        }
     }, [loadingRecipies, nbrMeals, nbrPersons]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
@@ -50,11 +82,13 @@ const CommandPage = () => {
                 <MealsFilter
                     loading={loadingRecipies}
                 />
-                <MealsContainer 
+                <MealsContainer
+                    handleUpdateSelectedRecipies={handleUpdateSelectedRecipies}
                     selectedRecipies={selectedRecipies}
+                    unselectedRecipies={unselectedRecipies}
+                    recipies={recipies}
                 />
             </Grid>
-            <ModalSelectionPlat />
         </Page>
     )
 }

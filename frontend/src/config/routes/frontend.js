@@ -2,7 +2,7 @@ import React from 'react';
 
 // Import routes
 const Frontend = React.lazy(() => import('../../components/frontend/Frontend'))
-const Dashboard = React.lazy(() => import('../../components/frontend/dashboard/Dashboard'))
+// const Dashboard = React.lazy(() => import('../../components/frontend/dashboard/Dashboard'))
 //const Login = React.lazy(() => import('../../components/frontend/auth/login/Login'))
 //const Register = React.lazy(() => import('../../components/frontend/auth/register/Register'))
 const CommandPage = React.lazy(() => import('../../components/frontend/dashboard/command/CommandPage'))
@@ -19,12 +19,6 @@ const routes = [
         component: Frontend,
         exact: true,
         isProtected: false
-    },
-    {
-        path: '/dashboard',
-        component: Dashboard,
-        exact: true,
-        isProtected: true
     },
     {
         path: '/command',

@@ -17,7 +17,6 @@ const useStyles = makeStyles(theme =>
             height: '500px',
             backgroundColor: '#FFFFFF',
         }
-
     })
 )
 
