@@ -34,7 +34,7 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, unsele
     const [selectionModalOpen, setSelectionModalOpen] = React.useState(false)
 
     const handleMealRandom = ({ e, index, selected }) => {
-        if (selectedRecipies.length < 9) {
+        if (selectedRecipies.length <= 9) {
             let randomIndex = Math.floor(Math.random() * unselectedRecipies.length)
             if (index === undefined) { // Si index pas set -> ajouter
                 let newSelectedRecipes = [...selectedRecipies]

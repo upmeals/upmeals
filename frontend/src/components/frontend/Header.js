@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme =>
             padding: theme.spacing(2.5, 1),
             margin: theme.spacing(1, 4),
             width: 'calc(100% - 64px) !important',
+            height: 82,
             borderBottom: '2px solid #707070',
             position: 'fixed',
         },

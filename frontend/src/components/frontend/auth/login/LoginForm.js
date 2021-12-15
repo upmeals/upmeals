@@ -132,7 +132,7 @@ const LoginForm = ({ login, handleOpenRegister, handleClose }) => {
                 }
             )
 
-            return history.push('/dashboard')
+            return history.push('/command')
         }
     });
 

@@ -64,7 +64,7 @@ const Frontend = () => {
         >
             <Typography className={classes.title}>Page d'accueil</Typography>
             <Button
-                href="/dashboard"
+                href="/command"
                 className={classes.button}
                 variant="contained"
                 color="primary"
