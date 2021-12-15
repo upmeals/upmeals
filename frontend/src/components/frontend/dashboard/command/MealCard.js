@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails }) => {
+const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails, handleToggleSelection }) => {
     const classes = useStyles();
 
     return (
@@ -108,8 +108,8 @@ const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails }) => {
                             </Typography>
                         </Typography>
                         <Typography className={classes.cardActionContainer} variant="body2" component="div">
-                            <Button id="blacklist_onclick_toggle" fullWidth className={classes.cardActionItem} variant="text" onClick={() => { handleMealRandom(null, index) }}>Remplacer aléatoirement</Button>
-                            <Button id="blacklist_onclick_toggle" fullWidth className={classes.cardActionItem} variant="text">Remplacer en recherchant un plat</Button>
+                            <Button id="blacklist_onclick_toggle" fullWidth className={classes.cardActionItem} variant="text" onClick={(e) => { handleMealRandom({e, index}) }}>Remplacer aléatoirement</Button>
+                            <Button id="blacklist_onclick_toggle" fullWidth className={classes.cardActionItem} variant="text" onClick={(e) => { handleToggleSelection({e, index}) }} >Remplacer en recherchant un plat</Button>
                         </Typography>
                     </CardContent>
                 </Grid>

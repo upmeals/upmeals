@@ -16,9 +16,10 @@ const useStyles = makeStyles(theme =>
             borderRadius: '20px !important',
             margin: theme.spacing(1, 2, 2, 2),
             backgroundColor: "#FFF!important",
-            '&:hover': {
-                backgroundColor: "#FFF!important"
-            }
+            '&:hover $cardContainer': {
+                background: '#FBFBFA',
+                transition: '0.25s !important',
+            },
         },
         rootButton: {
             boxShadow: "none!important",
@@ -83,7 +84,7 @@ const useStyles = makeStyles(theme =>
         cardActionItem: {
             fontSize: '11px !important',
             fontWeight: '200',
-            borderRadius: '15px!important',
+            borderRadius: '12px!important',
             padding: '6px 0',
             textTransform: 'none!important',
             backgroundColor: '#56BB7F!important',
@@ -95,7 +96,7 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const SelectionCard = () => {
+const SelectionCard = ({ recipe, index, handleMealRandom, replaceMeal }) => {
     const classes = useStyles();
 
     return (
@@ -103,11 +104,11 @@ const SelectionCard = () => {
             <CardActionArea classes={{ root: classes.rootButton, focusHighlight: classes.focusHighlight }}>
                 <CardMedia
                     className={classes.media}
-                    image='https://via.placeholder.com/220X220'
+                    image={`/images/meals/${index + 1}.svg`}
                 />
                 <CardContent className={classes.cardContainer}>
                     <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p">
-                        Sauté de poulet brocolis cajou
+                        { recipe.title }
                     </Typography>
                     <Typography className={classes.cardInfoContainer} variant="body2" component="div" >
                         <Typography className={classes.cardInfos} variant="body2" component="div">
@@ -119,7 +120,7 @@ const SelectionCard = () => {
                             </Typography>
                         </Typography>
                         <Typography className={classes.cardActionContainer} variant="body2" component="div">
-                            <Button className={classes.cardActionItem} variant="outline">Choisir</Button>
+                            <Button className={classes.cardActionItem} variant="outline" onClick={(e) => { handleMealRandom({ e, index: replaceMeal, selected: recipe }) }} >Choisir</Button>
                         </Typography>
                     </Typography>
                 </CardContent>

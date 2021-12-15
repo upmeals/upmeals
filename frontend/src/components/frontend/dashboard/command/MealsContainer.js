@@ -5,6 +5,7 @@ import MealCard from './MealCard';
 import AddMeal from './AddMeal';
 import DetailsMeal from './DetailsMeal';
 import { useHistory } from 'react-router-dom';
+import SelectionModal from './SelectionModal';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -25,19 +26,16 @@ const useStyles = makeStyles(theme =>
 )
 
 
-const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipies }) => {
+const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, unselectedRecipies, recipies }) => {
     const classes = useStyles();
     const history = useHistory()
 
     const [detailsModalOpen, setDetailsModalOpen] = React.useState(false)
+    const [selectionModalOpen, setSelectionModalOpen] = React.useState(false)
 
-    const handleMealRandom = (_, index) => {
-        if (selectedRecipies.length < 9 || index !== undefined) {
-            let selectedRecipiesIds = selectedRecipies.map((recipe) => recipe.id)
-            let unselectedRecipies = recipies.filter((recipe) => !(selectedRecipiesIds.includes(recipe.id)))
-
+    const handleMealRandom = ({ e, index, selected }) => {
+        if (selectedRecipies.length < 9) {
             let randomIndex = Math.floor(Math.random() * unselectedRecipies.length)
-
             if (index === undefined) { // Si index pas set -> ajouter
                 let newSelectedRecipes = [...selectedRecipies]
                 newSelectedRecipes.push(unselectedRecipies[randomIndex])
@@ -45,11 +43,14 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipi
             } else { // Si index set -> remplacer
                 let firstPart = (index > 0) ? [...selectedRecipies.slice(0, index)] : []
                 let lastPart = (index < 9) ? [...selectedRecipies.slice(index, 9)] : []
-
                 let newSelectedRecipes = [
                     ...firstPart.concat(lastPart)
                 ]
-                newSelectedRecipes.splice(index, 1, unselectedRecipies[randomIndex])
+                if (selected !== undefined) {
+                    newSelectedRecipes.splice(index, 1, selected)
+                } else {
+                    newSelectedRecipes.splice(index, 1, unselectedRecipies[randomIndex])
+                }
                 return handleUpdateSelectedRecipies(newSelectedRecipes)
             }
         } else {
@@ -60,19 +61,29 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipi
     const handleToggleDetails = ({ e, recipe }) => {
         if (e.target.id !== 'blacklist_onclick_toggle') {
             if (history.location.search === '' && recipe && recipe.id) {
-                history.push({search:'id=' + recipe.id})
+                history.push({ search: 'id=' + recipe.id })
             } else {
-                history.push({search:''})
+                history.push({ search: '' })
             }
         }
     }
 
+    const handleToggleSelection = ({ _, index }) => {
+        if (history.location.search === '' && index !== undefined) {
+            history.push({ search: `?replaceMeal=${index}` })
+        } else {
+            history.push({ search: '' })
+        }
+    }
+
     useEffect(() => {
-        console.log(history.location.search, history.location.search.includes('?id='), history.location.search.split('?id=')[1])
         if (history.location.search !== '' && history.location.search.includes('?id=')) {
             setDetailsModalOpen(history.location.search.split('?id=')[1])
+        } else if (history.location.search !== '' && history.location.search.includes('?replaceMeal=')) {
+            setSelectionModalOpen(history.location.search)
         } else if (history.location.search === '') {
             setDetailsModalOpen(false)
+            setSelectionModalOpen(false)
         }
     }, [history.location.search])
 
@@ -107,19 +118,38 @@ const MealsContainer = ({ handleUpdateSelectedRecipies, selectedRecipies, recipi
                         {
                             selectedRecipies.map((recipe, index) => {
                                 return (
-                                    <MealCard key={index} recipe={recipe} index={index} handleMealRandom={handleMealRandom} handleToggleDetails={handleToggleDetails} />
+                                    <MealCard
+                                        key={index}
+                                        recipe={recipe}
+                                        index={index}
+                                        handleMealRandom={handleMealRandom}
+                                        handleToggleDetails={handleToggleDetails}
+                                        handleToggleSelection={handleToggleSelection}
+                                    />
                                 )
                             })
                         }
                         {
                             selectedRecipies.length < 9 && (
-                                <AddMeal handleMealRandom={handleMealRandom} />
+                                <AddMeal
+                                    handleMealRandom={handleMealRandom}
+                                />
                             )
                         }
                     </Grid>
                 )
             }
-            <DetailsMeal detailsModalOpen={detailsModalOpen} handleToggleDetails={handleToggleDetails} />
+            <DetailsMeal
+                detailsModalOpen={detailsModalOpen}
+                handleToggleDetails={handleToggleDetails}
+            />
+            <SelectionModal
+                selectedRecipies={selectedRecipies}
+                unselectedRecipies={unselectedRecipies}
+                selectionModalOpen={selectionModalOpen}
+                handleToggleSelection={handleToggleSelection}
+                handleMealRandom={handleMealRandom}
+            />
         </>
     )
 }
