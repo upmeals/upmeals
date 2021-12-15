@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme =>
 		root: {
 			width: '220px',
 			maxWidth: 220,
-			borderRadius: '20px',
 			cursor: 'pointer',
 			backgroundColor: "#FFF!important",
             borderRadius: '20px !important',
