@@ -4,6 +4,7 @@ import ingredientsSeeder from '@loaders/ingredientsSeeder'
 import mongooseLoader from '@loaders/mongooseLoader'
 import recipiesSeeder from '@loaders/recipiesSeeder'
 import Ingredient from '@models/ingredient'
+import User from '@models/user'
 import Recipe from '@models/recipe'
 
 export default async ({ expressApp }) => {
@@ -12,7 +13,7 @@ export default async ({ expressApp }) => {
     require('@strategies/jwtStrategy')
     require('@strategies/localStrategy')
 
-    if (config.env != 'production') {
+    if (config.env != 'production' && (await User.find()).length > 0) {
         if ((await Ingredient.find()).length == 0) {
             await ingredientsSeeder()
         }
