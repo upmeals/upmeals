@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
@@ -100,31 +99,29 @@ const SelectionCard = ({ recipe, index, handleMealRandom, replaceMeal }) => {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
-            <CardActionArea classes={{ root: classes.rootButton, focusHighlight: classes.focusHighlight }}>
-                <CardMedia
-                    className={classes.media}
-                    image={`/images/meals/${index + 1}.svg`}
-                />
-                <CardContent className={classes.cardContainer}>
-                    <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p">
-                        { recipe.title }
-                    </Typography>
-                    <Typography className={classes.cardInfoContainer} variant="body2" component="div" >
-                        <Typography className={classes.cardInfos} variant="body2" component="div">
-                            <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                                <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 25mn.
-                            </Typography>
-                            <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                                4,5€/pers.
-                            </Typography>
+        <Card className={classes.root} classes={{ focusHighlight: classes.focusHighlight }}>
+            <CardMedia
+                className={classes.media}
+                image={`/images/meals/${index + 1}.svg`}
+            />
+            <CardContent className={classes.cardContainer}>
+                <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p">
+                    {recipe.title}
+                </Typography>
+                <Typography className={classes.cardInfoContainer} variant="body2" component="div" >
+                    <Typography className={classes.cardInfos} variant="body2" component="div">
+                        <Typography className={classes.cardInfosContent} variant="body2" component="p">
+                            <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 25mn.
                         </Typography>
-                        <Typography className={classes.cardActionContainer} variant="body2" component="div">
-                            <Button className={classes.cardActionItem} variant="outline" onClick={(e) => { handleMealRandom({ e, index: replaceMeal, selected: recipe }) }} >Choisir</Button>
+                        <Typography className={classes.cardInfosContent} variant="body2" component="p">
+                            4,5€/pers.
                         </Typography>
                     </Typography>
-                </CardContent>
-            </CardActionArea>
+                    <Typography className={classes.cardActionContainer} variant="body2" component="div">
+                        <Button className={classes.cardActionItem} variant="outline" onClick={(e) => { handleMealRandom({ e, index: replaceMeal, selected: recipe }) }} >Choisir</Button>
+                    </Typography>
+                </Typography>
+            </CardContent>
         </Card>
     )
 }

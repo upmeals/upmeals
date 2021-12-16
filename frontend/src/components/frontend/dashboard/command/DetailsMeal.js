@@ -19,11 +19,14 @@ const useStyles = makeStyles(theme =>
 			top: '50%',
 			left: '50%',
 			transform: 'translate(-50%, -50%)',
-			width: 1390,
+            width: '70%',
+            height: '500px',
+            minHeight: '85vh',
 			backgroundColor: 'white',
 			borderRadius: 20,
 			boxShadow: 24,
 			p: 4,
+			overflowY: 'scroll',
 			'&:focus-visible': {
                 outline: 'unset',
             },
@@ -35,7 +38,6 @@ const useStyles = makeStyles(theme =>
 		imgDetail: {
 			height: 430,
 			position: 'relative',
-			borderRadius: '15px 15px 0px 0px',
 		},
 		arrowIcon: {
 			position: 'absolute',
@@ -100,7 +102,7 @@ const DetailsMeal = ({ record: todo, handleToggleDetails, detailsModalOpen }) =>
 
 	return (
 		<Modal
-			open={detailsModalOpen}
+			open={Boolean(detailsModalOpen)}
 			onClose={(e) => { handleToggleDetails({ e }) }}
 			aria-labelledby="modal-modal-title"
 			aria-describedby="modal-modal-description"

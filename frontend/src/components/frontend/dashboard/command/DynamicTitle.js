@@ -11,18 +11,21 @@ const useStyles = makeStyles(theme =>
     createStyles({
         title: {
             fontSize: '28px !important',
-            margin: `${theme.spacing(1, 0, 4, 0)} !important`,
+            margin: `${theme.spacing(1, 1, 0, 0)} !important`,
+            width: 'auto',
         },
         titleContainer: {
             display: 'flex',
             flexDirection: 'row',
+            flexWrap: 'wrap',
             justifyContent: 'flex-start',
-            alignItems: 'flex-start',
+            alignItems: 'center',
+            margin: `${theme.spacing(0, 0, 4, 0)} !important`,
         },
         selectInput: {
             width: 60,
             height: 40,
-            margin: theme.spacing(0.6, 1.5),
+            margin: theme.spacing(0.75, 1, 0, 0.25),
         }
     })
 )
@@ -38,9 +41,13 @@ const DynamicTitle = ({ nbrMeals, nbrPersons, setNbrMeals, setNbrPersons, loadin
                     <Skeleton variant="text" width={500} height={64} />
                 ) : (
                     <Grid className={classes.titleContainer}>
-                        <Typography className={classes.title} variant="h1">
-                            Préparons votre liste de course de
-                        </Typography>
+                        {
+                            'Préparons votre liste de course de'.split(' ').map((word, index) => (
+                                <Typography key={index} className={classes.title} variant="body1">
+                                    {word}
+                                </Typography>
+                            ))
+                        }
                         <FormControl>
                             <Select
                                 id="number-meals-select"
@@ -59,9 +66,13 @@ const DynamicTitle = ({ nbrMeals, nbrPersons, setNbrMeals, setNbrPersons, loadin
                                 <MenuItem value={9}>9</MenuItem>
                             </Select>
                         </FormControl>
-                        <Typography className={classes.title} variant="h1">
-                            repas pour
-                        </Typography>
+                        {
+                            'repas pour'.split(' ').map((word, index) => (
+                                <Typography key={index} className={classes.title} variant="body1">
+                                    {word}
+                                </Typography>
+                            ))
+                        }
                         <FormControl>
                             <Select
                                 id="number-meals-select"
@@ -75,7 +86,7 @@ const DynamicTitle = ({ nbrMeals, nbrPersons, setNbrMeals, setNbrPersons, loadin
                                 <MenuItem value={4}>4</MenuItem>
                             </Select>
                         </FormControl>
-                        <Typography className={classes.title} variant="h1">
+                        <Typography className={classes.title} variant="body1">
                             personne{nbrPersons > 1 ? 's' : ''}
                         </Typography>
                     </Grid>

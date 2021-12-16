@@ -19,8 +19,8 @@ const useStyles = makeStyles(theme =>
             height: 'auto',
         },
         headerAvatar: {
-            width: '55px',
-            height: '55px',
+            width: '40px',
+            height: '40px',
         },
     })
 )
