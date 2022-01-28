@@ -7,18 +7,13 @@ import passport from 'passport'
 
 export default ({ app }: { app: express.Application }) => {
     const corsOptions = {
-        origin: function (origin, callback) {
-            if (!origin || config.whitelistedDomains.indexOf(origin) !== -1) {
-                callback(null, true)
-            } else {
-                callback(new Error('Not allowed by CORS'))
-            }
-        },
+        origin: "https://localhost",
         credentials: true,
-        // methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTION',
-        // preflightContinue: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTION',
+        preflightContinue: true,
     }
-
+    
+    console.log(corsOptions)
     app.options('*', cors(corsOptions))
     app.use(cors(corsOptions))
 

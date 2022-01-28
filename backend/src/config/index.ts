@@ -38,8 +38,4 @@ export default {
     },
 
     sessionExpiry: process.env.SESSION_EXPIRY,
-
-    whitelistedDomains: process.env.WHITELISTED_DOMAINS
-        ? process.env.WHITELISTED_DOMAINS.split(',')
-        : [],
 }
