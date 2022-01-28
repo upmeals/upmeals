@@ -1,7 +1,9 @@
 import { Grid, Link, Button, Avatar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import withAuth from '../hoc/withAuth';
+import ModalProfile from './dashboard/profile/ModalProfile';
 
 
 const useStyles = makeStyles(theme =>
@@ -28,6 +30,13 @@ const useStyles = makeStyles(theme =>
 
 const Header = ({ logoutUser }) => {
     const classes = useStyles();
+    const history = useHistory()
+    const [openProfile, setOpenProfile] = React.useState(false)
+
+    const handleOpenProfile = () => {
+        setOpenProfile(true)
+        history.push({search:'profile=true'})
+    }
 
     return (
         <Grid
@@ -46,9 +55,14 @@ const Header = ({ logoutUser }) => {
                 src="/static/images/avatar/1.jpg"
                 className={classes.headerAvatar}
             >
-                <Button>
+                <Button onClick={handleOpenProfile}>
                     Profile
                 </Button>
+                <ModalProfile
+                    handleOpenProfile={handleOpenProfile}
+                    open={openProfile}
+                    setOpenProfile={setOpenProfile}
+                />
             </Avatar>
         </Grid>
     )
