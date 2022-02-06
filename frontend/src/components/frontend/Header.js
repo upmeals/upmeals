@@ -1,6 +1,6 @@
 import { Grid, Link, Button, Avatar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import withAuth from '../hoc/withAuth';
 import ModalProfile from './dashboard/profile/ModalProfile';
@@ -32,6 +32,11 @@ const Header = ({ logoutUser }) => {
     const classes = useStyles();
     const history = useHistory()
     const [openProfile, setOpenProfile] = React.useState(false)
+    useEffect(() => {
+        if (history.location.search === '?profile=true') {
+            setOpenProfile(true)    
+        } 
+    },[])
 
     const handleOpenProfile = () => {
         setOpenProfile(true)

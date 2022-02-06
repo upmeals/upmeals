@@ -24,6 +24,8 @@ const useStyles = makeStyles(theme =>
 const ModalProfile = ({ open, setOpenProfile, handleOpenProfile }) => {
     const classes = useStyles();
     const history = useHistory()
+
+    
     const handleClose = () => {
         setOpenProfile(false)
         history.push({search:''})
@@ -39,7 +41,7 @@ const ModalProfile = ({ open, setOpenProfile, handleOpenProfile }) => {
             <Modal open={open} onClose={handleClose}>
                 <Box className={classes.modalContainer}>
                     <ProfilForm 
-                        handleOpenRegister={handleOpenProfile}
+                        handleOpenProfile={handleOpenProfile}
                         handleClose={handleClose}
                     />
                 </Box>
