@@ -36,7 +36,7 @@ const Header = ({ logoutUser }) => {
         if (history.location.search === '?profile=true') {
             setOpenProfile(true)    
         } 
-    },[])
+    },[history])
 
     const handleOpenProfile = () => {
         setOpenProfile(true)

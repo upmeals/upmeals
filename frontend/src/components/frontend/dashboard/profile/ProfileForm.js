@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme =>
     createStyles({
         notchedOutline: { 
             borderColor: '#B3B6B7 !important',
-        }
+        },
+
     })
 )
 
@@ -20,12 +21,7 @@ const useStyles = makeStyles(theme =>
 const ProfileForm = ({ }) => {
     const classes = useStyles();
     const history = useHistory();
-
-    /*const handleSwitchToRegister = () => {
-        handleClose();
-        handleOpenRegister();
-    }*/
-
+    
     const formik = useFormik({
         onSubmit: async (values) => {
             return history.push('')
@@ -39,17 +35,7 @@ const ProfileForm = ({ }) => {
             justifyContent="flex-start"
             alignItems="center"
         >
-            <form className={classes.formContainer}>
-                <Grid
-                    direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    container
-                    className={classes.rememberAndForgotContainer}
-                >
-                    
-                </Grid>
-            </form>
+            
         </Grid>
     )
 }

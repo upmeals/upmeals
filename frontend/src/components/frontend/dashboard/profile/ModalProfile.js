@@ -1,5 +1,6 @@
 // import { defineMessages, injectIntl } from 'react-intl';
 import { Grid, Modal, Box } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +17,12 @@ const useStyles = makeStyles(theme =>
             width: '35%',
             height: '500px',
             backgroundColor: '#FFFFFF',
+        },
+        closeIcon: {
+            marginTop: '1rem',
+            marginRight: '1rem',
+            float: 'right',
+            cursor: 'pointer',
         }
     })
 )
@@ -25,7 +32,7 @@ const ModalProfile = ({ open, setOpenProfile, handleOpenProfile }) => {
     const classes = useStyles();
     const history = useHistory()
 
-    
+
     const handleClose = () => {
         setOpenProfile(false)
         history.push({search:''})
@@ -43,6 +50,10 @@ const ModalProfile = ({ open, setOpenProfile, handleOpenProfile }) => {
                     <ProfilForm 
                         handleOpenProfile={handleOpenProfile}
                         handleClose={handleClose}
+                    />
+                    <CloseIcon 
+                        onClick={handleClose} 
+                        className={classes.closeIcon}
                     />
                 </Box>
             </Modal>
