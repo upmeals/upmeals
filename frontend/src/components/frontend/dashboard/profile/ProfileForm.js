@@ -2,10 +2,10 @@ import { Grid, Typography, TextField, InputLabel, Checkbox, Link, Button } from 
 import { createStyles, makeStyles } from '@mui/styles';
 //import { deepOrange, grey } from '@mui/material/colors';
 import React from 'react';
-import { useFormik } from 'formik';
 import withAuth from '../../../hoc/withAuth';
+import useAllRecords from '../../../../hooks/useAllRecords';
 import { useHistory } from 'react-router-dom';
-
+import AlimentaryManager from '../command/AlimentaryManager';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme =>
         modalProfile: {
             padding: '1rem',
         },
-
     })
 )
 
@@ -25,11 +24,7 @@ const ProfileForm = ({ }) => {
     const classes = useStyles();
     const history = useHistory();
     
-    const formik = useFormik({
-        onSubmit: async (values) => {
-            return history.push('')
-        }
-    });
+    const { loading: loadingConstraints } = useAllRecords('constraints');
 
     return (
         <Grid
@@ -45,6 +40,7 @@ const ProfileForm = ({ }) => {
             direction="row"
             justifyContent="space-between"
             marginTop="2rem"
+            marginBottom="2rem"
          >  
             {/* Section AvatarManager  */}
             <div>section AvatarManager</div>
@@ -53,8 +49,20 @@ const ProfileForm = ({ }) => {
             <div>section PreferencesManager</div>
          </Grid>
 
-         <Grid>
+         <Grid
+            container
+            justifyContent="flex-start"
+            className={classes.sectionAlimentaryManager}
+         >
             {/* Section AlimentaryManager  */}
+            <Typography gutterBottom variant="body1" component="p">
+                Contraintes alimentaires
+            </Typography>
+
+            {/* component filters  */}
+            <AlimentaryManager
+                loading={loadingConstraints}
+            />
          </Grid>
          
         </Grid>

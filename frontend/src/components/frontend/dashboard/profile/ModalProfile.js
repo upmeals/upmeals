@@ -21,9 +21,9 @@ const useStyles = makeStyles(theme =>
         closeIcon: {
             marginTop: '1rem',
             marginRight: '1rem',
-            position: 'relative',
-            bottom: '5rem',
-            float: 'right',
+            position: 'absolute',
+            top: '0',
+            right: '0',
             cursor: 'pointer',
         }
     })
