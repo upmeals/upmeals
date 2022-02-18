@@ -18,54 +18,56 @@ const useStyles = makeStyles(theme =>
     })
 )
 
+const dietaryRequirements = [
+    {
+        name: 'light',
+        text: 'Light',
+    },
+    {
+        name: 'sugar-free',
+        text: 'Sans sucre',
+    },
+    {
+        name: 'salt-free',
+        text: 'Sans sel',
+    },
+    {
+        name: 'gluten-free',
+        text: 'Sans gluten',
+    },
+    {
+        name: 'diabete',
+        text: 'Diabete',
+    },
+    {
+        name: 'cholesterol',
+        text: 'Cholesterol',
+    },
+    {
+        name: 'vegetarian',
+        text: 'Végétarien',
+    },
+    {
+        name: 'vegan',
+        text: 'Vegan',
+    },
+    {
+        name: 'proteinaceous',
+        text: 'Protéiné',
+    },
+]
 
 const AlimentaryManager = ({ loading }) => {
     const classes = useStyles();
+    
+    const [isActive, setActive] = React.useState([]);
 
-    const [dietaryRequirements] = React.useState([
-        {
-            name: 'light',
-            text: 'Light',
-        },
-        {
-            name: 'sugar-free',
-            text: 'Sans sucre',
-        },
-        {
-            name: 'salt-free',
-            text: 'Sans sel',
-        },
-        {
-            name: 'gluten-free',
-            text: 'Sans gluten',
-        },
-        {
-            name: 'diabete',
-            text: 'Diabete',
-        },
-        {
-            name: 'cholesterol',
-            text: 'Cholesterol',
-        },
-        {
-            name: 'vegetarian',
-            text: 'Végétarien',
-        },
-        {
-            name: 'vegan',
-            text: 'Vegan',
-        },
-        {
-            name: 'proteinaceous',
-            text: 'Protéiné',
-        },
-
-
-    ])
-    const [isActive, setActive] = React.useState(false);
-
-    const toggleClass = () => {
-        setActive(!isActive);
+    const toggleClass = (index) => {
+        if (!isActive.includes(index)) {
+            setActive([...isActive,index])
+        } else {
+            setActive(isActive.filter(value => value !== index ))
+        }
     }
 
     return (
@@ -94,8 +96,8 @@ const AlimentaryManager = ({ loading }) => {
                                         variant="outlined" 
                                         key={index}
                                         index={index}
-                                        className={isActive ? classes.activeConstraint : null}
-                                        onClick={toggleClass}
+                                        className={isActive.includes(index) ? classes.activeConstraint : null}
+                                        onClick={ () => toggleClass(index) }
                                     >
                                         {constraint.text}
                                     </Button>
