@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react'
-import Sidebar from '../frontend/Sidebar';
-import Header from '../frontend/Header';
+import Sidebar from './Sidebar';
+import Header from './Header';
 
 const useStyles = makeStyles(theme =>
     createStyles({
