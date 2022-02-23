@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -96,12 +96,21 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const SelectionCard = ({ recipe, handleMealRandom, replaceMeal, refreshImage }) => {
+const SelectionCard = ({ recipe, handleReplaceMeal, currentRecipe, refreshImage, mealToReplace }) => {
     const classes = useStyles();
 
-	const { src, refreshCurrentImage } = useImage({
+	const { src, refreshImage: refreshAppendImage } = useImage({
 		image: (recipe && recipe.image) ? (recipe.image) : (undefined),
 	})
+
+    const [lastRecipe, setLastRecipe] = useState(recipe.title)
+
+    useEffect(() => {
+        if (lastRecipe.title !== recipe.title) {
+            setLastRecipe(recipe.title)
+            refreshAppendImage(recipe.image)
+        }
+    }, [recipe]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <Card className={classes.root} classes={{ focusHighlight: classes.focusHighlight }}>
@@ -116,14 +125,14 @@ const SelectionCard = ({ recipe, handleMealRandom, replaceMeal, refreshImage }) 
                 <Typography className={classes.cardInfoContainer} variant="body2" component="div" >
                     <Typography className={classes.cardInfos} variant="body2" component="div">
                         <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                            <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 25mn.
+                            <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> {recipe.preparation_time}mn.
                         </Typography>
                         <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                            4,5€/pers.
+                            {recipe.price}€/pers.
                         </Typography>
                     </Typography>
                     <Typography className={classes.cardActionContainer} variant="body2" component="div">
-                        <Button className={classes.cardActionItem} variant="outline" onClick={(e) => { handleMealRandom({ e, index: replaceMeal, selected: recipe, refreshImage, refreshCurrentImage }) }} >Choisir</Button>
+                        <Button className={classes.cardActionItem} variant="outline" onClick={(e) => { handleReplaceMeal({ e, index: mealToReplace, refreshImage, mealToAppend: recipe, refreshAppendImage }) }} >Choisir</Button>
                     </Typography>
                 </Typography>
             </CardContent>

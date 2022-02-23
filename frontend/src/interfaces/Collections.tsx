@@ -2,8 +2,10 @@
 export type Recipe = {
     id?: number,
     title?: string,
-    image?: File,
+    image: File,
     description?: string,
+    price?: string,
+    preparation_time?: string,
     status?: string,
     sort?: number,
     user_created?: string,

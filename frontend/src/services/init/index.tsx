@@ -1,4 +1,5 @@
 import { setInitIsAppReady } from "../../store/init/operations"
+import { clearModalIfOnce } from "../../store/modal/operations"
 import { gqlAuthLogout, gqlAuthRefresh } from "../gql/Auth"
 
 
@@ -6,6 +7,10 @@ const initApp = async () => {
     try {
         if (localStorage.getItem('accessToken')) {
             await gqlAuthRefresh()
+        }
+
+        if (localStorage.getItem('modalProps')) {
+            await clearModalIfOnce()
         }
 
         setInitIsAppReady(true)

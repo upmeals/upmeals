@@ -55,28 +55,30 @@ const ModalRouter = () => {
     const [modal, setModal] = React.useState<undefined | ModalInterface>(undefined)
 
     useEffect(() => {
-        let urlParams = new URLSearchParams(location.search)
-        if (urlParams.has('modal')) {
-            let modalName = urlParams.get('modal')
-            let modalRoute = modals.find((modal) => modal.name === modalName)
-
-            if (modalRoute !== undefined) { // Si la route existe bel et bien
-                if (modalRoute.isProtected === true && isAppReady && !isLoggedIn) { // Si l'utilisateur doit être login
-                    handleClose()
+        if (isAppReady) {
+            let urlParams = new URLSearchParams(location.search)
+            if (urlParams.has('modal')) {
+                let modalName = urlParams.get('modal')
+                let modalRoute = modals.find((modal) => modal.name === modalName)
+    
+                if (modalRoute !== undefined) { // Si la route existe bel et bien
+                    if (modalRoute.isProtected === true && isAppReady && !isLoggedIn) { // Si l'utilisateur doit être login
+                        handleClose()
+                    }
+    
+                    if (modalRoute.isProtected === false && isAppReady && isLoggedIn) { // Si l'utilisateur doit être logout
+                        handleClose()
+                    }
+    
+                    if (modalRoute.props && modalRoute.props === true && Object.keys(modalProps).length === 0) { // Si les props doivent être présents mais qu'ils ne le sont pas
+                        handleClose()
+                    }
+    
+                    setModal(modalRoute)
                 }
-
-                if (modalRoute.isProtected === false && isAppReady && isLoggedIn) { // Si l'utilisateur doit être logout
-                    handleClose()
-                }
-
-                if (modalRoute.props && modalRoute.props === true && Object.keys(modalProps).length === 0) { // Si les props doivent être présents mais qu'ils ne le sont pas
-                    handleClose()
-                }
-
-                setModal(modalRoute)
+            } else if (modal !== undefined) { // si la modal existe mais qu'il n'y a aucun param dans l'url
+                handleClose()
             }
-        } else if (modal !== undefined) { // si la modal existe mais qu'il n'y a aucun param dans l'url
-            handleClose()
         }
     }, [location, modal, isAppReady, isLoggedIn]) // eslint-disable-line react-hooks/exhaustive-deps
 

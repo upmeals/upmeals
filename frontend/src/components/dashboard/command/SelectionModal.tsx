@@ -1,11 +1,14 @@
 // import { defineMessages, injectIntl } from 'react-intl';
-import { Grid, Modal, Box, Typography, Skeleton } from '@mui/material';
+import { Grid, Box, Typography, Skeleton } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Recipe } from '../../../interfaces/Collections';
 import SelectionCard from './SelectionCard'
+import { Theme } from '@mui/system';
+
 
 // Component classes
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         modalContainer: {
             width: '70vw',
@@ -46,20 +49,27 @@ const useStyles = makeStyles(theme =>
     })
 )
 
+
+interface SelectionModalProps {
+    unselectedRecipes: Recipe[],
+    currentRecipe: Recipe,
+    mealToReplace: number,
+    handleReplaceMeal: any,
+    refreshImage: any,
+}
+
+
 // Component
-const SelectionModal = ({ selectedRecipes, unselectedRecipes, handleMealRandom, handleClose, replaceMealIndex, refreshImage }) => {
+const SelectionModal = ({
+    unselectedRecipes,
+    currentRecipe,
+    handleReplaceMeal,
+    mealToReplace,
+    refreshImage
+}:
+    SelectionModalProps
+) => {
     const classes = useStyles();
-
-    console.log(handleMealRandom)
-
-    // let replaceMeal = selectionModalOpen !== false ? parseInt(selectionModalOpen.split('=')[1]) : false
-
-    // useEffect(() => {
-    //     if (selectedRecipes.length < replaceMeal || false) {
-    //         handleToggleSelection()
-    //     }
-    //     // eslint-disable-next-line
-    // }, [selectedRecipes])
 
     return (
         <Box className={classes.modalContainer}>
@@ -67,7 +77,7 @@ const SelectionModal = ({ selectedRecipes, unselectedRecipes, handleMealRandom, 
                 Choisissez un plat et ajoutez le dans votre liste
             </Typography>
             {
-                unselectedRecipes.length === 0 ? (
+                !unselectedRecipes || unselectedRecipes.length === 0 ? (
                     <Grid container className={classes.cardContainer}>
                         <Grid className={classes.fakeMealContainer}>
                             <Skeleton variant="rectangular" width={220} height={220} />
@@ -118,9 +128,18 @@ const SelectionModal = ({ selectedRecipes, unselectedRecipes, handleMealRandom, 
                 ) : (
                     <Grid className={classes.cardContainer}>
                         {
-                            unselectedRecipes.slice(0, 9).map((recipe, index) => (
-                                <SelectionCard recipe={recipe} key={index} index={index} handleMealRandom={handleMealRandom} replaceMeal={replaceMealIndex} refreshImage={refreshImage} />
-                            ))
+                            unselectedRecipes.slice(0, 9).map((recipe, index) => {
+                                return (
+                                    <SelectionCard
+                                        recipe={recipe}
+                                        key={index}
+                                        mealToReplace={mealToReplace}
+                                        handleReplaceMeal={handleReplaceMeal}
+                                        currentRecipe={currentRecipe}
+                                        refreshImage={refreshImage}
+                                    />
+                                )
+                            })
                         }
                     </Grid>
                 )

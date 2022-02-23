@@ -40,6 +40,8 @@ export const recipesSchema = [
     'id',
     'title',
     `image { ${getCollectionFields(filesSchema)} }`,
+    'price',
+    'preparation_time',
     'description',
     'status',
     'sort',

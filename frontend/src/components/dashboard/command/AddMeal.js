@@ -49,11 +49,11 @@ const useStyles = makeStyles(theme =>
 	})
 )
 
-const AddMeal = ({ handleMealRandom }) => {
+const AddMeal = ({ handleAddMeal }) => {
 	const classes = useStyles();
 
 	return (
-		<Card className={classes.root} onClick={handleMealRandom}>
+		<Card className={classes.root} onClick={handleAddMeal}>
 			<CardMedia className={classes.cardMedia}>
 				<AddIcon className={classes.addIcon} />
 			</CardMedia>

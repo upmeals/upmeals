@@ -99,8 +99,14 @@ const DetailsMeal = ({ record: recipe, loading, handleClose }) => {
 
 	const [isIconAddClick, setIsIconAddClick] = React.useState(false);
 	const [isIconHeartClick, setIsIconHeartClick] = React.useState(false);
+	const [propsTags, setPropsTags] = React.useState([])
 
-	const propsTags = ['3,29€/pers', '15mn.', '4 pers.', '....'];
+	React.useEffect(() => {
+		if (recipe && recipe.price && recipe.preparation_time) {
+			setPropsTags([`${recipe.price}€/pers`, `${recipe.preparation_time}mn.`, '4 pers.', '....'])
+		}
+	}, [recipe])
+
 
 	return (
 		<>

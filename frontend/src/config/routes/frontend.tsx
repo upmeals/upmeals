@@ -116,6 +116,7 @@ export const modals = [
         component: SelectionModal,
         isProtected: true,
         props: true,
+        once: true,
     }
 ]
 

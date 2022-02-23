@@ -2,15 +2,16 @@ import React from 'react';
 import { makeStyles, createStyles } from '@mui/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import { useImage } from '../../../hooks/useImage';
+import { Theme } from '@mui/system';
+import { Recipe } from '../../../interfaces/Collections';
 
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             maxWidth: 220,
@@ -84,7 +85,17 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails, handleToggleSelection }) => {
+
+interface MealCardProps {
+    index: number,
+    recipe: Recipe,
+    handleReplaceMeal: any,
+    handleOpenSelectionModal: any,
+    handleOpenDetailsModal: any,
+}
+
+
+const MealCard = ({ index, recipe, handleReplaceMeal, handleOpenSelectionModal, handleOpenDetailsModal } : MealCardProps) => {
     const classes = useStyles();
     const { src, refreshImage } = useImage({
         image: (recipe && recipe.image) ? (recipe.image) : (undefined),
@@ -93,7 +104,7 @@ const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails, handle
 
     return (
         <>
-            <Card className={classes.root} onClick={(e) => { handleToggleDetails({ e, recipe }) }}>
+            <Card className={classes.root} onClick={(e) => { handleOpenDetailsModal({ e, recipe }) }}>
                 <Grid>
                     <img
                         className={classes.media}
@@ -106,10 +117,10 @@ const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails, handle
                         </Typography>
                         <Typography className={classes.cardInfos} variant="body2" component="div">
                             <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                                <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> 25mn.
+                                <AccessTimeOutlinedIcon fontSize="small" className={classes.cardInfosIcon} /> {recipe.preparation_time}mn.
                             </Typography>
                             <Typography className={classes.cardInfosContent} variant="body2" component="p">
-                                4,5€/pers.
+                                {recipe.price}€/pers.
                             </Typography>
                         </Typography>
                         <Typography className={classes.cardActionContainer} variant="body2" component="div">
@@ -120,7 +131,7 @@ const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails, handle
                                 variant="text"
                                 onClick={
                                     (e) => {
-                                        handleMealRandom({ e, index, refreshImage })
+                                        handleReplaceMeal({ e, index, refreshImage })
                                     }
                                 }
                             >
@@ -133,7 +144,7 @@ const MealCard = ({ recipe, index, handleMealRandom, handleToggleDetails, handle
                                 variant="text"
                                 onClick={
                                     (e) => { 
-                                        handleToggleSelection({ e, index, refreshImage }) 
+                                        handleOpenSelectionModal({ index, refreshImage }) 
                                     }
                                 }
                             >

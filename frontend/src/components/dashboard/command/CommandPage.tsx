@@ -8,6 +8,7 @@ import MealsContainer from './MealsContainer';
 import MealsFilter from './MealsFilter';
 import { Theme } from '@mui/system';
 import { Recipe } from '../../../interfaces/Collections'
+import _ from 'lodash';
 
 
 // Component classes
@@ -26,55 +27,57 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const CommandPage = () => {
     const classes = useStyles();
-
-    const { loading: loadingrecipes, records: recipes } : { loading: boolean, records: Recipe[] | [] } = useAllRecords(
-        10, 
-        { 
-            collection: 'recipes' 
+    const { loading: loadingRecipes, records: recipes }: { loading: boolean, records: Recipe[] | [] } = useAllRecords(
+        10,
+        {
+            collection: 'recipes'
         }
     );
+
 
     const [selectedRecipes, setSelectedRecipes] = useState<Recipe[] | []>([]);
     const [unselectedRecipes, setUnselectedRecipes] = useState<Recipe[] | []>([]);
     const [nbrMeals, setNbrMeals] = useState<number>(4);
     const [nbrPersons, setNbrPersons] = useState<number>(1);
 
-    const handleUpdateSelectedRecipes = (newSelectedRecipes : (Recipe[] | [])) => {
-        let newSelectedRecipesIds = newSelectedRecipes.map((recipe) => recipe.id)
-        let newUnselectedRecipes = recipes.filter((recipe) => !(newSelectedRecipesIds.includes(recipe.id)))
-        setUnselectedRecipes(newUnselectedRecipes)
-        setSelectedRecipes(newSelectedRecipes)
-        setNbrMeals(newSelectedRecipes.length)
-    }
 
     useEffect(() => {
-        // Premier load
-        if (recipes.length && !loadingrecipes && selectedRecipes.length === 0) {
-            let newSelectedRecipes = recipes.slice(0, nbrMeals)
-            let newSelectedRecipesIds = newSelectedRecipes.map((recipe) => recipe.id)
-            let newUnselectedRecipes = recipes.filter((recipe) => !(newSelectedRecipesIds.includes(recipe.id)))
-            setSelectedRecipes(newSelectedRecipes)
-            setUnselectedRecipes(newUnselectedRecipes)
-            // Si le nbrMeals change après le premier load il faut calculer correctement l'array
-        } else if (recipes.length && !loadingrecipes && selectedRecipes.length > 0) {
-            if (nbrMeals < selectedRecipes.length) {
-                let newSelectedRecipes = selectedRecipes.slice(0, nbrMeals)
-                let newSelectedRecipesIds = newSelectedRecipes.map((recipe) => recipe.id)
-                let newUnselectedRecipes = recipes.filter((recipe) => !(newSelectedRecipesIds.includes(recipe.id)))
-                setSelectedRecipes(newSelectedRecipes)
-                setUnselectedRecipes(newUnselectedRecipes)
-            } else {
+        // First load -> Si les recipes sont bien fetch mais qu'aucune recette n'est selectionnée
+        if (recipes.length && !loadingRecipes && selectedRecipes.length === 0) {
+            // get x random unique ids in recipes
+            let randomRecipeIds =
+                _.shuffle(Array.from(Array((recipes.length > nbrMeals) ? recipes.length : nbrMeals).keys())) 
+                    .slice(0, (recipes.length > nbrMeals) ? nbrMeals : recipes.length) 
+
+            handleUpdateSelectedRecipes(randomRecipeIds.map(id => recipes[id]))
+        } else if (recipes.length && !loadingRecipes && selectedRecipes.length > 0) { // nbrMeals changed
+            if (selectedRecipes.length < nbrMeals) {
                 let newSelectedRecipes = [
                     ...selectedRecipes,
                     ...unselectedRecipes.slice(0, (nbrMeals - selectedRecipes.length))
                 ]
-                let newSelectedRecipesIds = newSelectedRecipes.map((recipe) => recipe.id)
-                let newUnselectedRecipes = recipes.filter((recipe) => !(newSelectedRecipesIds.includes(recipe.id)))
-                setSelectedRecipes(newSelectedRecipes)
-                setUnselectedRecipes(newUnselectedRecipes)
+                handleUpdateSelectedRecipes(newSelectedRecipes)
+            } else {
+                let newSelectedRecipes = [
+                    ...selectedRecipes.slice(0, nbrMeals),
+                ]
+                handleUpdateSelectedRecipes(newSelectedRecipes)
             }
         }
-    }, [loadingrecipes, nbrMeals, nbrPersons]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [loadingRecipes, nbrMeals, nbrPersons]) // eslint-disable-line react-hooks/exhaustive-deps
+
+
+    const handleUpdateSelectedRecipes = (newSelectedRecipes: (Recipe[] | [])) => {
+        const selectedIds = newSelectedRecipes.map((recipe) => recipe.id)
+
+        let newUnselectedRecipes = recipes.filter((recipe) => !(selectedIds.includes(recipe.id)))
+
+        setSelectedRecipes(newSelectedRecipes)
+        setUnselectedRecipes(newUnselectedRecipes)
+        setNbrMeals(newSelectedRecipes.length)
+
+        return { newSelectedRecipes, newUnselectedRecipes, newNbrMeals: newSelectedRecipes.length }
+    }
 
     return (
         <Page>
@@ -84,10 +87,10 @@ const CommandPage = () => {
                     nbrPersons={nbrPersons}
                     setNbrMeals={setNbrMeals}
                     setNbrPersons={setNbrPersons}
-                    loading={loadingrecipes}
+                    loading={loadingRecipes}
                 />
                 <MealsFilter
-                    loading={loadingrecipes}
+                    loading={loadingRecipes}
                 />
                 <MealsContainer
                     handleUpdateSelectedRecipes={handleUpdateSelectedRecipes}

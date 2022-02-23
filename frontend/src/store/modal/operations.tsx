@@ -1,4 +1,5 @@
 import { modalPropsVar } from "./vars"
+import { modals } from '../../config/routes/frontend'
 
 
 export const clearModalCurrent = () => {
@@ -7,21 +8,37 @@ export const clearModalCurrent = () => {
 }
 
 
-export const setModalCurrent = (modalName: string, props: object, history: any, withRecordId?: string ) => {
-    if (history.location.search === '') {
-        history.push({ search: '?modal=' + modalName + (withRecordId ? ('&id=' + withRecordId) : '') })
-    } else {
-        history.push({ search: history.location.search + '&modal=' + modalName })
+export const clearModalIfOnce = () => {
+    if (localStorage.getItem('modalProps')) {
+        let props = JSON.parse(localStorage.getItem('modalProps') as string)
+        if (props && props.name) {
+            let modalRoute = modals.find((modal) => modal.name === props.name)
+            if (modalRoute && modalRoute.once === true) {
+                clearModalCurrent()
+            }
+        }
     }
+}
 
-    localStorage.setItem('modalProps', JSON.stringify({ ...props, withRecordId, name: modalName }))
-    
+
+export const setModalCurrent = (modalName: string, props: object, history: any, params: object) => {
+    const searchParams = new URLSearchParams()
+    searchParams.append('modal', modalName)
+    for (const [key, value] of Object.entries(params)) {
+        searchParams.append(key, value)
+    }
+    history.push({ search: searchParams.toString() })
+
+    localStorage.setItem('modalProps', JSON.stringify({ props: {...props}, name: modalName }))
+
     return modalPropsVar(props)
 }
 
 
 const operations = {
-    setModalCurrent
+    clearModalCurrent,
+    clearModalIfOnce,
+    setModalCurrent,
 }
 
 export default operations
