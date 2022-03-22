@@ -1,6 +1,5 @@
 import { Grid, Link, Button, Avatar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import React from 'react';
 import { Theme } from '@mui/system';
 import { useModal } from '../../hooks/useModal';
 

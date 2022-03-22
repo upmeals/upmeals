@@ -1,7 +1,6 @@
-import { Grid, Typography, TextField, InputLabel, Checkbox, Link, Button } from '@mui/material';
+import { Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-//import { deepOrange, grey } from '@mui/material/colors';
-import React from 'react';
+import AlimentaryManager from './manager/AlimentaryManager';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -19,7 +18,7 @@ const useStyles = makeStyles(theme =>
 // Component
 const ProfileForm = ({ }) => {
     const classes = useStyles();
-
+    
     return (
         <Grid
             container
@@ -43,7 +42,9 @@ const ProfileForm = ({ }) => {
          </Grid>
 
          <Grid>
-            {/* Section AlimentaryManager  */}
+            <h4>Contraintes Alimentaires</h4>
+            <AlimentaryManager
+            />
          </Grid>
 
         </Grid>

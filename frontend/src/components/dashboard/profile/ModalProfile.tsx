@@ -3,16 +3,15 @@ import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
 import ProfileForm from './ProfileForm';
-import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         closeIcon: {
             marginTop: '1rem',
             marginRight: '1rem',
-            position: 'relative',
-            bottom: '5rem',
-            float: 'right',
+            position: 'absolute',
+            bottom: '14rem',
+            right: '0',
             cursor: 'pointer',
         }
     })
