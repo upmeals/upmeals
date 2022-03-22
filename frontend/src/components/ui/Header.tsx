@@ -2,7 +2,7 @@ import { Grid, Link, Button, Avatar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import React from 'react';
 import { Theme } from '@mui/system';
-import { useHistory } from 'react-router-dom';
+import { useModal } from '../../hooks/useModal';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,7 +29,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = () => {
     const classes = useStyles();
-    const history = useHistory();
+
+    const { setModal: setModalProfile } = useModal("profile")
+
+    const handleOpenProfileModal = () => {
+        setModalProfile()
+    }
 
     return (
         <Grid
@@ -48,8 +53,7 @@ const Header = () => {
                 className={classes.headerAvatar}
             >
                 <Button
-                    //onClick={() => { history.push({search:'modal=profile'}) }}
-                    onClick={() => { history.push({search:'profile=true'}) }}
+                    onClick={handleOpenProfileModal}
                 >
                     Profile
                 </Button>
