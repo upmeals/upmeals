@@ -8,6 +8,7 @@ import LoginForm from '../../components/auth/LoginForm';
 import RegisterForm from '../../components/auth/RegisterForm';
 import DetailsMeal from '../../components/dashboard/command/DetailsMeal';
 import SelectionModal from '../../components/dashboard/command/SelectionModal';
+import ModalProfile from '../../components/dashboard/profile/ModalProfile';
 
 // pages
 const Frontend = React.lazy(() => import('../../components/Frontend'))
@@ -117,6 +118,12 @@ export const modals = [
         isProtected: true,
         props: true,
         once: true,
+    },
+    {
+        name: 'profile',
+        component: ModalProfile,
+        isProtected: true,
+        props: false,
     }
 ]
 
