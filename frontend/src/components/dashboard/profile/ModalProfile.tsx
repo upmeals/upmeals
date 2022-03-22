@@ -6,11 +6,14 @@ import ProfileForm from './ProfileForm';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
+        modalProfile__container: {
+            fontFamily: 'Poppins, sans-serif',
+        },
         closeIcon: {
             marginTop: '1rem',
             marginRight: '1rem',
             position: 'absolute',
-            bottom: '14rem',
+            top: '0',
             right: '0',
             cursor: 'pointer',
         }
@@ -32,6 +35,7 @@ const ModalProfile = ({handleClose}: ModalProfileProps) => {
         direction="column"
         justifyContent="flex-start"
         alignItems="flex-start"
+        className={classes.modalProfile__container}
     >
         <Grid>
             <Box>

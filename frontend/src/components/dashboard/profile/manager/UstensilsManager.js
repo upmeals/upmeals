@@ -18,46 +18,38 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-const dietaryRequirements = [
+const ustensilesRequirements = [
     {
-        name: 'light',
-        text: 'Light',
+        name: 'four',
+        text: 'Four',
     },
     {
-        name: 'sugar-free',
-        text: 'Sans sucre',
+        name: 'micro-onde',
+        text: 'Micro-onde',
     },
     {
-        name: 'salt-free',
-        text: 'Sans sel',
+        name: 'auto-cuiseur',
+        text: 'Auto-cuiseur',
     },
     {
-        name: 'gluten-free',
-        text: 'Sans gluten',
+        name: 'plaques',
+        text: 'Plaques',
     },
     {
-        name: 'diabete',
-        text: 'Diabete',
+        name: 'friteuse',
+        text: 'Friteuse',
     },
     {
-        name: 'cholesterol',
-        text: 'Cholesterol',
+        name: 'robot-mixeur',
+        text: 'Robot-mixeur',
     },
     {
-        name: 'vegetarian',
-        text: 'Végétarien',
-    },
-    {
-        name: 'vegan',
-        text: 'Vegan',
-    },
-    {
-        name: 'proteinaceous',
-        text: 'Protéiné',
+        name: 'mixeur',
+        text: 'Mixeur',
     },
 ]
 
-const AlimentaryManager = ({ loading }) => {
+const UstensilsManager = ({ loading }) => {
     const classes = useStyles();
 
     const [isActive, setActive] = React.useState([]);
@@ -89,7 +81,7 @@ const AlimentaryManager = ({ loading }) => {
                 ) : (
                     <Grid container className={classes.filtersContainer}>
                         {
-                            dietaryRequirements.map((constraint, index) => {
+                            ustensilesRequirements.map((ustensil, index) => {
                                 return (
                                     <Button 
                                         id="protected_label" 
@@ -99,7 +91,7 @@ const AlimentaryManager = ({ loading }) => {
                                         className={isActive.includes(index) ? classes.activeConstraint : null}
                                         onClick={ () => toggleClass(index) }
                                     >
-                                        {constraint.text}
+                                        {ustensil.text}
                                     </Button>
                             )
                             })
@@ -111,4 +103,4 @@ const AlimentaryManager = ({ loading }) => {
     )
 }
 
-export default AlimentaryManager
+export default UstensilsManager

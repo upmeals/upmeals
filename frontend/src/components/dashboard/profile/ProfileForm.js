@@ -1,6 +1,7 @@
 import { Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import AlimentaryManager from './manager/AlimentaryManager';
+import UstensilsManager from './manager/UstensilsManager';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -43,8 +44,12 @@ const ProfileForm = ({ }) => {
 
          <Grid>
             <h4>Contraintes Alimentaires</h4>
-            <AlimentaryManager
-            />
+            <AlimentaryManager/>
+         </Grid>
+
+         <Grid>
+            <h4>Ustensiles</h4>
+            <UstensilsManager/>
          </Grid>
 
         </Grid>
