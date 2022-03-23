@@ -34,7 +34,8 @@ export const usersSchema = [
     'last_page',
     'tfa_secret',
     'email_notifications',
-    'constraints'
+    'constraints',
+    'ustensils'
 ]
 
 export const recipesSchema = [
