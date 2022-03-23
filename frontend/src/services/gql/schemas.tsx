@@ -30,10 +30,11 @@ export const usersSchema = [
     'description',
     'language',
     'status',
-    'token',
     'last_access',
     'last_page',
     'tfa_secret',
+    'email_notifications',
+    'constraints'
 ]
 
 export const recipesSchema = [

@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme =>
 )
 
 // Component
-const ProfileForm = ({ }) => {
+const ProfileForm = () => {
     const classes = useStyles();
     
     return (

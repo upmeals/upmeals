@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Grid, Button, Skeleton } from '@mui/material';
+import { directusUsersUpdate } from '../../../../services/gql/System';
+import { GetAuthCurrentUser } from '../../../../store/auth';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -57,23 +59,36 @@ const dietaryRequirements = [
     },
 ]
 
-const AlimentaryManager = ({ loading }) => {
+const AlimentaryManager = () => {
     const classes = useStyles();
 
-    const [isActive, setActive] = React.useState([]);
+    const user = GetAuthCurrentUser()
 
-    const toggleClass = (index) => {
-        if (!isActive.includes(index)) {
-            setActive([...isActive,index])
+    const [constraints, setConstraints] = React.useState([]);
+    const [ready, setReady] = React.useState(false);
+
+    const handleToggleConstraint = async (constraintName) => {
+        let newConstraints = []
+        if (constraints.includes(constraintName)) {
+            newConstraints = constraints.filter((constraint) => (constraint !== constraintName))
         } else {
-            setActive(isActive.filter(value => value !== index ))
+            newConstraints = [...constraints, constraintName]
         }
+        await directusUsersUpdate({ id: user.id, data: { constraints: newConstraints } })
+        setConstraints(newConstraints)
     }
+
+    useEffect(() => {
+        if (user && user.constraints) {
+            setConstraints(user.constraints)
+            setReady(true)
+        }
+    }, [user])
 
     return (
         <>
             {
-                loading ? (
+                !ready ? (
                     <Grid
                         container
                         direction="row"
@@ -91,17 +106,18 @@ const AlimentaryManager = ({ loading }) => {
                         {
                             dietaryRequirements.map((constraint, index) => {
                                 return (
-                                    <Button 
-                                        id="protected_label" 
-                                        variant="outlined" 
+                                    <Button
+                                        id="protected_label"
+                                        variant="outlined"
                                         key={index}
                                         index={index}
-                                        className={isActive.includes(index) ? classes.activeConstraint : null}
-                                        onClick={ () => toggleClass(index) }
+                                        className={constraints.includes(constraint.name) ? classes.activeConstraint : null}
+                                        onClick={() => handleToggleConstraint(constraint.name)}
+
                                     >
                                         {constraint.text}
                                     </Button>
-                            )
+                                )
                             })
                         }
                     </Grid>
