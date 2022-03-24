@@ -1,3 +1,0 @@
-export const INIT_STORE_START = "@INIT_STORE_START"
-export const INIT_STORE_DONE = "@INIT_STORE_DONE"
-export const LOAD_SETTINGS = "@LOAD_SETTINGS"

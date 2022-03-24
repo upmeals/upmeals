@@ -2,38 +2,9 @@ version: '3.8'
 
 services:
   gateway:
-    image: nginx:1.18-alpine
-    working_dir: /var/www/html/
+    image: nginx:alpine
     ports:
       - '80:80'
       - '443:443'
     volumes:
       - ./nginx/:/etc/nginx/conf.d/
-
-# User Service
-  backend:
-    # image: node:14
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-      target: base
-    working_dir: /app
-    depends_on: 
-      - gateway
-      - mongo
-    volumes:
-      - ./backend:/app
-    command: 'npm start'
-    environment:
-      CHOKIDAR_USEPOLLING: 'true'
-
-  mongo:
-    image: mongo
-    volumes:
-      - mongo:/data/db
-    ports: 
-      - '27017:27017'
-
-# Volumes
-volumes:
-  mongo:
