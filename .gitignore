@@ -10,6 +10,7 @@ yarn-error.log*
 build
 *.cert
 *.key
+nginx/mkcert.exe
 
 # FRONTEND
 frontend/.pnp.js
