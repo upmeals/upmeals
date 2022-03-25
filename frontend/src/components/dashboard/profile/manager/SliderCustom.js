@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme =>
 export default function UnstyledSlider() {
     const classes = useStyles();
   return (
-    <Box sx={{ width: 280 }} className={classes.containerSlider}>
+    <Box sx={{ width: '100%' }} className={classes.containerSlider}>
       <StyledSlider className={classes.SliderPrimary} defaultValue={10} />
       <Typography className={classes.containerSliderValue} component="div" variant="body2">
           <Typography component="p" variant="body2">
