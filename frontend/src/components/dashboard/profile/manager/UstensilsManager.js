@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Grid, Button, Skeleton } from '@mui/material';
+import { GetAuthCurrentUser } from '../../../../store/auth';
+import { directusUsersUpdate } from '../../../../services/gql/System';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -49,23 +51,36 @@ const ustensilesRequirements = [
     },
 ]
 
-const UstensilsManager = ({ loading }) => {
+const UstensilsManager = () => {
     const classes = useStyles();
 
-    const [isActive, setActive] = React.useState([]);
+    const user = GetAuthCurrentUser()
 
-    const toggleClass = (index) => {
-        if (!isActive.includes(index)) {
-            setActive([...isActive,index])
+    const [ustensils, setUstensils] = React.useState([]);
+    const [ready, setReady] = React.useState(false);
+
+    const handleToggleUstensils = async (ustensilName) => {
+        let newUstensils = []
+        if (ustensils.includes(ustensilName)) {
+            newUstensils = ustensils.filter((ustensil) => (ustensil !== ustensilName))
         } else {
-            setActive(isActive.filter(value => value !== index ))
+            newUstensils = [...ustensils, ustensilName]
         }
+        await directusUsersUpdate({ id: user.id, data: { ustensils: newUstensils } })
+        setUstensils(newUstensils)
     }
+
+    useEffect(() => {
+        if (user && user.ustensils) {
+            setUstensils(user.ustensils)
+            setReady(true)
+        }
+    }, [user])
 
     return (
         <>
             {
-                loading ? (
+                !ready ? (
                     <Grid
                         container
                         direction="row"
@@ -88,8 +103,8 @@ const UstensilsManager = ({ loading }) => {
                                         variant="outlined" 
                                         key={index}
                                         index={index}
-                                        className={isActive.includes(index) ? classes.activeConstraint : null}
-                                        onClick={ () => toggleClass(index) }
+                                        className={ustensils.includes(ustensil.name) ? classes.activeConstraint : null}
+                                        onClick={ () => handleToggleUstensils(ustensil.name) }
                                     >
                                         {ustensil.text}
                                     </Button>
