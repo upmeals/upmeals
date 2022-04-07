@@ -2,6 +2,7 @@ import { Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import AlimentaryManager from './manager/AlimentaryManager';
 import UstensilsManager from './manager/UstensilsManager';
+import PreferencesManager from './manager/PreferencesManager';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -39,7 +40,7 @@ const ProfileForm = () => {
             <div>section AvatarManager</div>
 
             {/* Section PreferencesManager  */}
-            <div>section PreferencesManager</div>
+            <PreferencesManager />
          </Grid>
 
          <Grid>
