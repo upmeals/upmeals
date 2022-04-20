@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import UnstyledSlider from './SliderCustom';
+import SliderCustom from './SliderCustom';
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -42,7 +42,7 @@ const PreferencesManager = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <UnstyledSlider/>
+                    <SliderCustom defaultValue={"2"} min={0} max={10} suffix={'pers.'}/>
                 </Grid>
             </Grid>
             <Grid  container
@@ -56,7 +56,7 @@ const PreferencesManager = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <UnstyledSlider/>
+                    <SliderCustom defaultValue={"12"} min={5} max={50} suffix={'€'}/>
                 </Grid>
             </Grid>
             <Grid  container
@@ -70,7 +70,7 @@ const PreferencesManager = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <UnstyledSlider/>
+                    <SliderCustom defaultValue={"20"} min={5} max={60} suffix={'min'}/>
                 </Grid>
             </Grid>
             <Grid  container
@@ -84,7 +84,7 @@ const PreferencesManager = () => {
                     </Typography>
                 </Grid>
                 <Grid item xs={6}>
-                    <UnstyledSlider/>
+                    <SliderCustom defaultValue={"400"} min={50} max={1000} suffix={'kcal'}/>
                 </Grid>
             </Grid>
         </Grid>

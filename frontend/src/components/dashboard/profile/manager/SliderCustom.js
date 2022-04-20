@@ -3,6 +3,7 @@ import { styled, alpha, Box } from '@mui/system';
 import SliderUnstyled from '@mui/base/SliderUnstyled';
 import { Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
+import { useState, useEffect } from 'react';
 
 const StyledSlider = styled(SliderUnstyled)(
   ({ theme }) => `
@@ -77,7 +78,7 @@ const useStyles = makeStyles(theme =>
         },
         containerSliderValue: {
             backgroundColor: '#F5F5F5',
-            width: '40px',
+            width: '90px',
             textAlign: 'center',
             padding: '5px 0',
         },
@@ -87,14 +88,15 @@ const useStyles = makeStyles(theme =>
     })
 )
 
-export default function UnstyledSlider() {
+export default function SliderCustom({defaultValue,min,max, suffix}) {
     const classes = useStyles();
+    const [slider, setSlider] = useState(defaultValue);
   return (
     <Box sx={{ width: '100%' }} className={classes.containerSlider}>
-      <StyledSlider className={classes.SliderPrimary} defaultValue={10} />
+      <StyledSlider className={classes.SliderPrimary} value={slider} min={min} max={max} onChange={e =>setSlider(e.target.value)} />
       <Typography className={classes.containerSliderValue} component="div" variant="body2">
           <Typography component="p" variant="body2">
-              10
+            {slider ? `${slider} ${suffix}` : "10"}
           </Typography>
       </Typography>
     </Box>
