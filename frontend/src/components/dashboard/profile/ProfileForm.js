@@ -7,20 +7,23 @@ import PreferencesManager from './manager/PreferencesManager';
 // Component classes
 const useStyles = makeStyles(theme =>
     createStyles({
-        notchedOutline: { 
+        notchedOutline: {
             borderColor: '#B3B6B7 !important',
         },
         modalProfile: {
             padding: '1rem',
+            display: 'flex !important',
+            flexDirection: 'column !important',
+            justifyContent: 'flex-start !important',
+            alignItems: 'flex-start !important',
         },
-
     })
 )
 
 // Component
 const ProfileForm = () => {
     const classes = useStyles();
-    
+
     return (
         <Grid
             container
@@ -30,28 +33,28 @@ const ProfileForm = () => {
             className={classes.modalProfile}
         >
 
-         <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            marginTop="2rem"
-         >  
-            {/* Section AvatarManager  */}
-            <div>section AvatarManager</div>
+            <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                marginTop="2rem"
+            >
+                {/* Section AvatarManager  */}
+                <div>section AvatarManager</div>
 
-            {/* Section PreferencesManager  */}
-            <PreferencesManager />
-         </Grid>
+                {/* Section PreferencesManager  */}
+                <PreferencesManager />
+            </Grid>
 
-         <Grid>
-            <h4>Contraintes Alimentaires</h4>
-            <AlimentaryManager/>
-         </Grid>
+            <Grid>
+                <h4>Contraintes Alimentaires</h4>
+                <AlimentaryManager />
+            </Grid>
 
-         <Grid>
-            <h4>Ustensiles</h4>
-            <UstensilsManager/>
-         </Grid>
+            <Grid>
+                <h4>Ustensiles</h4>
+                <UstensilsManager />
+            </Grid>
 
         </Grid>
     )
