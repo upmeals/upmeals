@@ -17,6 +17,7 @@ const CookPage = React.lazy(() => import('../../components/dashboard/cook/CookPa
 const CreatePage = React.lazy(() => import('../../components/dashboard/create/CreatePage'))
 const IdeasPage = React.lazy(() => import('../../components/dashboard/ideas/IdeasPage'))
 const FavoritesPage = React.lazy(() => import('../../components/dashboard/favorites/FavoritesPage'))
+const RecapPage = React.lazy(() => import('../../components/dashboard/recap/RecapPage'))
 // const LandingPage = React.lazy(() => import('../../components/LandingPage'))
 // const LoginPage = React.lazy(() => import('../../components/auth/LoginPage'))
 // const RegisterPage = React.lazy(() => import('../../components/auth/RegisterPage'))
@@ -31,6 +32,12 @@ const routes = [
         path: '/',
         component: Frontend,
         exact: true,
+    },
+    {
+        path: '/recap',
+        component: RecapPage,
+        exact: true,
+        isProtected: true,
     },
     {
         path: '/command',

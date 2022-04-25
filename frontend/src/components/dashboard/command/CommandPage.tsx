@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Page from '../../ui/Page';
 import useAllRecords from '../../../hooks/useAllRecords';
@@ -9,6 +9,8 @@ import MealsFilter from './MealsFilter';
 import { Theme } from '@mui/system';
 import { Recipe } from '../../../interfaces/Collections'
 import _ from 'lodash';
+import { useHistory } from 'react-router-dom';
+import { setMeals } from '../../../store/init/operations';
 
 
 // Component classes
@@ -21,12 +23,18 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
         },
+        button: {
+            margin: `${theme.spacing(0, 4, 8, 4)} !important`,
+            backgroundColor: theme.palette.primary.main,
+        }
     })
 )
 
 
 const CommandPage = () => {
     const classes = useStyles();
+    const history = useHistory();
+
     const { loading: loadingRecipes, records: recipes }: { loading: boolean, records: Recipe[] | [] } = useAllRecords(
         10,
         {
@@ -39,6 +47,14 @@ const CommandPage = () => {
     const [unselectedRecipes, setUnselectedRecipes] = useState<Recipe[] | []>([]);
     const [nbrMeals, setNbrMeals] = useState<number>(4);
     const [nbrPersons, setNbrPersons] = useState<number>(1);
+
+
+    const handleSaveMeals = () => {
+        // save meals to store
+        setMeals(selectedRecipes)
+
+        return history.push('/recap')
+    }
 
 
     useEffect(() => {
@@ -99,6 +115,11 @@ const CommandPage = () => {
                     recipes={recipes}
                 />
             </Grid>
+            <Button variant="outlined" className={classes.button} onClick={() => { handleSaveMeals() }} >
+                <Typography>
+                    Récupérer la liste de course
+                </Typography>
+            </Button>
         </Page>
     )
 }
