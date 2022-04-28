@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         container: {
             height: '100vh',
-            width: '100%',
+            width: '100% !important',
             display: 'grid !important',
             gridTemplateColumns: 'repeat(2, 1fr)',
         },
@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '100%',
             maxWidth: '500px',
             padding: '40px 80px',
+            display: 'flex',
+            flexDirection: 'column !important',
+        },
+        formContent: {
+            margin: 'auto',
         },
         title: {
             margin: `${theme.spacing(2, 0)} !important`,
@@ -58,7 +63,7 @@ const Frontend = () => {
             <Grid className={classes.formContainer}>
                 <Typography className={classes.title}>Page d'accueil</Typography>
 
-                <Grid>
+                <Grid className={classes.formContent}>
                     <Typography className={classes.heading} variant="h3">Sign in</Typography>
                     <LoginForm></LoginForm>
                 </Grid>
