@@ -135,7 +135,7 @@ const LoginForm = () => {
                                 Sign In
                             </Button>
                             <Button
-                                onClick={() => { history.push({search:'modal=register'}) }}
+                                onClick={() => { history.push('/register')}}
                                 className={classes.formBtnSecondary}
                                 variant="contained"
                                 color="primary"

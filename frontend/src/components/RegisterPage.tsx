@@ -1,8 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import React from 'react';
 import { Theme } from '@mui/system';
-import LoginForm from './auth/LoginForm';
+import RegisterForm from './auth/RegisterForm';
 
 // Component classes
 const useStyles = makeStyles((theme: Theme) =>
@@ -39,16 +38,8 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-// Component texts
-// const i18n = defineMessages({
-//     frontendIntro: {
-//         id: 'frontend.intro',
-//         defaultMessage: 'Voici une simple application exemple avec react, redux, api, tests & plus.'
-//     }
-// })
-
 // Component
-const Frontend = () => {
+const RegisterPage = () => {
     const classes = useStyles()
 
     return (
@@ -60,11 +51,11 @@ const Frontend = () => {
             className={classes.container}
         >
             <Grid className={classes.formContainer} container direction="column">
-                <Typography className={classes.title}>Page d'accueil</Typography>
+                <Typography className={classes.title}>Inscription</Typography>
 
                 <Grid className={classes.formContent}>
-                    <Typography className={classes.heading} variant="h3">Sign in</Typography>
-                    <LoginForm></LoginForm>
+                    <Typography className={classes.heading} variant="h3">Register</Typography>
+                    <RegisterForm></RegisterForm>
                 </Grid>
             </Grid>
 
@@ -75,4 +66,4 @@ const Frontend = () => {
     )
 }
 
-export default Frontend
+export default RegisterPage
