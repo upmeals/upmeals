@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { GetAuthCurrentUser } from '../../../../store/auth';
 import { Grid } from '@mui/material';
 import Radio from '@mui/material/Radio';
@@ -6,7 +6,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-
+import Button from '@mui/material/Button';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import { directusUsersUpdateCurrent } from '../../../../services/gql/System';
@@ -18,6 +18,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PersonalInfo = (): JSX.Element => {
   const classes = useStyles();
+
+  const [name, setName] = useState('');
+  const [adress, setAdress] = useState('');
+
+  const submitValue = () => {
+    const valueDetails = {
+      'name': name,
+      'adresse': adress
+    }
+    console.log(valueDetails);
+  }
 
   let currentUser = GetAuthCurrentUser();
 
@@ -47,15 +58,16 @@ const PersonalInfo = (): JSX.Element => {
         <Grid item xs={6}>
           <div>
             <h4>Nom / Prénom</h4>
-            <input type="text"/>
+            <input type="text" placeholder='Name' onChange={e => setName(e.target.value)} />
           </div>
         </Grid>
         <Grid item xs={6}>
           <div>
             <h4>N° et nom de rue</h4>
-            <input type="text"/>
+            <input type="text" placeholder='Adress' onChange={e => setAdress(e.target.value)} />
           </div>
         </Grid>
+        <Button variant="contained" onClick={submitValue}>Send</Button>
       </Grid>
     </>
   )
