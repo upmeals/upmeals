@@ -3,7 +3,7 @@ type: docker
 name: Build
 
 workspace:
-  path: /frontend/
+  path: /drone/src/frontend/
 
 steps:
   - name: install
