@@ -2,9 +2,6 @@ kind: pipeline
 type: docker
 name: Build
 
-workspace:
-  path: /drone/src/frontend/
-
 steps:
   - name: install
     image: node:16
@@ -12,6 +9,7 @@ steps:
       - name: cache
         path: /drone/src/.npm
     commands:
+      - cd frontend
       - npm ci --cache .npm
     depends_on:
       - clone
