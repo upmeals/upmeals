@@ -53,6 +53,10 @@ export const recipesSchema = [
     'date_updated'
 ]
 
+export const ingredientsSchema = [
+    'id',
+    'name',
+]
 
 
 // Export
@@ -60,4 +64,5 @@ export const schemas = {
     recipes: [...recipesSchema],
     users: [...usersSchema],
     files: [...filesSchema],
+    ingredients: [...ingredientsSchema],
 }
