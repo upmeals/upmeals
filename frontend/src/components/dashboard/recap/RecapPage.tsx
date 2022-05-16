@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 
-const RecapPage = ({ }) => {
+const RecapPage = () => {
     const classes = useStyles()
     const history = useHistory()
 
@@ -118,7 +118,7 @@ const RecapPage = ({ }) => {
 
             setIngredients(groupedNewIngredients)
         }
-    }, [meals])
+    }, [meals]) // eslint-disable-line
 
     console.log(ingredients)
 
