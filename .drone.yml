@@ -21,6 +21,7 @@ steps:
   - name: tests
     image: node:16
     commands:
+      - cd frontend
       - npm test
     depends_on:
       - install
@@ -31,6 +32,7 @@ steps:
   - name: build
     image: node:16
     commands:
+      - cd frontend
       - npm run build
     depends_on:
       - install
@@ -55,14 +57,12 @@ steps:
       branch:
         - develop
         - production
-        - staging
       event:
         - push
 
 trigger:
   branch:
     - develop
-    - staging
     - production
   event: 
     - push
@@ -96,7 +96,6 @@ steps:
         - docker service update --image rg.fr-par.scw.cloud/agence-public/upmeals:${DRONE_COMMIT_BRANCH} upmeals_frontend-${DRONE_COMMIT_BRANCH}
     when:
       branch:
-        - staging
         - develop
       event:
         - push
@@ -128,7 +127,6 @@ depends_on:
 trigger:
   branch:
     - develop
-    - staging
     - production
   event:
     - push
@@ -160,7 +158,6 @@ depends_on:
 trigger:
   branch:
     - develop
-    - staging
     - production
   status:
     - success
