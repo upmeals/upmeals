@@ -1,14 +1,11 @@
 import { Grid } from '@mui/material';
-import React from 'react';
 import Page from '../../ui/Page'
-
+import CreateRecipeForm from './CreateRecipeForm';
 
 const CreatePage = () => {
     return (
         <Page>
-            <Grid>
-                <p>Créer</p>
-            </Grid>
+            <CreateRecipeForm></CreateRecipeForm>
         </Page>
     )
 }
