@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GetAuthCurrentUser } from '../../../../store/auth';
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import { directusUsersUpdateCurrent } from '../../../../services/gql/System';
+import { Formik, FormikProps, FormikValues } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 // CSS class
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,19 +57,71 @@ const PersonalInfo = (): JSX.Element => {
             </FormControl>
           </div>
         </Grid>
-        <Grid item xs={6}>
-          <div>
-            <h4>Nom / Prénom</h4>
-            <input type="text" placeholder='Name' onChange={e => setName(e.target.value)} />
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <div>
-            <h4>N° et nom de rue</h4>
-            <input type="text" placeholder='Adress' onChange={e => setAdress(e.target.value)} />
-          </div>
-        </Grid>
-        <Button variant="contained" onClick={submitValue}>Send</Button>
+        <Formik
+          initialValues={{
+            first_name: '',
+            location: ''
+          }}
+          onSubmit={ async (values, { setSubmitting }) => {
+
+            let response = await directusUsersUpdateCurrent({
+              data: {
+                first_name: values.first_name,
+                last_name: values.last_name,
+                location: values.location,
+                numero_et_nom_rue: values.numero_et_nom_rue,
+
+              }
+            });
+
+            // if (response && response.error) {
+            //     if (response.error === 'otp_missing') {
+            //         setIsOtpNecessary(true)
+            //     }
+            // } else {
+            //     history.push('/command')
+            // }
+
+            if (response) {
+              console.log(response);
+              history.push('/command');
+            }
+          }}
+        >
+          {
+            (formikProps: FormikProps<FormikValues>) => (
+              <form onSubmit={formikProps.handleSubmit}>
+                <Grid container>
+                  <Grid>
+                    <div>
+                      <h4>Prénom</h4>
+                      <TextField
+                        id="first_name"
+                        name="first_name"
+                        label="Prénom"
+                        value={formikProps.values.first_name}
+                        onChange={formikProps.handleChange}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid>
+                    <div>
+                      <h4>N° et nom de rue</h4>
+                      <TextField
+                        id="location"
+                        name="location"
+                        label="N° et nom de rue"
+                        value={formikProps.values.location}
+                        onChange={formikProps.handleChange}
+                      />
+                    </div>
+                  </Grid>
+                  <Button variant="contained" type="submit">Send</Button>
+                </Grid>
+              </form>
+            )
+          }
+        </Formik>
       </Grid>
     </>
   )
