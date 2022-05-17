@@ -1,2 +1,4 @@
-
+*.cert
+*.key
 .DS_Store
+package-lock.json
