@@ -4,14 +4,21 @@ export type Recipe = {
     title?: string,
     image: File,
     description?: string,
-    price?: string,
-    preparation_time?: string,
+    price?: number,
+    preparation_time?: number,
+    ingredients?: [object],
+    steps?: [object],
     status?: string,
     sort?: number,
     user_created?: string,
     user_updated?: string,
     date_created?: Date,
     date_updated?: Date,
+}
+
+export type Ingredient = {
+    id?: number,
+    name?: string,
 }
 
 export type User = {
