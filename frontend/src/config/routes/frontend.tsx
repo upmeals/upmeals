@@ -12,14 +12,15 @@ import ModalProfile from '../../components/dashboard/profile/ModalProfile';
 
 // pages
 const Frontend = React.lazy(() => import('../../components/Frontend'))
+const RegisterPage = React.lazy(() => import('../../components/RegisterPage'))
 const CommandPage = React.lazy(() => import('../../components/dashboard/command/CommandPage'))
 const CookPage = React.lazy(() => import('../../components/dashboard/cook/CookPage'))
 const CreatePage = React.lazy(() => import('../../components/dashboard/create/CreatePage'))
 const IdeasPage = React.lazy(() => import('../../components/dashboard/ideas/IdeasPage'))
 const FavoritesPage = React.lazy(() => import('../../components/dashboard/favorites/FavoritesPage'))
+const RecapPage = React.lazy(() => import('../../components/dashboard/recap/RecapPage'))
 // const LandingPage = React.lazy(() => import('../../components/LandingPage'))
 // const LoginPage = React.lazy(() => import('../../components/auth/LoginPage'))
-// const RegisterPage = React.lazy(() => import('../../components/auth/RegisterPage'))
 // const DashboardPage = React.lazy(() => import('../../components/dashboard/DashboardPage'))
 // const TodoPage = React.lazy(() => import('../../components/dashboard/todos/TodoPage'))
 // const ForgotPasswordPage = React.lazy(() => import('../../components/auth/forgotPassword/ForgotPasswordPage'))
@@ -31,6 +32,12 @@ const routes = [
         path: '/',
         component: Frontend,
         exact: true,
+    },
+    {
+        path: '/recap',
+        component: RecapPage,
+        exact: true,
+        isProtected: true,
     },
     {
         path: '/command',
@@ -66,12 +73,12 @@ const routes = [
         path: '/login',
         component: Login,
         exact: true
-    },  
+    },  */
     {
         path: '/register',
-        component: Register,
+        component: RegisterPage,
         exact: true
-    }*/
+    }
 ]
 
 

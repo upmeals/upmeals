@@ -1,4 +1,4 @@
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import React from 'react';
@@ -10,23 +10,25 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        formContainer: {
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            padding: theme.spacing(4),
-            minWidth: 400,
-            boxSizing: 'border-box !important' as any,
-        },
         textFieldContainer: {
             width: '100%',
             margin: theme.spacing(0, 0, 2, 0) + '!important',
         },
         buttonContainer: {
-            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        },
+        formBtn: {
+            width: '45%',
+            height: '52px',
+            borderRadius: '6px !important',
+        },
+        formBtnSecondary: {
+            width: '45%',
+            height: '52px',
+            borderRadius: '6px !important',
+            opacity: '.8',
         }
     })
 )
@@ -72,7 +74,7 @@ const RegisterForm = () => {
         >
             {
                 (formikProps: FormikProps<FormikValues>) => (
-                    <form className={classes.formContainer} onSubmit={formikProps.handleSubmit} >
+                    <form onSubmit={formikProps.handleSubmit} >
                         <TextField
                             id="email"
                             name="email"
@@ -105,9 +107,24 @@ const RegisterForm = () => {
                             error={formikProps.touched.confirm_password && Boolean(formikProps.errors.confirm_password)}
                             helperText={formikProps.touched.confirm_password && formikProps.errors.confirm_password}
                         />
-                        <Button className={classes.buttonContainer} color="primary" variant="contained" type="submit">
-                            Submit
-                        </Button>
+                        <Grid className={classes.buttonContainer}>
+                            <Button
+                                className={classes.formBtn}
+                                variant="contained"
+                                color="primary"
+                                type='submit'
+                            >
+                                Submit
+                            </Button>
+                            <Button 
+                                onClick={() => { history.push('/')}}
+                                className={classes.formBtnSecondary} 
+                                color="primary" 
+                                variant="contained"
+                            >
+                                Signed up ?
+                            </Button>
+                        </Grid>
                     </form>
                 )
             }
