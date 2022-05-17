@@ -1,6 +1,6 @@
 import { InMemoryCache, gql } from '@apollo/client';
 import { isLoggedInVar, currentUserVar, otpVar } from './auth/vars';
-import { isAppReadyVar } from './init/vars';
+import { isAppReadyVar, mealsVar } from './init/vars';
 import { modalPropsVar } from './modal/vars';
 
 
@@ -12,6 +12,7 @@ export const typeDefs = gql`
         currentUser: object!,
         otp: object!,
         modalProps: object!,
+        meals: Array!,
     }
 `
 
@@ -44,6 +45,11 @@ export const cache: InMemoryCache = new InMemoryCache({
                 modalProps: {
                     read() {
                         return modalPropsVar();
+                    }
+                },
+                meals: {
+                    read() {
+                        return mealsVar();
                     }
                 }
             }

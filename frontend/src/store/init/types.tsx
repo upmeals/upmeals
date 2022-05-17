@@ -6,3 +6,9 @@ export const IS_APP_READY = gql`
     	isAppReady @client
   	}
 `;
+
+export const MEALS = gql`
+	query Meals {
+		meals @client
+	}
+`;

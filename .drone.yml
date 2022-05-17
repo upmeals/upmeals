@@ -1,0 +1,166 @@
+kind: pipeline
+type: docker
+name: Build
+
+steps:
+  - name: install
+    image: node:16
+    volumes:
+      - name: cache
+        path: /drone/src/.npm
+    commands:
+      - cd frontend
+      - npm ci --cache .npm
+    depends_on:
+      - clone
+    when:
+      event:
+        - push
+        - pull_request
+
+  - name: tests
+    image: node:16
+    commands:
+      - cd frontend
+      - npm test
+    depends_on:
+      - install
+    when:
+      event:
+        - pull_request
+
+  - name: build
+    image: node:16
+    commands:
+      - cd frontend
+      - npm run build
+    depends_on:
+      - install
+    when:
+      event:
+        - push
+
+  - name: publish image
+    image: plugins/docker
+    settings:
+      registry: rg.fr-par.scw.cloud/agence-public
+      repo: rg.fr-par.scw.cloud/agence-public/upmeals
+      tags: ${DRONE_COMMIT_BRANCH}
+      force_tag: true
+      username:
+        from_secret: DOCKER_REGISTRY_USERNAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASS
+    depends_on:
+      - build
+    when:
+      branch:
+        - develop
+        - production
+      event:
+        - push
+
+trigger:
+  branch:
+    - develop
+    - production
+  event: 
+    - push
+    - pull_request
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/drone/cache/npm
+---
+kind: pipeline
+type: docker
+name: Deploy
+
+clone:
+  disable: true
+
+steps:
+  - name: Deploy
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 51.15.222.159
+      key:
+        from_secret: SSH_KEY
+      passphrase:
+        from_secret: SSH_KEY_PASS
+      port: 22
+      command_timeout: 2m
+      script:
+        - docker service update --image rg.fr-par.scw.cloud/agence-public/upmeals:${DRONE_COMMIT_BRANCH} upmeals_frontend-${DRONE_COMMIT_BRANCH}
+    when:
+      branch:
+        - develop
+      event:
+        - push
+
+  - name: Deploy to production
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 51.15.222.159
+      key:
+        from_secret: SSH_KEY
+      passphrase:
+        from_secret: SSH_KEY_PASS
+      port: 22
+      command_timeout: 2m
+      script:
+        - docker service update --image rg.fr-par.scw.cloud/agence-public/upmeals:${DRONE_COMMIT_BRANCH} upmeals_frontend-${DRONE_COMMIT_BRANCH}
+    when:
+      branch:
+        - production
+      event:
+        - promote
+      target:
+        - production
+
+depends_on:
+  - Build
+
+trigger:
+  branch:
+    - develop
+    - production
+  event:
+    - push
+    - promote
+---
+kind: pipeline
+type: docker
+name: Notify
+
+clone:
+  disable: true
+
+steps:
+  - name: send telegram
+    image: appleboy/drone-telegram
+    settings:
+      token: 
+        from_secret: TELEGRAM_BOT_TOKEN
+      to: 
+        from_secret: TELEGRAM_BOT_CANAL
+      message: >
+        {{#success build.status}}✅{{else}}❌{{/success}} Build {{build.status}} - build: {{build.number}}
+        {{build.link}}
+
+depends_on:
+  - Build
+  - Deploy
+
+trigger:
+  branch:
+    - develop
+    - production
+  status:
+    - success
+    - failure
+  event: 
+    - push
