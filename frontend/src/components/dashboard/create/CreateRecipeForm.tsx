@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import { Formik, FormikValues, FormikProps, Field, FieldArray } from 'formik';
 import * as yup from 'yup';
-import { gqlCollectionCreate, gqlCollectionIndex } from '../../../services/gql/Collection';
+import { gqlCollectionCreate } from '../../../services/gql/Collection';
 import { gqlSystemUploadFile } from '../../../services/gql/System';
 import { Recipe, Ingredient } from '../../../interfaces/Collections'
 import useAllRecords from '../../../hooks/useAllRecords';
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme: Theme) => {
             display: "flex",
             justifyContent: "flex-start",
             alignItems: "flex-start",
-            flexDirection: "column !important",
+            flexDirection: "column !important" as 'column',
             flexWrap: "nowrap",
             padding: theme.spacing(4),
         },
@@ -113,9 +113,9 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         rightSection: {
             display: "flex",
-            flexDirection:"column !important",
-            justifyContent:"flex-start",
-            wrap:"nowrap",
+            flexDirection: "column !important" as 'column',
+            justifyContent: "flex-start",
+            wrap: "nowrap",
             height: "calc(100vh - 98px)",
             backgroundColor: "#F4F6F7",
             padding: theme.spacing(4),
@@ -126,9 +126,9 @@ const useStyles = makeStyles((theme: Theme) => {
         },
         leftSection: {
             display: "flex",
-            flexDirection:"column !important",
-            justifyContent:"flex-start",
-            wrap:"nowrap",
+            flexDirection: "column !important" as 'column',
+            justifyContent: "flex-start",
+            wrap: "nowrap",
             padding: theme.spacing(4),
             boxSizing: "border-box",
             width: "60%",
@@ -162,7 +162,7 @@ const validationSchemaRecipeForm = yup.object({
         .required("Un temps de préparation est requis."),
     image: yup
         .string(),
-        // .required("Une image est requise."),
+    // .required("Une image est requise."),
     ingredients: yup
         .array()
 })
@@ -200,7 +200,7 @@ const handleCreateRecipe = async (values: Recipe) => {
     const imgUploaded = await gqlSystemUploadFile({
         file: values.image
     })
-    console.log(imgUploaded)
+    // console.log(imgUploaded)
 
     const createCollection = await gqlCollectionCreate({
         collection: 'recipes',
@@ -216,8 +216,8 @@ const handleCreateRecipe = async (values: Recipe) => {
                 modified_on: imgUploaded.data.data.modified_on,
                 type: imgUploaded.data.data.type
             },
-            price: parseInt(values.price),
-            preparation_time: parseInt(values.preparation_time),
+            price: values.price,
+            preparation_time: values.preparation_time,
             ingredients: values.ingredients,
             steps: values.steps,
         },
@@ -228,31 +228,33 @@ const handleCreateRecipe = async (values: Recipe) => {
 
 const CreateRecipeForm = () => {
     const classes = useStyles()
-    const { loading: loadingIngredients, records: ingredients }: { loading: boolean, records: Ingredient[] | [] } = useAllRecords(
+    const { records: ingredients }: { loading: boolean, records: Ingredient[] | [] } = useAllRecords(
         100,
         {
             collection: 'ingredients',
         }
     );
 
-    const [imageUrl, setImageUrl] = useState()
+    const [imageUrl, setImageUrl] = useState<string>('')
 
     const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>, setFieldValue: Function) => {
-        setFieldValue
-        setImageUrl(URL.createObjectURL(event.currentTarget.files[0]))
-        console.log(imageUrl)
+        if (event?.currentTarget?.files?.length) {
+            // setFieldValue
+            setImageUrl(URL.createObjectURL(event?.currentTarget?.files[0] ?? ''))
+            // console.log(imageUrl)
+        }
     }
 
     const backgroundStyle = {
         backgroundImage: 'url(' + imageUrl + ')',
     }
 
-    return(
+    return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchemaRecipeForm}
-            onSubmit={ async (values: Recipe) => {
-                handleCreateRecipe(values)
+            onSubmit={async (values: any) => {
+                return handleCreateRecipe(values);
             }}
         >
             {
@@ -262,7 +264,7 @@ const CreateRecipeForm = () => {
                             <Grid
                                 className={classes.leftSection}
                             >
-                                <HeadTitle 
+                                <HeadTitle
                                     title="Créer une recette"
                                     subtitle="C'est vous le chef ! Ajoutez une recette afin de la retrouver facilement plus tard."
                                 />
@@ -322,12 +324,12 @@ const CreateRecipeForm = () => {
                                                             className={classes.unitField}
                                                         />
                                                         <button className={classes.buttonIngredient} onClick={() => arrayHelpers.remove(index)}>
-                                                            <Delete/>
+                                                            <Delete />
                                                         </button>
                                                     </Grid>
                                                     <button className={classes.addItemButton} onClick={() => arrayHelpers.push({})}>
                                                         + Ajouter un ingrédient
-                                                    </button>   
+                                                    </button>
                                                 </div>
                                             ))}
                                         </div>
@@ -356,18 +358,18 @@ const CreateRecipeForm = () => {
                                                             className={classes.textFieldContainer}
                                                         />
                                                         <button className={classes.buttonIngredient} onClick={() => arrayHelpers.remove(index)}>
-                                                            <Delete/>
+                                                            <Delete />
                                                         </button>
                                                     </Grid>
                                                     <button className={classes.addItemButton} onClick={() => arrayHelpers.push({})}>
                                                         + Ajouter une étape
-                                                    </button>   
+                                                    </button>
                                                 </div>
                                             ))}
                                         </div>
                                     )}
                                 />
-                                <Grid 
+                                <Grid
                                     container
                                     justifyContent="center"
                                 >
@@ -376,7 +378,7 @@ const CreateRecipeForm = () => {
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <Grid 
+                            <Grid
                                 className={classes.rightSection}
                             >
                                 <Grid
@@ -388,18 +390,21 @@ const CreateRecipeForm = () => {
                                     >
                                         {
                                             ({ field, form }: any) => {
-                                            const { setFieldValue } = form
-                                            return (
-                                                <div className={classes.imageFieldContainer} style={backgroundStyle}>
-                                                    <label htmlFor="image" className={classes.imageLabel}>
-                                                        <Edit/>
-                                                        Ajouter une image
-                                                    </label>
-                                                    <input id="image" name="image" type="file" className={classes.imageField} onChange={(event) => {
-                                                        handleChangeImage(event, setFieldValue('image', event.target.files[0]))
-                                                    }} />
-                                                </div>
-                                            )}
+                                                const { setFieldValue } = form
+                                                return (
+                                                    <div className={classes.imageFieldContainer} style={backgroundStyle}>
+                                                        <label htmlFor="image" className={classes.imageLabel}>
+                                                            <Edit />
+                                                            Ajouter une image
+                                                        </label>
+                                                        <input id="image" name="image" type="file" className={classes.imageField} onChange={(event) => {
+                                                            if (event?.target?.files?.length) {
+                                                                handleChangeImage(event, setFieldValue('image', event.target.files[0]))
+                                                            }
+                                                        }} />
+                                                    </div>
+                                                )
+                                            }
                                         }
                                     </Field>
                                 </Grid>
@@ -431,7 +436,7 @@ const CreateRecipeForm = () => {
                                         minRows={3}
                                         maxRows={5}
                                     />
-                                    
+
                                     <TextField
                                         name='price'
                                         label='Prix estimé'
@@ -457,8 +462,8 @@ const CreateRecipeForm = () => {
                 )
             }
         </Formik>
-        
-        
+
+
     )
 }
 
