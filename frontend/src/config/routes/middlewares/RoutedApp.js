@@ -15,10 +15,10 @@ export const computeRoutes = (routes = [], base = '') => {
 
 const RoutedApp = ({ routes }) => {
     const renderRoutes = (levelPath, { path, routes = null, isProtected, ...props }) => {
-        const Component = isProtected ? ProtectedRoute : Route;
+        const Component = isProtected !== undefined ? ProtectedRoute : Route;
 
         return (
-            <Component key={levelPath + path} path={levelPath + path} {...props}>
+            <Component key={levelPath + path} path={levelPath + path} isProtected={isProtected} {...props}>
                 {routes && <Switch>{routes.map(route => renderRoutes(levelPath + path, route))}</Switch>}
             </Component>
         );

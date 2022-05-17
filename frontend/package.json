@@ -1,44 +1,51 @@
 {
-  "name": "react-node-auth-boilerplate",
-  "version": "0.0.1",
+  "name": "directus-react-boilerplate",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/preset-env": "^7.14.8",
-    "@babel/preset-react": "^7.14.5",
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.5.1",
-    "axios": "^0.21.1",
-    "babel-jest": "^26.6.3",
-    "cross-env": "^6.0.3",
-    "es6-promise": "^4.2.8",
+    "@apollo/client": "^3.5.6",
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/lab": "^5.0.0-alpha.61",
+    "@mui/material": "^5.2.5",
+    "@mui/styles": "^5.2.3",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "^16.11.17",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-router-dom": "^5.3.2",
+    "apollo": "^2.33.9",
+    "axios": "^0.24.0",
+    "cross-env": "^7.0.3",
     "formik": "^2.2.9",
-    "isomorphic-fetch": "^3.0.0",
+    "graphql": "^16.2.0",
     "lodash": "^4.17.21",
-    "qs": "^6.10.1",
-    "query-string": "^6.14.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-intl": "^3.11.0",
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.3",
-    "react-test-renderer": "^17.0.2",
-    "redux": "^4.1.0",
-    "redux-actions": "^2.6.5",
-    "redux-thunk": "^2.3.0",
-    "yup": "^0.28.0"
+    "notistack": "^2.0.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-qr-code": "^2.0.3",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "5.0.0",
+    "typescript": "^4.5.4",
+    "web-vitals": "^2.1.2",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "cross-env react-scripts start",
-    "start:backoffice": "cross-env PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "prettier:format": "prettier --write --print-width 100 --trailing-comma es5 --single-quote",
-    "prettier:format:all": "yarn prettier:format src/**/*.js"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
@@ -51,19 +58,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/dom": "^6.11.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react-hooks": "^3.2.1",
-    "babel-plugin-react-intl": "^5.1.16",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "eslint-config-react-app": "^5.1.0",
-    "jest-fetch-mock": "^3.0.1",
-    "jest-mock-axios": "^3.2.0",
-    "node-sass": "^6.0.1",
-    "prettier": "^1.19.1",
-    "redux-mock-store": "^1.5.4"
   }
 }
