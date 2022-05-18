@@ -67,10 +67,9 @@ const PersonalInfo = (): JSX.Element => {
             let response = await directusUsersUpdateCurrent({
               data: {
                 first_name: values.first_name,
-                last_name: values.last_name,
-                location: values.location,
+                // last_name: values.last_name,
+                // location: values.location,
                 numero_et_nom_rue: values.numero_et_nom_rue,
-
               }
             });
 
@@ -82,10 +81,10 @@ const PersonalInfo = (): JSX.Element => {
             //     history.push('/command')
             // }
 
-            if (response) {
-              console.log(response);
-              history.push('/command');
-            }
+            // if (response) {
+            //   console.log(response);
+            //   history.push('/command');
+            // }
           }}
         >
           {
