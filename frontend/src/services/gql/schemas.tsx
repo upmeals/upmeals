@@ -50,9 +50,14 @@ export const recipesSchema = [
     `user_created { ${getCollectionFields(usersSchema)} }`,
     `user_updated { ${getCollectionFields(usersSchema)} }`,
     'date_created',
-    'date_updated'
+    'date_updated',
+    'ingredients { ingredient { name } value unit { slug } }',
 ]
 
+export const ingredientsSchema = [
+    'id',
+    'name',
+]
 
 
 // Export
@@ -60,4 +65,5 @@ export const schemas = {
     recipes: [...recipesSchema],
     users: [...usersSchema],
     files: [...filesSchema],
+    ingredients: [...ingredientsSchema],
 }

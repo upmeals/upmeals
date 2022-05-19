@@ -3,7 +3,7 @@ import { styled, alpha, Box } from '@mui/system';
 import SliderUnstyled from '@mui/base/SliderUnstyled';
 import { Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const StyledSlider = styled(SliderUnstyled)(
   ({ theme }) => `

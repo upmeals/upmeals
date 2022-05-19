@@ -1,4 +1,4 @@
-import { TextField, Button } from '@mui/material';
+import { TextField, Button, Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import React from 'react';
@@ -10,24 +10,27 @@ import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        formContainer: {
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'flex-start',
-            flexDirection: 'column',
-            flexWrap: 'wrap',
-            padding: theme.spacing(4),
-            minWidth: 400,
-            boxSizing: 'border-box !important' as any,
-        },
         textFieldContainer: {
             width: '100%',
             margin: theme.spacing(0, 0, 2, 0) + '!important',
         },
         buttonContainer: {
-            width: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+        },
+        formBtn: {
+            width: '45%',
+            height: '52px',
+            borderRadius: '6px !important',
+        },
+        formBtnSecondary: {
+            width: '45%',
+            height: '52px',
+            borderRadius: '6px !important',
+            opacity: '.8',
         }
+
     })
 )
 
@@ -90,7 +93,7 @@ const LoginForm = () => {
         >
             {
                 (formikProps: FormikProps<FormikValues>) => (
-                    <form className={classes.formContainer} onSubmit={formikProps.handleSubmit} >
+                    <form onSubmit={formikProps.handleSubmit} >
                         <TextField
                             id="email"
                             name="email"
@@ -127,9 +130,19 @@ const LoginForm = () => {
                                 />
                             )
                         }
-                        <Button className={classes.buttonContainer} color="primary" variant="contained" type="submit">
-                            Sign In
-                        </Button>
+                        <Grid className={classes.buttonContainer}>
+                            <Button className={classes.formBtn} color="primary" variant="contained" type="submit">
+                                Sign In
+                            </Button>
+                            <Button
+                                onClick={() => { history.push('/register')}}
+                                className={classes.formBtnSecondary}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Register
+                            </Button>
+                        </Grid>
                     </form>
                 )
             }
