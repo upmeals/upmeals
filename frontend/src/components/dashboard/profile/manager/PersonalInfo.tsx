@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import { directusUsersUpdateCurrent } from '../../../../services/gql/System';
-import { Formik, FormikProps, FormikValues } from 'formik';
+import {Field, Formik, FormikProps, FormikValues } from 'formik';
 import { useHistory } from 'react-router-dom';
 
 // CSS class
@@ -42,25 +42,12 @@ const PersonalInfo = (): JSX.Element => {
     <>
       <h4>Mon adresse</h4>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <div>
-            <h4>Civilité</h4>
-            <FormControl>
-              <RadioGroup
-                row
-                aria-labelledby="demo-row-radio-buttons-group-label"
-                name="row-radio-buttons-group"
-              >
-                <FormControlLabel value="female" control={<Radio />} label="Mme" />
-                <FormControlLabel value="male" control={<Radio />} label="M." />
-              </RadioGroup>
-            </FormControl>
-          </div>
-        </Grid>
         <Formik
           initialValues={{
             first_name: '',
-            location: ''
+            location: '',
+            picked: '',
+            // numero_et_nom_rue: '',
           }}
           onSubmit={ async (values, { setSubmitting }) => {
 
@@ -68,8 +55,9 @@ const PersonalInfo = (): JSX.Element => {
               data: {
                 first_name: values.first_name,
                 // last_name: values.last_name,
-                // location: values.location,
-                numero_et_nom_rue: values.numero_et_nom_rue,
+                location: values.location,
+                civility: JSON.stringify(values.picked),
+                // numero_et_nom_rue: values.numero_et_nom_rue,
               }
             });
 
@@ -91,6 +79,35 @@ const PersonalInfo = (): JSX.Element => {
             (formikProps: FormikProps<FormikValues>) => (
               <form onSubmit={formikProps.handleSubmit}>
                 <Grid container>
+                  <Grid item xs={6}>
+                    <div>
+                      <h4>Civilité</h4>
+                      {/*<FormControl>*/}
+                      {/*  <RadioGroup*/}
+                      {/*    row*/}
+                      {/*    aria-labelledby="demo-row-radio-buttons-group-label"*/}
+                      {/*    name="row-radio-buttons-group"*/}
+                      {/*  >*/}
+                      {/*    <FormControlLabel*/}
+                      {/*      value="female"*/}
+                      {/*      control={<Radio />}*/}
+                      {/*      label="Mme" />*/}
+                      {/*    <FormControlLabel value="male" control={<Radio />} label="M." />*/}
+                      {/*  </RadioGroup>*/}
+                      {/*</FormControl>*/}
+                      <div id="my-radio-group">Picked</div>
+                      <div role="group" aria-labelledby="my-radio-group">
+                        <label>
+                          <Field type="radio" name="picked" value={formikProps.values.picked} onChange={formikProps.handleChange}/>
+                          Mme
+                        </label>
+                        <label>
+                          <Field type="radio" name="picked" value={formikProps.values.picked} onChange={formikProps.handleChange}/>
+                          M.
+                        </label>
+                      </div>
+                    </div>
+                  </Grid>
                   <Grid>
                     <div>
                       <h4>Prénom</h4>
