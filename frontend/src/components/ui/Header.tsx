@@ -1,4 +1,4 @@
-import { Grid, Link, Button, Avatar } from '@mui/material';
+import { Grid, Link, Button, Avatar, Stack } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import { useModal } from '../../hooks/useModal';
@@ -46,17 +46,15 @@ const Header = () => {
             <Link href="/command">
                 <img className={classes.headerLogo} src="/logos/upmeals_logo.png" alt="logo upmeals" />
             </Link>
-            <Avatar 
-                alt="Travis Howard"
-                src="/static/images/avatar/1.jpg"
-                className={classes.headerAvatar}
-            >
-                <Button
-                    onClick={handleOpenProfileModal}
-                >
-                    Profile
+            <Stack direction="row" spacing={2}>
+                <Button onClick={handleOpenProfileModal}>
+                    <Avatar
+                        alt="Avatar"
+                        src="/images/avatar.jpeg"
+                    >
+                    </Avatar>
                 </Button>
-            </Avatar>
+            </Stack>
         </Grid>
     )
 }
