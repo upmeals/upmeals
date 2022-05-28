@@ -1,8 +1,10 @@
 import { Grid } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
+import AvatarManager from './manager/AvatarManager';
 import AlimentaryManager from './manager/AlimentaryManager';
 import UstensilsManager from './manager/UstensilsManager';
 import PreferencesManager from './manager/PreferencesManager';
+import PersonalInfo from './manager/PersonalInfo';
 
 // Component classes
 const useStyles = makeStyles(theme =>
@@ -39,10 +41,8 @@ const ProfileForm = () => {
                 justifyContent="space-between"
                 marginTop="2rem"
             >
-                {/* Section AvatarManager  */}
-                <div>section AvatarManager</div>
+                <AvatarManager />
 
-                {/* Section PreferencesManager  */}
                 <PreferencesManager />
             </Grid>
 
@@ -54,6 +54,10 @@ const ProfileForm = () => {
             <Grid>
                 <h4>Ustensiles</h4>
                 <UstensilsManager />
+            </Grid>
+
+            <Grid>
+              <PersonalInfo />
             </Grid>
 
         </Grid>
