@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
 import { Delete } from '@mui/icons-material';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -187,38 +188,45 @@ const initialValues = {
     }]
 }
 
-const handleCreateRecipe = async (values: Recipe) => {
-
-    const imgUploaded = await gqlSystemUploadFile({
-        file: values.image
-    })
-
-    const createCollection = await gqlCollectionCreate({
-        collection: 'recipes',
-        item: {
-            status: values.status,
-            title: values.title,
-            description: values.description,
-            image: {
-                id: imgUploaded.data.data.id,
-                storage: imgUploaded.data.data.storage,
-                filename_download: imgUploaded.data.data.filename_download,
-                uploaded_on: imgUploaded.data.data.uploaded_on,
-                modified_on: imgUploaded.data.data.modified_on,
-                type: imgUploaded.data.data.type
-            },
-            price: values.price,
-            preparation_time: values.preparation_time,
-            ingredients: values.ingredients,
-            steps: values.steps,
-        },
-    })
-    console.log(createCollection)
-}
-
 
 const CreateRecipeForm = () => {
     const classes = useStyles()
+    const history = useHistory()
+
+    const handleCreateRecipe = async (values: Recipe) => {
+
+        const imgUploaded = await gqlSystemUploadFile({
+            file: values.image
+        })
+    
+        const response = await gqlCollectionCreate({
+            collection: 'recipes',
+            item: {
+                status: values.status,
+                title: values.title,
+                description: values.description,
+                image: {
+                    id: imgUploaded.data.data.id,
+                    storage: imgUploaded.data.data.storage,
+                    filename_download: imgUploaded.data.data.filename_download,
+                    uploaded_on: imgUploaded.data.data.uploaded_on,
+                    modified_on: imgUploaded.data.data.modified_on,
+                    type: imgUploaded.data.data.type
+                },
+                price: values.price,
+                preparation_time: values.preparation_time,
+                ingredients: values.ingredients,
+                steps: values.steps,
+            },
+        })
+        
+        if (response && response.error) {
+           console.log(response.error)
+        } else {
+            history.push('/command')
+        }
+    }
+
     const { records: ingredients }: { loading: boolean, records: Ingredient[] | [] } = useAllRecords(
         100,
         {
