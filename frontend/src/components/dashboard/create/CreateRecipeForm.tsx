@@ -32,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) => {
             width: "70%",
             margin: theme.spacing(0, 0, 2, 0) + "!important",
         },
+        textFieldContainerRightSection: {
+            width: "100%",
+            margin: theme.spacing(0, 0, 2, 0) + "!important",
+        },
         textFieldIngredients: {
             width: "50%",
             margin: "16px 8px 8px 0 !important",
@@ -46,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => {
             color: theme.palette.primary.main,
         },
         textAreaContainer: {
-            width: "70%",
+            width: "100%",
             margin: theme.spacing(0, 0, 2, 0) + "!important",
             fontSize: "1rem",
             fontFamily: "Poppins, sans-serif",
@@ -91,6 +95,7 @@ const useStyles = makeStyles((theme: Theme) => {
             height: "100%",
             width: "100%",
             display: "flex",
+            padding: theme.spacing(4),
         },
         imageContainer: {
             width: "100%",
@@ -104,25 +109,27 @@ const useStyles = makeStyles((theme: Theme) => {
             height: "100%",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            marginBottom: theme.spacing(4),
+            paddingBottom: theme.spacing(4),
+            boxSizing: "border-box !important" as any,
         },
         imageField: {
             opacity: 0,
         },
         fieldsContainer: {
             height: "50%",
+            padding: theme.spacing(4),
         },
         rightSection: {
             display: "flex",
             flexDirection: "column !important" as 'column',
             justifyContent: "flex-start",
             wrap: "nowrap",
-            height: "calc(100vh - 98px)",
+            height: "calc(100vh - 91px)",
             backgroundColor: "#F4F6F7",
-            padding: theme.spacing(4),
+            padding: 0,
             position: "fixed",
             right: 0,
-            top: "98px",
+            top: "91px",
             width: "40%",
         },
         leftSection: {
@@ -135,7 +142,7 @@ const useStyles = makeStyles((theme: Theme) => {
             width: "60%",
         },
         RecipeNameField: {
-            width: "70%",
+            width: "100%",
             margin: theme.spacing(0, 0, 2, 0) + "!important",
             border: "0 !important",
         },
@@ -441,25 +448,25 @@ const CreateRecipeForm = () => {
 
                                     <TextField
                                         name='price'
-                                        label='Prix estimé'
+                                        label='Prix estimé (€)'
                                         id='price'
                                         type="number"
                                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         error={formikProps.touched.price && Boolean(formikProps.errors.price)}
                                         helperText={formikProps.touched.price && formikProps.errors.price}
                                         onChange={formikProps.handleChange}
-                                        className={classes.textFieldContainer}
+                                        className={classes.textFieldContainerRightSection}
                                     />
                                     <TextField
                                         name='preparation_time'
-                                        label='Temps de préparation'
+                                        label='Temps de préparation (min.)'
                                         id='preparation_time'
                                         type="number"
                                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         error={formikProps.touched.preparation_time && Boolean(formikProps.errors.preparation_time)}
                                         helperText={formikProps.touched.preparation_time && formikProps.errors.preparation_time}
                                         onChange={formikProps.handleChange}
-                                        className={classes.textFieldContainer}
+                                        className={classes.textFieldContainerRightSection}
                                     />
                                 </Grid>
                             </Grid>
