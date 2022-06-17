@@ -162,7 +162,6 @@ const validationSchemaRecipeForm = yup.object({
         .required("Un temps de préparation est requis."),
     image: yup
         .string(),
-    // .required("Une image est requise."),
     ingredients: yup
         .array()
 })
@@ -175,32 +174,24 @@ const initialValues = {
     price: '',
     preparation_time: '',
     ingredients: [{
-        ingredient: '',
+        ingredient: {
+            name: ''
+        },
         value: '',
-        unit: '',
+        unit: {
+            slug: ''
+        },
     }],
     steps: [{
         content: '',
     }]
-    // tags: [],
 }
-
-const allUnits = [
-    'g',
-    'kg',
-    'ml',
-    'cl',
-    'l',
-    'cuillère à soupe',
-    'cuillère à café',
-]
 
 const handleCreateRecipe = async (values: Recipe) => {
 
     const imgUploaded = await gqlSystemUploadFile({
         file: values.image
     })
-    // console.log(imgUploaded)
 
     const createCollection = await gqlCollectionCreate({
         collection: 'recipes',
@@ -235,13 +226,18 @@ const CreateRecipeForm = () => {
         }
     );
 
+    const unit = [
+        'g',
+        'L',
+        'mL',
+        'tranche',
+    ]
+
     const [imageUrl, setImageUrl] = useState<string>('')
 
     const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>, setFieldValue: Function) => {
         if (event?.currentTarget?.files?.length) {
-            // setFieldValue
             setImageUrl(URL.createObjectURL(event?.currentTarget?.files[0] ?? ''))
-            // console.log(imageUrl)
         }
     }
 
@@ -280,9 +276,7 @@ const CreateRecipeForm = () => {
                                                         options={ingredients.map((option: Ingredient) => option.name)}
                                                         onChange={(event: any, value: any) => {
                                                             arrayHelpers.replace(index, {
-                                                                ingredient: value,
-                                                                value: '',
-                                                                unit: '',
+                                                                ingredient: {name: value}
                                                             })
                                                         }}
                                                         renderInput={(params: any) => (
@@ -310,12 +304,12 @@ const CreateRecipeForm = () => {
                                                         <Autocomplete
                                                             id="unit"
                                                             freeSolo
-                                                            options={allUnits}
+                                                            options={unit}
                                                             onChange={(event: any, value: any) => {
                                                                 arrayHelpers.replace(index, {
-                                                                    ingredient: formikProps.values.ingredients[index].ingredient,
-                                                                    value: formikProps.values.ingredients[index].value,
-                                                                    unit: value,
+                                                                    unit: {
+                                                                        slug: value.slug
+                                                                    },
                                                                 })
                                                             }}
                                                             renderInput={(params: any) => (
@@ -348,9 +342,9 @@ const CreateRecipeForm = () => {
                                                         alignItems='center'
                                                     >
                                                         <TextField
-                                                            name={`steps.${index}.value`}
+                                                            name={`steps.${index}.content`}
                                                             label='Étape'
-                                                            id={`steps.${index}.value`}
+                                                            id={`steps.${index}.content`}
                                                             type="text"
                                                             error={formikProps.touched.steps && Boolean(formikProps.errors.steps)}
                                                             helperText={formikProps.touched.steps && formikProps.errors.steps}
@@ -441,6 +435,8 @@ const CreateRecipeForm = () => {
                                         name='price'
                                         label='Prix estimé'
                                         id='price'
+                                        type="number"
+                                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         error={formikProps.touched.price && Boolean(formikProps.errors.price)}
                                         helperText={formikProps.touched.price && formikProps.errors.price}
                                         onChange={formikProps.handleChange}
@@ -450,6 +446,8 @@ const CreateRecipeForm = () => {
                                         name='preparation_time'
                                         label='Temps de préparation'
                                         id='preparation_time'
+                                        type="number"
+                                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         error={formikProps.touched.preparation_time && Boolean(formikProps.errors.preparation_time)}
                                         helperText={formikProps.touched.preparation_time && formikProps.errors.preparation_time}
                                         onChange={formikProps.handleChange}
