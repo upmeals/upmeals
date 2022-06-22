@@ -1,42 +1,36 @@
-import React, { useState } from 'react';
-import { GetAuthCurrentUser } from '../../../../store/auth';
+import React from 'react';
+// import { GetAuthCurrentUser } from '../../../../store/auth';
 import { Grid, TextField } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Theme } from '@mui/system';
-import { directusUsersUpdateCurrent } from '../../../../services/gql/System';
+// import { createStyles, makeStyles } from '@mui/styles';
+// import { Theme } from '@mui/system';
+// import { directusUsersUpdateCurrent } from '../../../../services/gql/System';
 import {Field, Formik, FormikProps, FormikValues } from 'formik';
-import { useHistory } from 'react-router-dom';
 
 // CSS class
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({})
-)
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({})
+// )
 
 const PersonalInfo = (): JSX.Element => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
-  const [name, setName] = useState('');
-  const [adress, setAdress] = useState('');
+  // const [name, setName] = useState('');
+  // const [adress, setAdress] = useState('');
 
-  const submitValue = () => {
-    const valueDetails = {
-      'name': name,
-      'adresse': adress
-    }
-    console.log(valueDetails);
-  }
+  // const submitValue = () => {
+  //   const valueDetails = {
+  //     'name': name,
+  //     'adresse': adress
+  //   }
+  //   // console.log(valueDetails);
+  // }
 
-  let currentUser = GetAuthCurrentUser();
+  // let currentUser = GetAuthCurrentUser();
 
-  const handleUpdateCurrentUser = async () => {
-    await directusUsersUpdateCurrent({data: { first_name: 'test' }});
-  };
+  // const handleUpdateCurrentUser = async () => {
+  //   await directusUsersUpdateCurrent({data: { first_name: 'test' }});
+  // };
 
   return (
     <>
@@ -51,15 +45,15 @@ const PersonalInfo = (): JSX.Element => {
           }}
           onSubmit={ async (values, { setSubmitting }) => {
 
-            let response = await directusUsersUpdateCurrent({
-              data: {
-                first_name: values.first_name,
-                // last_name: values.last_name,
-                location: values.location,
-                civility: JSON.stringify(values.picked),
-                // numero_et_nom_rue: values.numero_et_nom_rue,
-              }
-            });
+            // let response = await directusUsersUpdateCurrent({
+            //   data: {
+            //     first_name: values.first_name,
+            //     // last_name: values.last_name,
+            //     location: values.location,
+            //     civility: JSON.stringify(values.picked),
+            //     // numero_et_nom_rue: values.numero_et_nom_rue,
+            //   }
+            // });
 
             // if (response && response.error) {
             //     if (response.error === 'otp_missing') {
