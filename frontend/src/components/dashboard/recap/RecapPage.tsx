@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
-import { Typography, Grid, Card, CardContent } from '@mui/material';
+import { Typography, Grid, Button } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Theme } from '@mui/system';
 import Page from '../../ui/Page';
 import { GetMeals } from '../../../store/init';
 import { useHistory } from 'react-router-dom';
 import _ from 'lodash';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -79,6 +80,10 @@ const useStyles = makeStyles((theme: Theme) =>
             '&:nth-child(odd)': {
                 backgroundColor: "#F5F5F4"
             }
+        },
+        button: {
+            margin: `${theme.spacing(0, 4, 8, 4)} !important`,
+            backgroundColor: theme.palette.primary.main,
         }
     })
 )
@@ -87,6 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const RecapPage = () => {
     const classes = useStyles()
+
     const history = useHistory()
 
     const meals = GetMeals()
@@ -94,9 +100,7 @@ const RecapPage = () => {
     const [ingredients, setIngredients] = React.useState<any[]>([])
 
     useEffect(() => {
-        if (!meals.length) {
-            return history.push('/command')
-        } else {
+        if (meals?.length) {
             let newIngredients: any[] = []
 
             meals.forEach((meal: any) => {
@@ -117,35 +121,58 @@ const RecapPage = () => {
             )
 
             setIngredients(groupedNewIngredients)
+        } else {
+            history.push('/command')
         }
     }, [meals]) // eslint-disable-line
 
-    console.log(ingredients)
+    const printDocument = () => {
+        const input = document.getElementById('capture');
+        html2canvas(input as HTMLElement)
+            .then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF();
+                pdf.addImage(imgData, 'JPEG', 0, 0, 100, 100);
+                pdf.save("download.pdf");
+            })
+            ;
+    }
 
     return (
         <Page>
-            {
-                ingredients && ingredients.length ? (
-                    ingredients.map((ingredient: any, index: number) => (
-                        <Card className={classes.root} onClick={(e) => { }}>
-                            <Grid>
-                                <CardContent className={classes.cardContainer}>
-                                    <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p">
-                                        {ingredient.ingredient.name}
-                                    </Typography>
-                                    <Typography className={classes.cardInfos} variant="body2" component="div">
-                                        {ingredient.value} {ingredient.unit.slug}
-                                    </Typography>
-                                </CardContent>
-                            </Grid>
-                        </Card>
-                    ))
-                ) : (
-                    <Typography>
-                        Il n'y a pas de recettes dans votre panier
-                    </Typography>
-                )
-            }
+            <Grid
+                id="capture"
+                style={{
+                    marginTop: '10px',
+                    marginLeft: '25px',
+                    marginBottom: '10px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-start',
+                    width: '300px',
+                    height: '300px',
+                }}
+            >
+                {
+                    ingredients && ingredients.length ? (
+                        ingredients.map((ingredient: any, index: number) => (
+                            <Typography className={classes.cardTitle} gutterBottom variant="body1" component="p" key={index}>
+                                • {ingredient.value} {ingredient.unit.slug} - {ingredient.ingredient.name}
+                            </Typography>
+                        ))
+                    ) : (
+                        <Typography>
+                            Il n'y a pas de recettes dans votre panier
+                        </Typography>
+                    )
+                }
+            </Grid>
+            <Button variant="outlined" className={classes.button} onClick={() => printDocument()}>
+                <Typography>
+                    Télécharger la liste de courses
+                </Typography>
+            </Button>
         </Page >
     )
 }
