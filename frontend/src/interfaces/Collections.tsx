@@ -53,3 +53,10 @@ export type File = {
     type: string,
     modified_on: string,
 }
+
+export type Collections = {
+    id: string,
+    user_created: any,
+    name: string,
+    recepes: Array<any>
+}

@@ -59,6 +59,13 @@ export const ingredientsSchema = [
     'name',
 ]
 
+export const collectionsSchema = [
+    'id',
+    'user_created {id}',
+    'name',
+    'recepes {id}'
+]
+
 
 // Export
 export const schemas = {
@@ -66,4 +73,5 @@ export const schemas = {
     users: [...usersSchema],
     files: [...filesSchema],
     ingredients: [...ingredientsSchema],
+    collections: [...collectionsSchema]
 }
