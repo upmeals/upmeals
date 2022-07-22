@@ -332,9 +332,13 @@ const CreateRecipeForm = () => {
                                                             )}
                                                             className={classes.unitField}
                                                         />
-                                                        <button className={classes.buttonIngredient} onClick={() => arrayHelpers.remove(index)}>
-                                                            <Delete />
-                                                        </button>
+                                                        {
+                                                            index > 0 ? (
+                                                                <button className={classes.buttonIngredient} onClick={() => arrayHelpers.remove(index)}>
+                                                                    <Delete />
+                                                                </button>
+                                                            ) : null
+                                                        }
                                                     </Grid>
                                                     <button className={classes.addItemButton} onClick={() => arrayHelpers.push({})}>
                                                         + Ajouter un ingrédient
@@ -366,9 +370,13 @@ const CreateRecipeForm = () => {
                                                             onChange={formikProps.handleChange}
                                                             className={classes.textFieldContainer}
                                                         />
-                                                        <button className={classes.buttonIngredient} onClick={() => arrayHelpers.remove(index)}>
-                                                            <Delete />
-                                                        </button>
+                                                        {
+                                                            index > 0 ? (
+                                                                <button className={classes.buttonIngredient} onClick={() => arrayHelpers.remove(index)}>
+                                                                    <Delete />
+                                                                </button>
+                                                            ) : null
+                                                        }
                                                     </Grid>
                                                     <button className={classes.addItemButton} onClick={() => arrayHelpers.push({})}>
                                                         + Ajouter une étape
