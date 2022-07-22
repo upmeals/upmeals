@@ -1,11 +1,19 @@
-import React from 'react';
+
+// import React, { useState } from 'react';
 // import { GetAuthCurrentUser } from '../../../../store/auth';
 import { Grid, TextField } from '@mui/material';
+// import Radio from '@mui/material/Radio';
+// import RadioGroup from '@mui/material/RadioGroup';
+// import FormControlLabel from '@mui/material/FormControlLabel';
+// import FormControl from '@mui/material/FormControl';
+// import FormLabel from '@mui/material/FormLabel';
 import Button from '@mui/material/Button';
 // import { createStyles, makeStyles } from '@mui/styles';
 // import { Theme } from '@mui/system';
 // import { directusUsersUpdateCurrent } from '../../../../services/gql/System';
 import {Field, Formik, FormikProps, FormikValues } from 'formik';
+// import { useHistory } from 'react-router-dom';
+
 
 // CSS class
 // const useStyles = makeStyles((theme: Theme) =>
@@ -23,7 +31,7 @@ const PersonalInfo = (): JSX.Element => {
   //     'name': name,
   //     'adresse': adress
   //   }
-  //   // console.log(valueDetails);
+  //   console.log(valueDetails);
   // }
 
   // let currentUser = GetAuthCurrentUser();

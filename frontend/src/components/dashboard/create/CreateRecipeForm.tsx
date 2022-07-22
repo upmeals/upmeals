@@ -12,6 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Edit from '@mui/icons-material/Edit';
 import { Delete } from '@mui/icons-material';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -31,6 +32,10 @@ const useStyles = makeStyles((theme: Theme) => {
             width: "70%",
             margin: theme.spacing(0, 0, 2, 0) + "!important",
         },
+        textFieldContainerRightSection: {
+            width: "100%",
+            margin: theme.spacing(0, 0, 2, 0) + "!important",
+        },
         textFieldIngredients: {
             width: "50%",
             margin: "16px 8px 8px 0 !important",
@@ -45,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => {
             color: theme.palette.primary.main,
         },
         textAreaContainer: {
-            width: "70%",
+            width: "100%",
             margin: theme.spacing(0, 0, 2, 0) + "!important",
             fontSize: "1rem",
             fontFamily: "Poppins, sans-serif",
@@ -90,6 +95,7 @@ const useStyles = makeStyles((theme: Theme) => {
             height: "100%",
             width: "100%",
             display: "flex",
+            padding: theme.spacing(4),
         },
         imageContainer: {
             width: "100%",
@@ -103,25 +109,27 @@ const useStyles = makeStyles((theme: Theme) => {
             height: "100%",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            marginBottom: theme.spacing(4),
+            paddingBottom: theme.spacing(4),
+            boxSizing: "border-box !important" as any,
         },
         imageField: {
             opacity: 0,
         },
         fieldsContainer: {
             height: "50%",
+            padding: theme.spacing(4),
         },
         rightSection: {
             display: "flex",
             flexDirection: "column !important" as 'column',
             justifyContent: "flex-start",
             wrap: "nowrap",
-            height: "calc(100vh - 98px)",
+            height: "calc(100vh - 91px)",
             backgroundColor: "#F4F6F7",
-            padding: theme.spacing(4),
+            padding: 0,
             position: "fixed",
             right: 0,
-            top: "98px",
+            top: "91px",
             width: "40%",
         },
         leftSection: {
@@ -134,7 +142,7 @@ const useStyles = makeStyles((theme: Theme) => {
             width: "60%",
         },
         RecipeNameField: {
-            width: "70%",
+            width: "100%",
             margin: theme.spacing(0, 0, 2, 0) + "!important",
             border: "0 !important",
         },
@@ -162,7 +170,6 @@ const validationSchemaRecipeForm = yup.object({
         .required("Un temps de préparation est requis."),
     image: yup
         .string(),
-    // .required("Une image est requise."),
     ingredients: yup
         .array()
 })
@@ -175,59 +182,58 @@ const initialValues = {
     price: '',
     preparation_time: '',
     ingredients: [{
-        ingredient: '',
+        ingredient: {
+            name: ''
+        },
         value: '',
-        unit: '',
+        unit: {
+            slug: ''
+        },
     }],
     steps: [{
         content: '',
     }]
-    // tags: [],
-}
-
-const allUnits = [
-    'g',
-    'kg',
-    'ml',
-    'cl',
-    'l',
-    'cuillère à soupe',
-    'cuillère à café',
-]
-
-const handleCreateRecipe = async (values: Recipe) => {
-
-    const imgUploaded = await gqlSystemUploadFile({
-        file: values.image
-    })
-    // console.log(imgUploaded)
-
-    const createCollection = await gqlCollectionCreate({
-        collection: 'recipes',
-        item: {
-            status: values.status,
-            title: values.title,
-            description: values.description,
-            image: {
-                id: imgUploaded.data.data.id,
-                storage: imgUploaded.data.data.storage,
-                filename_download: imgUploaded.data.data.filename_download,
-                uploaded_on: imgUploaded.data.data.uploaded_on,
-                modified_on: imgUploaded.data.data.modified_on,
-                type: imgUploaded.data.data.type
-            },
-            price: values.price,
-            preparation_time: values.preparation_time,
-            ingredients: values.ingredients,
-            steps: values.steps,
-        },
-    })
-    console.log(createCollection)
 }
 
 
 const CreateRecipeForm = () => {
     const classes = useStyles()
+    const history = useHistory()
+
+    const handleCreateRecipe = async (values: Recipe) => {
+
+        const imgUploaded = await gqlSystemUploadFile({
+            file: values.image
+        })
+    
+        const response = await gqlCollectionCreate({
+            collection: 'recipes',
+            item: {
+                status: values.status,
+                title: values.title,
+                description: values.description,
+                image: {
+                    id: imgUploaded.data.data.id,
+                    storage: imgUploaded.data.data.storage,
+                    filename_download: imgUploaded.data.data.filename_download,
+                    uploaded_on: imgUploaded.data.data.uploaded_on,
+                    modified_on: imgUploaded.data.data.modified_on,
+                    type: imgUploaded.data.data.type
+                },
+                price: values.price,
+                preparation_time: values.preparation_time,
+                ingredients: values.ingredients,
+                steps: values.steps,
+            },
+        })
+        
+        if (response && response.error) {
+           console.log(response.error)
+        } else {
+            history.push('/command')
+        }
+    }
+
     const { records: ingredients }: { loading: boolean, records: Ingredient[] | [] } = useAllRecords(
         100,
         {
@@ -235,13 +241,18 @@ const CreateRecipeForm = () => {
         }
     );
 
+    const unit = [
+        'g',
+        'L',
+        'mL',
+        'tranche',
+    ]
+
     const [imageUrl, setImageUrl] = useState<string>('')
 
     const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>, setFieldValue: Function) => {
         if (event?.currentTarget?.files?.length) {
-            // setFieldValue
             setImageUrl(URL.createObjectURL(event?.currentTarget?.files[0] ?? ''))
-            // console.log(imageUrl)
         }
     }
 
@@ -280,9 +291,7 @@ const CreateRecipeForm = () => {
                                                         options={ingredients.map((option: Ingredient) => option.name)}
                                                         onChange={(event: any, value: any) => {
                                                             arrayHelpers.replace(index, {
-                                                                ingredient: value,
-                                                                value: '',
-                                                                unit: '',
+                                                                ingredient: {name: value}
                                                             })
                                                         }}
                                                         renderInput={(params: any) => (
@@ -310,12 +319,12 @@ const CreateRecipeForm = () => {
                                                         <Autocomplete
                                                             id="unit"
                                                             freeSolo
-                                                            options={allUnits}
+                                                            options={unit}
                                                             onChange={(event: any, value: any) => {
                                                                 arrayHelpers.replace(index, {
-                                                                    ingredient: formikProps.values.ingredients[index].ingredient,
-                                                                    value: formikProps.values.ingredients[index].value,
-                                                                    unit: value,
+                                                                    unit: {
+                                                                        slug: value.slug
+                                                                    },
                                                                 })
                                                             }}
                                                             renderInput={(params: any) => (
@@ -348,9 +357,9 @@ const CreateRecipeForm = () => {
                                                         alignItems='center'
                                                     >
                                                         <TextField
-                                                            name={`steps.${index}.value`}
+                                                            name={`steps.${index}.content`}
                                                             label='Étape'
-                                                            id={`steps.${index}.value`}
+                                                            id={`steps.${index}.content`}
                                                             type="text"
                                                             error={formikProps.touched.steps && Boolean(formikProps.errors.steps)}
                                                             helperText={formikProps.touched.steps && formikProps.errors.steps}
@@ -439,21 +448,25 @@ const CreateRecipeForm = () => {
 
                                     <TextField
                                         name='price'
-                                        label='Prix estimé'
+                                        label='Prix estimé (€)'
                                         id='price'
+                                        type="number"
+                                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         error={formikProps.touched.price && Boolean(formikProps.errors.price)}
                                         helperText={formikProps.touched.price && formikProps.errors.price}
                                         onChange={formikProps.handleChange}
-                                        className={classes.textFieldContainer}
+                                        className={classes.textFieldContainerRightSection}
                                     />
                                     <TextField
                                         name='preparation_time'
-                                        label='Temps de préparation'
+                                        label='Temps de préparation (min.)'
                                         id='preparation_time'
+                                        type="number"
+                                        inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }}
                                         error={formikProps.touched.preparation_time && Boolean(formikProps.errors.preparation_time)}
                                         helperText={formikProps.touched.preparation_time && formikProps.errors.preparation_time}
                                         onChange={formikProps.handleChange}
-                                        className={classes.textFieldContainer}
+                                        className={classes.textFieldContainerRightSection}
                                     />
                                 </Grid>
                             </Grid>
